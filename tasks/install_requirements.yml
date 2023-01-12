@@ -21,7 +21,7 @@
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install homebrew from script.
-  ansible.builtin.command:
+  ansible.builtin.shell:
     cmd: '{{ item }}'
   with_items:
     - sh /tmp/homebrew.sh
@@ -45,7 +45,7 @@
     mode: 0755
 
 - name: Install oh-my-zsh.
-  ansible.builtin.script:
+  ansible.builtin.shell:
     cmd: '{{ item }}'
   with_items:
     - sh /tmp/oh-my-zsh.sh
