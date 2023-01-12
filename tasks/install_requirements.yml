@@ -13,32 +13,13 @@
     - zsh
   when: ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'RedHat'
 
-- name: Get oh_my_zsh on Linux
-  ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
-    dest: /tmp/oh-my-zsh.sh
-    owner: root
-    group: root
-    mode: 0644
-  when: ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'RedHat'
-
 - name: Get homebrew installation script.
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
     dest: /tmp/homebrew.sh
-    owner: root
-    group: wheel
+    owner: $(id -un)
+    group: $(id -gn)
     mode: 0644
-  when: ansible_facts['distribution'] == 'MacOSX'
-
-- name: Get oh_my_zsh on Linux.
-  ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
-    dest: /tmp/oh-my-zsh.sh
-    owner: root
-    group: wheel
-    mode: 0644
-  register: oh_my_zsh_downloaded
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install homebrew from script.
@@ -58,15 +39,13 @@
     - iterm2
   when: ansible_facts['distribution'] == 'MacOSX'
 
-- name: Get oh_my_zsh on Mac OSX.
+- name: Get oh_my_zsh 
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
     dest: /tmp/oh-my-zsh.sh
-    owner: root
-    group: wheel
+    owner: $(id -un)
+    group: $(id -gn)
     mode: 0644
-  register: oh_my_zsh_downloaded
-  when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install oh-my-zsh.
   ansible.builtin.shell:
