@@ -17,13 +17,14 @@
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
     dest: /tmp/homebrew.sh
-    mode: 0655
+    mode: 0755
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install homebrew from script.
   ansible.builtin.command:
+    chdir: /tmp/
     cmd:
-      - /tmp/homebrew.sh
+      - homebrew.sh
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install required packages via homebrew.
@@ -41,10 +42,11 @@
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
     dest: /tmp/oh-my-zsh.sh
-    mode: 0655
+    mode: 0755
 
 - name: Install oh-my-zsh.
   ansible.builtin.command:
+    chdir: /tmp/
     cmd:
-      - /tmp/oh-my-zsh.sh
+      - oh-my-zsh.sh
   when: oh_my_zsh_downloaded is succeeded
