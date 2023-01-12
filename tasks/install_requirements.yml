@@ -47,18 +47,18 @@
       - /tmp/homebrew.sh
   when: ansible_facts['ansible_distribution'] == 'OSX'
 
-- name: Install required packages via homebrew
+- name: Install required packages via homebrew.
   ansible.community.homebrew:
     name:
       - '{{ item }}'
-    state: present
+    state: latest
   loop:
     - vim
     - zsh
     - iterm2
   when: ansible_facts['ansible_distribution'] == 'OSX'
 
-- name: Get oh_my_zsh on Mac OSX
+- name: Get oh_my_zsh on Mac OSX.
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
     dest: /tmp/oh-my-zsh.sh
@@ -68,7 +68,7 @@
   register: oh_my_zsh_downloaded
   when: ansible_facts['ansible_distribution'] == 'OSX'
 
-- name: Install oh-my-zsh
+- name: Install oh-my-zsh.
   ansible.builtin.shell:
     cmd:
       - /tmp/oh-my-zsh.sh
