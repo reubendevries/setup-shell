@@ -18,10 +18,15 @@
     update: true
   when: vim_runtime.stat.exists
 
+- name: Check if install_awesome_vimrc.sh exists
+  ansible.builtin.stat:
+    path: $HOME/.vim_runtime/install_awesome_vimrc.sh
+  register: install_awesome_vimrc
+
 - name: Install awesome vimrc.
   ansible.builtin.command:
     chdir: $HOME/.vim_runtime/
     cmd: '{{ item }}'
   with_items:
     - /bin/bash install_awesome_vimrc.sh
-  when: vim_runtime.stat.exists
+  when: install_awesome_vimrc.stat.exists
