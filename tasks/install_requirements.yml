@@ -35,6 +35,14 @@
   with_items:
     - vim
     - zsh
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Install required packages via homebrew cask.
+  community.general.homebrew_cask:
+    name:
+      - '{{ item }}'
+    state: latest
+  with_items:
     - iterm2
   when: ansible_facts['distribution'] == 'MacOSX'
 
