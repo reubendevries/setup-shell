@@ -1,12 +1,27 @@
 ---
+- name: Check if .vim_runtime needs to be cloned.
+  ansible.builtin.stat:
+    path: $HOME/.vim_runtime
+  register: vim_runtime
+
 - name: Clone .vim_runtime
   ansible.builtin.git:
     repo: git@github.com:amix/vimrc.git
     dest: $HOME/.vim_runtime
     clone: true
+  when: not vim_runtime.stat.exists
+
+- name: Update .vim_runtime
+  ansible.builtin.git:
+    repo: git@github.com:amix/vimrc.git
+    dest: $HOME/.vim_runtime
+    update: true
+  when: vim_runtime.stat.exists
 
 - name: Install awesome vimrc.
   ansible.builtin.command:
     chdir: $HOME/.vim_runtime/
-    cmd:
-      - install_awesome_vimrc.sh
+    cmd: '{{ item }}'
+  with_items:
+    - /bin/bash install_awesome_vimrc.sh
+  when: vim_runtime.stat.exists

@@ -13,19 +13,24 @@
     - zsh
   when: ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'RedHat'
 
+- name: Check for hombrew installation script.
+  ansible.builtin.stat:
+    path: /tmp/homebrew.sh
+  register: hombrew
+
 - name: Get homebrew installation script.
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
     dest: /tmp/homebrew.sh
     mode: 0755
-  when: ansible_facts['distribution'] == 'MacOSX'
+  when: ansible_facts['distribution'] == 'MacOSX' and not homebrew.stat.exists
 
 - name: Install homebrew from script.
   ansible.builtin.shell:
     cmd: '{{ item }}'
   with_items:
     - /bin/bash /tmp/homebrew.sh
-  when: ansible_facts['distribution'] == 'MacOSX'
+  when: ansible_facts['distribution'] == 'MacOSX' and homebrew.stat.exists
 
 - name: Install required packages via homebrew.
   community.general.homebrew:
@@ -46,15 +51,22 @@
     - iterm2
   when: ansible_facts['distribution'] == 'MacOSX'
 
+- name: Check for oh_my_zsh
+  ansible.builtin.stat:
+    path: /tmp/oh-my-zsh.sh
+  register: oh-my-zsh
+
 - name: Get oh_my_zsh 
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
     dest: /tmp/oh-my-zsh.sh
     mode: 0755
+  when: not oh-my-zsh.stat.exists
 
 - name: Install oh-my-zsh.
   ansible.builtin.shell:
     cmd: '{{ item }}'
   with_items:
     - /bin/bash /tmp/oh-my-zsh.sh
-  when: oh_my_zsh_downloaded is changed
+  when: oh-my-zsh.stat.exists
+  
