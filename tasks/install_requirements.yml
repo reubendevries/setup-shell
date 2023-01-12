@@ -21,10 +21,9 @@
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install homebrew from script.
-  ansible.builtin.script:
+  ansible.builtin.command:
     cmd:
       - /tmp/homebrew.sh
-    remote_src: true
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install required packages via homebrew.
@@ -45,8 +44,7 @@
     mode: 0655
 
 - name: Install oh-my-zsh.
-  ansible.builtin.shell:
+  ansible.builtin.command:
     cmd:
       - /tmp/oh-my-zsh.sh
-    remote_src: true
   when: oh_my_zsh_downloaded is succeeded

@@ -6,7 +6,6 @@
     clone: true
 
 - name: Install awesome vimrc.
-  ansible.builtin.script:
+  ansible.builtin.command:
     cmd:
       - $HOME/.vim_runtime/install_awesome_vimrc.sh
-    remote_src: true
