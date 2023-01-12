@@ -21,12 +21,10 @@
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install homebrew from script.
-  ansible.builtin.script:
-    chdir: /tmp/
+  ansible.builtin.command:
     cmd: '{{ item }}'
-    remote_src: true
   with_items:
-    - homebrew.sh
+    - sh /tmp/homebrew.sh
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install required packages via homebrew.
@@ -48,9 +46,7 @@
 
 - name: Install oh-my-zsh.
   ansible.builtin.script:
-    chdir: /tmp/
     cmd: '{{ item }}'
-    remote_src: true
   with_items:
-    - oh-my-zsh.sh
+    - sh /tmp/oh-my-zsh.sh
   when: oh_my_zsh_downloaded is succeeded
