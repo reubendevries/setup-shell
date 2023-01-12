@@ -57,4 +57,4 @@
     cmd: '{{ item }}'
   with_items:
     - /bin/bash /tmp/oh-my-zsh.sh
-  when: oh_my_zsh_downloaded is succeeded
+  when: oh_my_zsh_downloaded is changed
