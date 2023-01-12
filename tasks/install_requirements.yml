@@ -5,7 +5,7 @@
       - '{{ item }}'
     state: present
     become: true
-  with_loop:
+  loop:
     - vim
     - git
     - powerline-fonts
