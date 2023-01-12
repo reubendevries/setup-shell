@@ -22,11 +22,9 @@
 
 - name: Install homebrew from script.
   ansible.builtin.command:
+    chdir: /tmp/
     cmd:
       - homebrew.sh
-    args:
-      chdir:
-        //tmp/
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install required packages via homebrew.
@@ -48,9 +46,7 @@
 
 - name: Install oh-my-zsh.
   ansible.builtin.command:
+    chdir: /tmp/
     cmd:
       - oh-my-zsh.sh
-    args:
-      chdir:
-        /tmp/
   when: oh_my_zsh_downloaded is succeeded
