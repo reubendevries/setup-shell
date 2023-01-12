@@ -31,7 +31,7 @@
     mode: 0644
   when: ansible_facts['ansible_distribution'] == 'OSX'
 
-- name: Get oh_my_zsh on Linux
+- name: Get oh_my_zsh on Linux.
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
     dest: /tmp/oh-my-zsh.sh
@@ -53,7 +53,7 @@
       - '{{ item }}'
     state: present
     update_homebrew: true
-  with_loop:
+  loop:
     - vim
     - pyenv
     - zsh
