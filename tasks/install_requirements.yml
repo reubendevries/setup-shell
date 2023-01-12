@@ -24,7 +24,7 @@
   ansible.builtin.shell:
     cmd: '{{ item }}'
   with_items:
-    - sh /tmp/homebrew.sh
+    - /bin/bash /tmp/homebrew.sh
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install required packages via homebrew.
@@ -48,5 +48,5 @@
   ansible.builtin.shell:
     cmd: '{{ item }}'
   with_items:
-    - sh /tmp/oh-my-zsh.sh
+    - /bin/bash /tmp/oh-my-zsh.sh
   when: oh_my_zsh_downloaded is succeeded
