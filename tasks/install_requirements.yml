@@ -13,10 +13,10 @@
     - zsh
   when: ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'RedHat'
 
-- name: Check for hombrew installation script.
+- name: Check for homebrew installation script.
   ansible.builtin.stat:
     path: /tmp/homebrew.sh
-  register: hombrew
+  register: homebrew
 
 - name: Get homebrew installation script.
   ansible.builtin.get_url:
