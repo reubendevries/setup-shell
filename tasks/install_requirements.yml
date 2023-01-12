@@ -63,10 +63,15 @@
     mode: 0755
   when: not oh_my_zsh_script.stat.exists
 
+- name: Check if oh_my_zsh is installed.
+  ansible.builtin.stat:
+    path: $HOME/.oh-my-zsh/
+  register: oh_my_zsh_installed
+
 - name: Install oh-my-zsh.
   ansible.builtin.shell:
     cmd: '{{ item }}'
   with_items:
     - /bin/bash /tmp/oh-my-zsh.sh
-  when: oh_my_zsh_script.stat.exists
+  when: oh_my_zsh_script.stat.exists and not oh_my_zsh_installed.stat.exists
   
