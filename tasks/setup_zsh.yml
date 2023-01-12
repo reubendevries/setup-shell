@@ -8,9 +8,8 @@
   ansible.builtin.template:
     path: /template/.zshrc.j2
     dest: $HOME/.zshrc
-    owner: $(id -un)
-    group: $(id -gn)
     mode: 0644
+    remote_src: true
   when: not zshrc.stat.exists
 
 - name: Add Plugins to .zshrc file.
@@ -18,6 +17,7 @@
     path: $HOME/.zshrc
     regexp: '^plugins=(*'
     line: 'plugins=(git colored-man-pages colorize pip python brew osx)'
+    remote_src: true
   when: zshrc.stat.exists
 
 - name: Check if oh-my-zsh folder exists.
@@ -30,6 +30,7 @@
     repo: git@github.com:zsh-users/zsh-syntax-highlighting.git
     dest: $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighing
     clone: true
+    remote_src: true
   when: not oh_my_zsh.stat.exists
 
 - name: Check if zsh-autosuggstions exists
@@ -43,6 +44,7 @@
     repo: git@github.com:zsh-users/zsh-autosuggestions.git
     dest: $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     clone: true
+    remote_src: true
   when: not zsh_autosuggestions.stat.exists
 
 - name: Update .zsh theme to pygmalion.
@@ -50,6 +52,7 @@
     path: $HOME/.zshrc
     regexp: '^ZSH_THEME=robbyrussell$'
     line: 'ZSH_THEME=pygmalion'
+    remote_src: true
   when: zshrc.stat.exists
 
 - name: Check if .zprezto exists.
@@ -63,4 +66,5 @@
     dest: $HOME/.zprezto
     clone: true
     recursive: true
+    remote_src: true
   when: not zprezto.stat.exists

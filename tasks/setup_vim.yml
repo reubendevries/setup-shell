@@ -9,3 +9,4 @@
   ansible.builtin.script:
     cmd:
       - $HOME/.vim_runtime/install_awesome_vimrc.sh
+    remote_src: true
