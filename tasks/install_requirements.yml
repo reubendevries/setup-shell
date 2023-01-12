@@ -1,4 +1,8 @@
 ---
+- name: Debug Ansible Facts
+  ansible.builtin.debug:
+    var: ansible_facts
+  
 - name: Install required packages via package manager
   ansible.builtin.package:
     name:
