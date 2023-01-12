@@ -52,10 +52,8 @@
     name:
       - '{{ item }}'
     state: present
-    update_homebrew: true
   loop:
     - vim
-    - pyenv
     - zsh
     - iterm2
   when: ansible_facts['ansible_distribution'] == 'OSX'
