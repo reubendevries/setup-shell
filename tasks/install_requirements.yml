@@ -1,8 +1,4 @@
 ---
-- name: Debug Ansible Facts
-  ansible.builtin.debug:
-    var: ansible_facts
-  
 - name: Install required packages via package manager
   ansible.builtin.package:
     name:
@@ -33,7 +29,7 @@
     owner: root
     group: wheel
     mode: 0644
-  when: ansible_facts['distribution'] == 'OSX'
+  when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Get oh_my_zsh on Linux.
   ansible.builtin.get_url:
@@ -43,13 +39,13 @@
     group: wheel
     mode: 0644
   register: oh_my_zsh_downloaded
-  when: ansible_facts['distribution'] == 'OSX'
+  when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install homebrew from script.
   ansible.builtin.script:
     cmd:
       - /tmp/homebrew.sh
-  when: ansible_facts['distribution'] == 'OSX'
+  when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install required packages via homebrew.
   community.general.homebrew:
@@ -60,7 +56,7 @@
     - vim
     - zsh
     - iterm2
-  when: ansible_facts['distribution'] == 'OSX'
+  when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Get oh_my_zsh on Mac OSX.
   ansible.builtin.get_url:
@@ -70,7 +66,7 @@
     group: wheel
     mode: 0644
   register: oh_my_zsh_downloaded
-  when: ansible_facts['distribution'] == 'OSX'
+  when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install oh-my-zsh.
   ansible.builtin.shell:
