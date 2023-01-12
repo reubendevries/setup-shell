@@ -20,28 +20,28 @@
 
 - name: Check if oh-my-zsh folder exists.
   ansible.builtin.stat:
-    path: $HOME/.oh-my-zsh
-  register: oh_my_zsh
+    path: $HOME/.oh-my-zsh/custom/plugins/
+  register: oh_my_zsh_plugins
 
 - name: Clone zsh syntax highlighting
   ansible.builtin.git:
     repo: git@github.com:zsh-users/zsh-syntax-highlighting.git
     dest: $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighing
     clone: true
-  when: not oh_my_zsh.stat.exists
+  when: not oh_my_zsh_plugins.stat.exists
 
 - name: Update zsh syntax highlighting
   ansible.builtin.git:
     repo: git@github.com:zsh-users/zsh-syntax-highlighting.git
     dest: $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighing
     update: true
-  when: oh_my_zsh.stat.exists
+  when: oh_my_zsh_plugins.stat.exists
 
 - name: Check if zsh-autosuggstions exists
   ansible.builtin.stat:
     path: $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
   register: zsh_autosuggestions
-  when: oh_my_zsh.stat.exists
+  when: oh_my_zsh_plugins.stat.exists
 
 - name: Add zsh auto-suggestions
   ansible.builtin.git:
