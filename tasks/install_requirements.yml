@@ -48,7 +48,7 @@
   when: ansible_facts['ansible_distribution'] == 'OSX'
 
 - name: Install required packages via homebrew.
-  ansible.community.homebrew:
+  community.general.homebrew:
     name:
       - '{{ item }}'
     state: latest
