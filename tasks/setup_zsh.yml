@@ -1,0 +1,39 @@
+---
+- name: Create a .zshrc file.
+  ansible.builtin.template:
+    path: /template/.zshrc.j2
+    dest: $HOME/.zshrc
+    owner: $(id -un)
+    group: $(id -gn)
+    mode: 0644
+
+- name: Add Plugins to .zshrc file.
+  ansible.builtin.lineinfile:
+    path: $HOME/.zshrc
+    regexp: '^plugins=(*'
+    line: 'plugins=(git colored-man-pages colorize pip python brew osx)'
+
+- name: Add zsh syntax highlighting
+  ansible.builtin.git:
+    repo: git@github.com:zsh-users/zsh-syntax-highlighting.git
+    dest: $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighing
+    clone: true
+
+- name: Add zsh auto-suggestions
+  ansible.builtin.git:
+    repo: git@github.com:zsh-users/zsh-autosuggestions.git
+    dest: $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    clone: true
+
+- name: Update .zsh theme to pygmalion.
+  ansible.builtin.lineinfile:
+    path: $HOME/.zshrc
+    regexp: '^ZSH_THEME=robbyrussell$'
+    line: 'ZSH_THEME=pygmalion'
+
+- name: Install Prezto configuration framwork for zsh
+  ansible.builtin.git:
+    repo: git@github.com:sorin-ionescu/prezto.git
+    dest: $HOME/.zprezto
+    clone: true
+    recursive: true
