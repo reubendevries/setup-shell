@@ -1,8 +1,3 @@
----
-- name: Debug Ansible Facts
-  ansible.builtin.debug:
-    vars: ansible_facts
-    
 - name: Install required packages via package manager
   ansible.builtin.package:
     name:
@@ -21,8 +16,8 @@
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
     dest: /tmp/homebrew.sh
-    owner: $(id -un)
-    group: $(id -gn)
+    owner: ansible_facts['real_user_id']
+    group: ansible_facts['real_group_id']
     mode: 0644
   when: ansible_facts['distribution'] == 'MacOSX'
 
@@ -47,8 +42,8 @@
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
     dest: /tmp/oh-my-zsh.sh
-    owner: $(id -un)
-    group: $(id -gn)
+    owner: ansible_facts['real_user_id']
+    group: ansible_facts['real_group_id']
     mode: 0644
 
 - name: Install oh-my-zsh.
