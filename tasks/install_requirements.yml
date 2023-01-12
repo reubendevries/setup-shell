@@ -1,6 +1,6 @@
 ---
 - name: Install required packages via package manager
-  ansible.builtin.packages:
+  ansible.builtin.package:
     name:
       - '{{ item }}'
     state: present
