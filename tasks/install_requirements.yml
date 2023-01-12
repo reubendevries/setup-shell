@@ -1,7 +1,7 @@
 ---
 - name: Debug
   ansible.builtin.debug:
-    vars: ansible_facts['real_user_id']
+    mst: '{{ ansible_facts["real_user_id"] }}'
 
 #- name: Install required packages via package manager
 #  ansible.builtin.package:
