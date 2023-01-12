@@ -4,7 +4,6 @@
     repo: git@github.com:amix/vimrc.git
     dest: $HOME/.vim_runtime
     clone: true
-    update: true
 
 - name: Install awesome vimrc.
   ansible.builtin.script:

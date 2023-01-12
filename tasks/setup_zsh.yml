@@ -1,4 +1,9 @@
 ---
+- name: Check if .zshrc file exists.
+  ansible.builtin.stat:
+    path: $HOME/.zshrc
+  register: zshrc
+
 - name: Create a .zshrc file.
   ansible.builtin.template:
     path: /template/.zshrc.j2
@@ -6,30 +11,51 @@
     owner: $(id -un)
     group: $(id -gn)
     mode: 0644
+  when: zshrc.stat.!exists
 
 - name: Add Plugins to .zshrc file.
   ansible.builtin.lineinfile:
     path: $HOME/.zshrc
     regexp: '^plugins=(*'
     line: 'plugins=(git colored-man-pages colorize pip python brew osx)'
+  when: zshrc.stat.exists
+
+- name: Check if oh-my-zsh folder exists.
+  ansible.builtin.stat:
+    path: $HOME/.oh-my-zsh
+  register: oh_my_zsh
 
 - name: Add zsh syntax highlighting
   ansible.builtin.git:
     repo: git@github.com:zsh-users/zsh-syntax-highlighting.git
     dest: $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighing
     clone: true
+  when: oh_my_zsh.stat.!exists
+
+- name: Check if zsh-autosuggstions exists
+  ansible.builtin.stat:
+    path: $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  register: zsh_autosuggestions
+  when: oh_my_zsh.stat.exists
 
 - name: Add zsh auto-suggestions
   ansible.builtin.git:
     repo: git@github.com:zsh-users/zsh-autosuggestions.git
     dest: $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     clone: true
+  when: zsh_autosuggestions.stat.!exists
 
 - name: Update .zsh theme to pygmalion.
   ansible.builtin.lineinfile:
     path: $HOME/.zshrc
     regexp: '^ZSH_THEME=robbyrussell$'
     line: 'ZSH_THEME=pygmalion'
+  when: zshrc.stat.exists
+
+- name: Check if .zprezto exists.
+  ansible.builtin.stat:
+    path: $HOME/.zprezto
+  register: zprezto
 
 - name: Install Prezto configuration framwork for zsh
   ansible.builtin.git:
@@ -37,3 +63,4 @@
     dest: $HOME/.zprezto
     clone: true
     recursive: true
+  when: zprezto.stat.!exists
