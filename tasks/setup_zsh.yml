@@ -14,7 +14,7 @@
 - name: Add Plugins to .zshrc file.
   ansible.builtin.lineinfile:
     path: $HOME/.zshrc
-    regexp: '^plugins=(*'
+    regexp: '^plugins=(git)$'
     line: 'plugins=(git colored-man-pages colorize pip python brew osx)'
   when: zshrc.stat.exists
 
