@@ -11,7 +11,7 @@
     owner: $(id -un)
     group: $(id -gn)
     mode: 0644
-  when: zshrc.stat.!exists
+  when: not zshrc.stat.exists
 
 - name: Add Plugins to .zshrc file.
   ansible.builtin.lineinfile:
@@ -30,7 +30,7 @@
     repo: git@github.com:zsh-users/zsh-syntax-highlighting.git
     dest: $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighing
     clone: true
-  when: oh_my_zsh.stat.!exists
+  when: not oh_my_zsh.stat.exists
 
 - name: Check if zsh-autosuggstions exists
   ansible.builtin.stat:
@@ -43,7 +43,7 @@
     repo: git@github.com:zsh-users/zsh-autosuggestions.git
     dest: $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     clone: true
-  when: zsh_autosuggestions.stat.!exists
+  when: not zsh_autosuggestions.stat.exists
 
 - name: Update .zsh theme to pygmalion.
   ansible.builtin.lineinfile:
@@ -63,4 +63,4 @@
     dest: $HOME/.zprezto
     clone: true
     recursive: true
-  when: zprezto.stat.!exists
+  when: not zprezto.stat.exists
