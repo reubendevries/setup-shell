@@ -24,6 +24,7 @@
   ansible.builtin.script:
     chdir: /tmp/
     cmd: '{{ item }}'
+    remote_src: true
   with_items:
     - homebrew.sh
   when: ansible_facts['distribution'] == 'MacOSX'
@@ -49,6 +50,7 @@
   ansible.builtin.script:
     chdir: /tmp/
     cmd: '{{ item }}'
+    remote_src: true
   with_items:
     - oh-my-zsh.sh
   when: oh_my_zsh_downloaded is succeeded
