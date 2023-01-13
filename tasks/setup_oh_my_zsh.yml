@@ -18,7 +18,7 @@
 
 - name: Install oh-my-zsh.
   ansible.builtin.shell:
-    cmd: bin/bash /tmp/oh-my-zsh.sh
+    cmd: /bin/bash /tmp/oh-my-zsh.sh
   when: oh_my_zsh_script.stat.exists and not oh_my_zsh_installed.stat.exists
   
 - name: Check if oh-my-zsh folder exists.
