@@ -1,9 +1,4 @@
 ---
-- name: Check for oh_my_zsh script
-  ansible.builtin.stat:
-    path: /tmp/oh-my-zsh.sh
-  register: oh_my_zsh_script
-
 - name: Get oh_my_zsh 
   ansible.builtin.get_url:
     url: '{{ script.url }}'
@@ -13,17 +8,10 @@
     - { url: 'https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh', dest: '/tmp/oh-my-zsh.sh'}
   loop_control:
     loop_var: script
-  when: not oh_my_zsh_script.stat.exists
-
-- name: Check if oh_my_zsh is installed.
-  ansible.builtin.stat:
-    path: $HOME/.oh-my-zsh/
-  register: oh_my_zsh_installed
 
 - name: Install oh-my-zsh.
   ansible.builtin.shell:
     cmd: /bin/bash /tmp/oh-my-zsh.sh
-  when: oh_my_zsh_script.stat.exists and not oh_my_zsh_installed.stat.exists
   
 - name: Check if oh-my-zsh folder exists.
   ansible.builtin.stat:
