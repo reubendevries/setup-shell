@@ -26,6 +26,5 @@
 - name: Install awesome vimrc.
   ansible.builtin.command:
     chdir: $HOME/.vim_runtime/
-    cmd:
-      - /bin/bash install_awesome_vimrc.sh
+    cmd: /bin/bash install_awesome_vimrc.sh
   when: install_awesome_vimrc.stat.exists

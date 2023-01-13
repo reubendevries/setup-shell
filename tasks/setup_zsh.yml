@@ -39,8 +39,7 @@
 - name: Export env and other important information
   ansible.builtin.lineinfile:
     path: $HOME/.zshrc
-    line:
-      - '{{ line }}'
+    line: '{{ line }}'
     state: present
   with_items:
     - export PATH=/opt/homebrew/bin:$PATH
