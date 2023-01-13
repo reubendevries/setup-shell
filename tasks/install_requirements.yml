@@ -2,15 +2,17 @@
 - name: Install required packages via package manager
   ansible.builtin.package:
     name:
-      - '{{ item }}'
+      - '{{ package }}'
     state: present
     become: true
-  loop:
+  with_items:
     - vim
     - git
     - powerline-fonts
     - fzf
     - zsh
+  loop_control:
+    loop_var: '{{ package }}'
   when: ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'RedHat'
 
 - name: Check for homebrew installation script.
@@ -27,15 +29,14 @@
 
 - name: Install homebrew from script.
   ansible.builtin.shell:
-    cmd: '{{ item }}'
-  with_items:
-    - /bin/bash /tmp/homebrew.sh
+    cmd: 
+      - /bin/bash /tmp/homebrew.sh
   when: ansible_facts['distribution'] == 'MacOSX' and homebrew.stat.exists
 
 - name: Install required packages via homebrew.
   community.general.homebrew:
     name:
-      - '{{ item }}'
+      - '{{ brew_package }}'
     state: latest
   with_items:
     - vim
@@ -48,16 +49,31 @@
     - git
     - packer
     - exa
+  loop_control:
+    loop_var: brew_package
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Tap homebrew repositories.
+  community.general.homebrew_tap:
+    name: 
+      - '{{ cask_repo }}'
+    state: present
+  with_items:
+    - cask-fonts
+  loop_control:
+    loop_var: cask_repo
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install required packages via homebrew cask.
   community.general.homebrew_cask:
     name:
-      - '{{ item }}'
+      - '{{ cask_package }}'
     state: latest
   with_items:
     - kitty
     - font-hack-nerd-font
+  loop_control:
+    loop_var: cask_package
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Check for config folder.
@@ -91,17 +107,19 @@
 
 - name: Download MesloLGS NF
   ansible.builtin.get_url:
-    url: '{{ item }}'
+    url: '{{ font }}'
     dest: /Library/Fonts
     owner: root
     group: wheel
     become: true
-  when: kitty.stat.exists
   with_items:
     - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
     - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
     - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
     - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+  loop_control:
+    loop_var: font
+  when: kitty.stat.exists
 
 - name: Update Kitty Config to use MEsloLGS NF
   ansible.builtin.lineinfile:
@@ -129,9 +147,8 @@
 
 - name: Install oh-my-zsh.
   ansible.builtin.shell:
-    cmd: '{{ item }}'
-  with_items:
-    - /bin/bash /tmp/oh-my-zsh.sh
+    cmd: 
+      - bin/bash /tmp/oh-my-zsh.sh
   when: oh_my_zsh_script.stat.exists and not oh_my_zsh_installed.stat.exists
 
 - name: Check if PowerLevel10K is installed.

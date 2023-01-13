@@ -48,9 +48,9 @@
 
 - name: Install colorls
   community.general.gem:
-    name: '{{ item }}'
+    name: '{{ gem }}'
     state: latest
   with_items:
-    - 
-
-
+    - colorls
+  loop_control:
+    loop_var: gem

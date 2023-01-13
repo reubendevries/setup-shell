@@ -39,21 +39,23 @@
 - name: Export env and other important information
   ansible.builtin.lineinfile:
     path: $HOME/.zshrc
-    line: >-
-      ' export PATH=/opt/homebrew/bin:$PATH \
-        export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/ansible_vault \
-        export VAULT_ADDR=https://ssdlc-vault.soc.int.bell.ca \
-        export VAULT_CACERT=/etc/ssl/certs/ssdlc-vault.soc.int.bell.ca.pem \
-        export NO_PROXY='{{ no_proxy }}' \
-        export HTTP_PROXY=http://fastweb.int.bell.ca:80 \
-        export http_proxy=http://fastweb.int.bell.ca:80 \
-        export HTTPS_proxy=http://fastweb.int.bell.ca:80 \
-        export https_proxy=http://fastweb.int.bell.ca:80 \
-
-        ssh-add $HOME/.ssh/ua_jumpbox_id_rsa \
-        ssh-add $HOME/.ssh/ut_jumpbox_id_rsa \
-        ssh-add $HOME/.ssh/ug_jumpbox_id_rsa \
-        ssh-add $HOME/.ssh/ug_id_rsa \
-        ssh-add $HOME/.ssh/google_compute_engine \
-      '
+    line:
+      - '{{ line }}'
     state: present
+  with_items:
+    - export PATH=/opt/homebrew/bin:$PATH
+    - export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/ansible_vault
+    - export VAULT_ADDR=https://ssdlc-vault.soc.int.bell.ca
+    - export VAULT_CACERT=/etc/ssl/certs/ssdlc-vault.soc.int.bell.ca.pem
+    - export NO_PROXY='{{ no_proxy }}'
+    - export HTTP_PROXY=http://fastweb.int.bell.ca:80
+    - export http_proxy=http://fastweb.int.bell.ca:80
+    - export HTTPS_proxy=http://fastweb.int.bell.ca:80
+    - export https_proxy=http://fastweb.int.bell.ca:80
+    - ssh-add $HOME/.ssh/ua_jumpbox_id_rsa
+    - ssh-add $HOME/.ssh/ut_jumpbox_id_rsa
+    - ssh-add $HOME/.ssh/ug_jumpbox_id_rsa
+    - ssh-add $HOME/.ssh/ug_id_rsa 
+    - ssh-add $HOME/.ssh/google_compute_engine
+  loop_control:
+    loop_var: line
