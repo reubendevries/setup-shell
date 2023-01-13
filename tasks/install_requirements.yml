@@ -98,7 +98,7 @@
 - name: Create kitty config file.
   ansible.builtin.file:
     path: $HOME/.config/kitty/kitty.conf
-    state: file
+    state: touch
   when: not kitty.stat.exists
 
 - name: Download MesloLGS NF
