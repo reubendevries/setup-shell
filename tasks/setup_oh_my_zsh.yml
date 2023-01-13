@@ -16,7 +16,6 @@
 - name: Check if oh-my-zsh folder exists.
   ansible.builtin.stat:
     path: $HOME/.oh-my-zsh/custom/plugins/
-  register: oh_my_zsh_plugins
 
 - name: Install Custom Themes & Plugins
   ansible.builtin.git:
