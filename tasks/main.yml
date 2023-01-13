@@ -1,7 +1,8 @@
 ---
 # tasks file for setup-shell
 - name: Setup Shell
-  ansible.builtin.include_tasks:
+  ansible.builtin.include_tasks: '{{ item }}'
+  with_items:
     - install_requirements.yml
     - setup_oh_my_zsh.yml
     - setup_zsh.yml
