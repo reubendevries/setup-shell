@@ -34,6 +34,9 @@
       export https_proxy={{ proxy_server }}
 
       ### Add ssh keys
+      eval $(ssh-agent -s)
+      ssh-add $HOME/.ssh/id_rsa
+      ssh-add $HOME/.ssh/id_ed25519
       ssh-add $HOME/.ssh/ua_jumpbox_id_rsa
       ssh-add $HOME/.ssh/ut_jumpbox_id_rsa
       ssh-add $HOME/.ssh/ug_jumpbox_id_rsa
