@@ -23,12 +23,12 @@
     - { url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh , name: /tmp/homebrew.sh }
   loop_control:
     loop_var: script
-  when: ansible_facts['distribution'] == 'MacOSX' and not homebrew.stat.exists
+  when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install homebrew from script.
   ansible.builtin.shell:
     cmd: /bin/bash /tmp/homebrew.sh
-  when: ansible_facts['distribution'] == 'MacOSX' and homebrew.stat.exists
+  when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install required packages via homebrew.
   community.general.homebrew:
