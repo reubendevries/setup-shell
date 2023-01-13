@@ -7,6 +7,5 @@
     - setup_oh_my_zsh.yml
     - setup_zsh.yml
     - setup_powerlevel_10k.yml
-    - setup_vim.yml
   loop_control:
     loop_var: task
