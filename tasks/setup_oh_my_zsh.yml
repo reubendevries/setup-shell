@@ -8,7 +8,7 @@
   ansible.builtin.stat:
     path: $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
   register: zsh_syntax_highlighting
-  when: oh_my_zsh_plguins.stat.exists
+  when: oh_my_zsh_plugins.stat.exists
 
 - name: Install zsh-syntax-highlighting
   ansible.builtin.git:
