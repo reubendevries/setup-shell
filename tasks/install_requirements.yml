@@ -105,10 +105,10 @@
     url: '{{ font.url }}'
     dest: $HOME/Library/Fonts/'{{ font.name }}'
   loop:
-    - { font_url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf', name: 'MesloLGS NF Regular.ttf' }
-    - { font_url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf', name: 'MesloLGS NF Bold.ttf' }
-    - { font_url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf', name: 'MesloLGS NF Italic.ttf' }
-    - { font_url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf', name: 'MesloLGS NF Bold Italic.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf', name: 'MesloLGS NF Regular.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf', name: 'MesloLGS NF Bold.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf', name: 'MesloLGS NF Italic.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf', name: 'MesloLGS NF Bold Italic.ttf' }
   loop_control:
     loop_var: font
   when: kitty.stat.exists
