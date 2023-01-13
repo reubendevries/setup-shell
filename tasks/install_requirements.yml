@@ -29,8 +29,7 @@
 
 - name: Install homebrew from script.
   ansible.builtin.shell:
-    cmd: 
-      - '/bin/bash /tmp/homebrew.sh'
+    cmd: /bin/bash /tmp/homebrew.sh
   when: ansible_facts['distribution'] == 'MacOSX' and homebrew.stat.exists
 
 - name: Install required packages via homebrew.
@@ -147,8 +146,7 @@
 
 - name: Install oh-my-zsh.
   ansible.builtin.shell:
-    cmd: 
-      - 'bin/bash /tmp/oh-my-zsh.sh'
+    cmd: bin/bash /tmp/oh-my-zsh.sh
   when: oh_my_zsh_script.stat.exists and not oh_my_zsh_installed.stat.exists
 
 - name: Check if PowerLevel10K is installed.
