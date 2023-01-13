@@ -1,6 +1,6 @@
 ---
 # vars file for automate-vim
-proxy_server: http://fastweb.gcp.int.bell.ca:80
+proxy_server: http://fastweb.int.bell.ca:80
 no_proxy: >-
   '127.0.0.1,localhost,unix,10.65.16.21,10.55.68.246,10.55.99.246,10.55.119.246,10.55.127.246,gitlab.int.bell.ca,.gitlab.int.bell.ca,.int.bell.ca,
   objects.n3-iaas.bell.ca,.n3-iaas.bell.ca,.int.bellmobility.ca,.vpn.bell.ca,vpn.bell.ca,.intranet.bell.ca,git.corp.mts.ca,.nbd.bell.corp.bce.ca,
