@@ -30,32 +30,31 @@
 - name: Enable p10k instant prompt.
   ansible.builtin.lineinfile:
     path: $HOME/.zshrc
-    line: >-
-      'if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    line: |
+      if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
       source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-      fi'
+      fi
     state: present
 
 - name: Export env and other important information
   ansible.builtin.lineinfile:
     path: $HOME/.zshrc
-    line: '{{ line }}'
-    state: present
-  with_items:
-    - export PATH=/opt/homebrew/bin:$PATH
-    - export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/ansible_vault
-    - export VAULT_ADDR=https://ssdlc-vault.soc.int.bell.ca
-    - export VAULT_CACERT=/etc/ssl/certs/ssdlc-vault.soc.int.bell.ca.pem
-    - export NO_PROXY='{{ no_proxy }}'
-    - export HTTP_PROXY='{{ proxy_server }}'
-    - export HTTPS_proxy='{{ proxy_server }}'
-    - export no_proxy='{{ no_proxy }}'
-    - export http_proxy='{{ proxy_server }}'
-    - export https_proxy='{{ proxy_server }}'
-    - ssh-add $HOME/.ssh/ua_jumpbox_id_rsa
-    - ssh-add $HOME/.ssh/ut_jumpbox_id_rsa
-    - ssh-add $HOME/.ssh/ug_jumpbox_id_rsa
-    - ssh-add $HOME/.ssh/ug_id_rsa 
-    - ssh-add $HOME/.ssh/google_compute_engine
-  loop_control:
-    loop_var: line
+    line: |
+      export PATH=/opt/homebrew/bin:$PATH
+      export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/ansible_vault
+
+      export VAULT_ADDR=https://ssdlc-vault.soc.int.bell.ca
+      export VAULT_CACERT=/etc/ssl/certs/ssdlc-vault.soc.int.bell.ca.pem
+
+      export NO_PROXY={{ no_proxy }}
+      export HTTP_PROXY={{ proxy_server }}
+      export HTTPS_proxy={{ proxy_server }}
+      export no_proxy={{ no_proxy }}
+      export http_proxy={{ proxy_server }}
+      export https_proxy={{ proxy_server }}
+
+      ssh-add $HOME/.ssh/ua_jumpbox_id_rsa
+      ssh-add $HOME/.ssh/ut_jumpbox_id_rsa
+      ssh-add $HOME/.ssh/ug_jumpbox_id_rsa
+      ssh-add $HOME/.ssh/ug_id_rsa 
+      ssh-add $HOME/.ssh/google_compute_engine
