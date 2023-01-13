@@ -12,10 +12,6 @@
 - name: Install oh-my-zsh.
   ansible.builtin.shell:
     cmd: /bin/bash /tmp/oh-my-zsh.sh
-  
-- name: Check if oh-my-zsh folder exists.
-  ansible.builtin.stat:
-    path: $HOME/.oh-my-zsh/custom/plugins/
 
 - name: Install Custom Themes & Plugins
   ansible.builtin.git:

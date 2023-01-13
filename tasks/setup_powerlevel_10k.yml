@@ -1,4 +1,17 @@
 ---
+- name: Get MesloLGS Fonts.
+  ansible.builtin.get_url:
+    url: '{{ font.url }}'
+    dest: $HOME/Library/Fonts/
+    mode: 0644
+  loop:
+    - {url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf', name: 'MesloLGS NF Regular'}
+    - {url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf', name: 'MesloLGS NF Bold'}
+    - {url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf', name: 'MesloLGS NF Italic'}
+    - {url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf', name: 'MesloLGS NF Bold Italic'}
+  loop_control:
+    loop_var: font
+
 - name: Copy PowerLevel10K configuration.
   ansible.builtin.copy:
     src: files/.p10k.zsh
