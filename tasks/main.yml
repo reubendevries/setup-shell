@@ -5,7 +5,7 @@
   loop:
     - install_requirements.yml
     - setup_oh_my_zsh.yml
-    #- setup_zsh.yml
+    - setup_zsh.yml
     - setup_powerlevel_10k.yml
   loop_control:
     loop_var: task
