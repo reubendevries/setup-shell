@@ -119,7 +119,7 @@
 
 - name: Update Kitty Config to use MEsloLGS NF
   ansible.builtin.lineinfile:
-    path: $HOME/.config/.kitty/kitty.conf
+    path: $HOME/.config/kitty/kitty.conf
     regex: '^font_family*'
     line: 'font_family MesloLGS NF'
     state: present
