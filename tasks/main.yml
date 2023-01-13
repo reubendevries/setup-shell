@@ -1,7 +1,6 @@
 ---
-# tasks file for automate os shell
-
-- name: Include tasks to setup shell from scratch
+# tasks file for setup-shell
+- name: Setup Shell
   ansible.builtin.include_tasks:
     - install_requirements.yml
     - setup_oh_my_zsh.yml
