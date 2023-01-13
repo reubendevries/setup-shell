@@ -50,6 +50,14 @@
       fi
     state: present
 
+- name: Hide pkconfigure option in .zshrc file.
+  ansible.builtin.lineinfile:
+    path: $HOME/.zshrc
+    line: |
+      # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
+      [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+    state: present
+
 - name: Add Plugins to .zshrc file.
   ansible.builtin.lineinfile:
     path: $HOME/.zshrc
