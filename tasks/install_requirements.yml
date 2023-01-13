@@ -102,20 +102,15 @@
 
 - name: Download MesloLGS NF
   ansible.builtin.get_url:
-    url: '{{ font }}'
-    dest: $HOME/Library/Fonts/'{{ name }}'
-  with_items:
-    - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf 
-    - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-    - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-    - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+    url: '{{ font.url }}'
+    dest: $HOME/Library/Fonts/'{{ font.name }}'
   loop:
-    - 'MesloLGS NF Regular.tff'
-    - 'MesloLGS NF Bold.tff'
-    - 'MesloLGS NF Italic.tff'
-    - 'MesloLGS NF Bold Italic.tff'
+    - { font_url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf', name: 'MesloLGS NF Regular.ttf' }
+    - { font_url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf', name: 'MesloLGS NF Bold.ttf' }
+    - { font_url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf', name: 'MesloLGS NF Italic.ttf' }
+    - { font_url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf', name: 'MesloLGS NF Bold Italic.ttf' }
   loop_control:
-    loop_var: [font, name]
+    loop_var: font
   when: kitty.stat.exists
 
 - name: Update Kitty Config to use MEsloLGS NF
