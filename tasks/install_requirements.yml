@@ -103,18 +103,19 @@
 - name: Download MesloLGS NF
   ansible.builtin.get_url:
     url: '{{ font }}'
-    dest: /Library/Fonts
-    owner: root
-    group: wheel
+    dest: $HOME/Library/Fonts/'{{ name }}'
   with_items:
-    - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+    - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf 
     - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
     - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
     - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+  loop:
+    - 'MesloLGS NF Regular.tff'
+    - 'MesloLGS NF Bold.tff'
+    - 'MesloLGS NF Italic.tff'
+    - 'MesloLGS NF Bold Italic.tff'
   loop_control:
-
-    loop_var: font
-  become: true
+    loop_var: [font, name]
   when: kitty.stat.exists
 
 - name: Update Kitty Config to use MEsloLGS NF
@@ -123,6 +124,3 @@
     regex: '^font_family*'
     line: 'font_family MesloLGS NF'
     state: present
-
-
-

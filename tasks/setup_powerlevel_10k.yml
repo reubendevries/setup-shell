@@ -27,5 +27,5 @@
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/rafa-o/devtools/master/p10k/.p10k.zsh
     dest: $HOME/.pk10k.zsh
-    mode: 0755
+    mode: 0700
   when: not p10k_configuration.stat.exists
