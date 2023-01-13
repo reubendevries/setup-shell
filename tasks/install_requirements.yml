@@ -4,14 +4,20 @@
     name:
       - '{{ package.name }}'
     state: '{{ package.state }}'
-    become: true
   loop:
-    - { name: 'vim', state: 'present' }
-    - { name: 'git', state: 'present' }
-    - { name: 'powerline-fonts', state: 'present' }
-    - { name: 'zsh', state: 'present' }
+    - { name: 'vim', state: 'latest' }
+    - { name: 'zsh', state: 'latest' }
+    - { name: 'ruby', state: 'latest' }
+    - { name: 'vault', state: 'latest' }
+    - { name: 'terraform', state: 'latest' }
+    - { name: 'go', state: 'latest' }
+    - { name: 'python@3.11', state: 'latest' }
+    - { name: 'git', state: 'latest' }
+    - { name: 'packer', state: 'latest' }
+    - { name: 'exa', state: 'latest' }
   loop_control:
     loop_var: package
+  become: true
   when: ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'RedHat'
 
 - name: Get get installation script.
@@ -63,7 +69,7 @@
   community.general.homebrew_cask:
     name: '{{ cask_package.name }}'
     state: '{{ cask_package.state }}'
-  with_items:
+  loop:
     - { name: 'iterm2', state: 'latest' }
     - { name: 'font-hack-nerd-font', state: 'latest' }
   loop_control:
