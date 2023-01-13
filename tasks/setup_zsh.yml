@@ -49,8 +49,9 @@
     - export VAULT_CACERT=/etc/ssl/certs/ssdlc-vault.soc.int.bell.ca.pem
     - export NO_PROXY='{{ no_proxy }}'
     - export HTTP_PROXY='{{ proxy_server }}'
-    - export http_proxy='{{ proxy_server }}'
     - export HTTPS_proxy='{{ proxy_server }}'
+    - export no_proxy='{{ no_proxy }}'
+    - export http_proxy='{{ proxy_server }}'
     - export https_proxy='{{ proxy_server }}'
     - ssh-add $HOME/.ssh/ua_jumpbox_id_rsa
     - ssh-add $HOME/.ssh/ut_jumpbox_id_rsa

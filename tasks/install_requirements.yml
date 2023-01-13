@@ -12,7 +12,7 @@
     - fzf
     - zsh
   loop_control:
-    loop_var: '{{ package }}'
+    loop_var: package
   when: ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'RedHat'
 
 - name: Check for homebrew installation script.
