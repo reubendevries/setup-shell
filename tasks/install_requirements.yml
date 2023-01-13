@@ -107,7 +107,6 @@
     dest: /Library/Fonts
     owner: root
     group: wheel
-    become: true
   with_items:
     - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
     - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
