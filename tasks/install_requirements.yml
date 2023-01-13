@@ -40,6 +40,14 @@
   with_items:
     - vim
     - zsh
+    - ruby
+    - vault
+    - terraform
+    - go
+    - python@3.11
+    - git
+    - packer
+    - exa
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install required packages via homebrew cask.
@@ -48,8 +56,59 @@
       - '{{ item }}'
     state: latest
   with_items:
-    - iterm2
+    - kitty
+    - font-hack-nerd-font
   when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Check for config folder.
+  ansible.builtin.stat:
+    path: $HOME/.config
+  register: config
+
+- name: Check for kitty configuration file.
+  ansible.builtin.stat:
+    path: $HOME/.config/kitty/kitty.conf
+  register: kitty
+  when: config.stat.exists
+
+- name: Create config folder.
+  ansible.builtin.file:
+    path: $HOME/.config
+    state: directory
+  when: not config.stat.exists
+
+- name: Create kitty folder
+  ansible.builtin.file:
+    path: $HOME/.config/kitty
+    state: directory
+  when: not kitty.stat.exists
+
+- name: Create kitty config file.
+  ansible.builtin.file:
+    path: $HOME/.config/kitty/kitty.conf
+    state: file
+  when: not kitty.stat.exists
+
+- name: Download MesloLGS NF
+  ansible.builtin.get_url:
+    url: '{{ item }}'
+    dest: /Library/Fonts
+    owner: root
+    group: wheel
+    become: true
+  when: kitty.stat.exists
+  with_items:
+    - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+    - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+    - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+    - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+
+- name: Update Kitty Config to use MEsloLGS NF
+  ansible.builtin.lineinfile:
+    path: $HOME/.config/.kitty/kitty.conf
+    regex: '^font_family*'
+    line: 'font_family MesloLGS NF'
+    state: present
 
 - name: Check for oh_my_zsh script
   ansible.builtin.stat:
@@ -74,4 +133,22 @@
   with_items:
     - /bin/bash /tmp/oh-my-zsh.sh
   when: oh_my_zsh_script.stat.exists and not oh_my_zsh_installed.stat.exists
-  
+
+- name: Check if PowerLevel10K is installed.
+  ansible.builtin.stat:
+    path: $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+  register: powerlevel10k_installed
+
+- name: Install PowerLevel10K.
+  ansible.builtin.git:
+    repo: git@github.com/romkatv/powerlevel10k.git 
+    dest: $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+    clone: true
+  when: not powerlevel10k_installed.stat.exists
+
+- name: Update PowerLevel10K.
+  ansible.builtin.git:
+    repo: git@github.com/romkatv/powerlevel10k.git 
+    dest: $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+    update: true
+  when: powerlevel10k_installed.stat.exists

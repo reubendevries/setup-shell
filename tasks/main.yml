@@ -2,10 +2,9 @@
 # tasks file for automate os shell
 
 - name: Import install_requirements
-  ansible.builtin.import_tasks: install_requirements.yml
-
-- name: Import setup_zsh.yml
-  ansible.builtin.import_tasks: setup_zsh.yml
-
-- name: Import setup_vim.yml
-  ansible.builtin.import_tasks: setup_vim.yml
+  ansible.builtin.import_tasks: '(( item }}'
+  with_items:
+    - install_requirements.yml
+    - setup_oh_my_zsh.yml
+    - setup_zsh.yml
+    - setup_vim.yml

@@ -1,0 +1,56 @@
+---
+
+
+- name: Check if oh-my-zsh folder exists.
+  ansible.builtin.stat:
+    path: $HOME/.oh-my-zsh/custom/plugins/
+  register: oh_my_zsh_plugins
+
+- name: Check if zsh-syntax-highlighting exists.
+  ansible.builtin.stat:
+    path: $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+  register: zsh_syntax_highlighting
+  when: oh_my_zsh_plguins.stat.exists
+
+- name: Install zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: git@github.com:zsh-users/zsh-syntax-highlighting.git
+    dest: $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighing
+    clone: true
+  when: not zsh_syntax_highlighting.stat.exists
+
+- name: Update zsh syntax highlighting
+  ansible.builtin.git:
+    repo: git@github.com:zsh-users/zsh-syntax-highlighting.git
+    dest: $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighing
+    update: true
+  when: zsh_syntax_highlighting.stat.exists
+
+- name: Check if zsh-autosuggstions exists
+  ansible.builtin.stat:
+    path: $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  register: zsh_autosuggestions
+  when: oh_my_zsh_plugins.stat.exists
+
+- name: Install zsh-autosuggestions
+  ansible.builtin.git:
+    repo: git@github.com:zsh-users/zsh-autosuggestions.git
+    dest: $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    clone: true
+  when: not zsh_autosuggestions.stat.exists
+
+- name: Update zsh auto-suggestions
+  ansible.builtin.git:
+    repo: git@github.com:zsh-users/zsh-autosuggestions.git
+    dest: $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    update: true
+  when: zsh_autosuggestions.stat.exists
+
+- name: Install colorls
+  community.general.gem:
+    name: '{{ item }}'
+    state: latest
+  with_items:
+    - 
+
+
