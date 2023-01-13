@@ -77,17 +77,16 @@
     path: $HOME/.config
   register: config
 
-- name: Check for kitty configuration file.
-  ansible.builtin.stat:
-    path: $HOME/.config/kitty/kitty.conf
-  register: kitty
-  when: config.stat.exists
-
 - name: Create config folder.
   ansible.builtin.file:
     path: $HOME/.config
     state: directory
   when: not config.stat.exists
+
+- name: Check for kitty configuration file.
+  ansible.builtin.stat:
+    path: $HOME/.config/kitty/kitty.conf
+  register: kitty
 
 - name: Create kitty folder
   ansible.builtin.file:
