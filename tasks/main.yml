@@ -2,10 +2,10 @@
 # tasks file for setup-shell
 - name: Setup Shell
   ansible.builtin.include_tasks: '{{ task }}'
-  with_items:
+  loop:
     - install_requirements.yml
     - setup_oh_my_zsh.yml
-    - setup_zsh.yml
+    #- setup_zsh.yml
     - setup_powerlevel_10k.yml
   loop_control:
     loop_var: task
