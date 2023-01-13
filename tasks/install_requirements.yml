@@ -153,14 +153,14 @@
 
 - name: Install PowerLevel10K.
   ansible.builtin.git:
-    repo: git@github.com/romkatv/powerlevel10k.git 
+    repo: git@github.com:romkatv/powerlevel10k.git
     dest: $HOME/.oh-my-zsh/custom/themes/powerlevel10k
     clone: true
   when: not powerlevel10k_installed.stat.exists
 
 - name: Update PowerLevel10K.
   ansible.builtin.git:
-    repo: git@github.com/romkatv/powerlevel10k.git 
+    repo: git@github.com:romkatv/powerlevel10k.git
     dest: $HOME/.oh-my-zsh/custom/themes/powerlevel10k
     update: true
   when: powerlevel10k_installed.stat.exists
