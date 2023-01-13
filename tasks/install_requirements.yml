@@ -2,29 +2,27 @@
 - name: Install required packages via package manager
   ansible.builtin.package:
     name:
-      - '{{ package }}'
-    state: present
+      - '{{ package.name }}'
+    state: '{{ package.state }}'
     become: true
-  with_items:
-    - vim
-    - git
-    - powerline-fonts
-    - fzf
-    - zsh
+  loop:
+    - { name: 'vim', state: 'present' }
+    - { name: 'git', state: 'present' }
+    - { name: 'powerline-fonts', state: 'present' }
+    - { name: 'zsh', state: 'present' }
   loop_control:
     loop_var: package
   when: ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'RedHat'
 
-- name: Check for homebrew installation script.
-  ansible.builtin.stat:
-    path: /tmp/homebrew.sh
-  register: homebrew
-
-- name: Get homebrew installation script.
+- name: Get get installation script.
   ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-    dest: /tmp/homebrew.sh
+    url: '{{ script.url }}'
+    dest: '{{ script.name }}'
     mode: 0755
+  loop:
+    - { url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh , name: /tmp/homebrew.sh }
+  loop_control:
+    loop_var: script
   when: ansible_facts['distribution'] == 'MacOSX' and not homebrew.stat.exists
 
 - name: Install homebrew from script.
@@ -34,88 +32,40 @@
 
 - name: Install required packages via homebrew.
   community.general.homebrew:
-    name: '{{ brew_package }}'
-    state: latest
-  with_items:
-    - vim
-    - zsh
-    - ruby
-    - vault
-    - terraform
-    - go
-    - python@3.11
-    - git
-    - packer
-    - exa
+    name: '{{ brew_package.name }}'
+    state: '{{ brew_package.state }}'
+  loop:
+    - { name: 'vim', state: 'latest' }
+    - { name: 'zsh', state: 'latest' }
+    - { name: 'ruby', state: 'latest' }
+    - { name: 'vault', state: 'latest' }
+    - { name: 'terraform', state: 'latest' }
+    - { name: 'go', state: 'latest' }
+    - { name: 'python@3.11', state: 'latest' }
+    - { name: 'git', state: 'latest' }
+    - { name: 'packer', state: 'latest' }
+    - { name: 'exa', state: 'latest' }
   loop_control:
     loop_var: brew_package
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Tap homebrew repositories.
   community.general.homebrew_tap:
-    name: '{{ cask_repo }}'
-    state: present
-  with_items:
-    - homebrew/cask-fonts
+    name: '{{ cask_repo.name }}'
+    state: '{{ cask_repo.state }}'
+  loop:
+    - {name: 'homebrew/cask-fonts', state: 'present' }
   loop_control:
     loop_var: cask_repo
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install required packages via homebrew cask.
   community.general.homebrew_cask:
-    name: '{{ cask_package }}'
-    state: latest
+    name: '{{ cask_package.name }}'
+    state: '{{ cask_package.state }}'
   with_items:
-    - kitty
-    - font-hack-nerd-font
+    - { name: 'iterm2', state: 'latest' }
+    - { name: 'font-hack-nerd-font', state: 'latest' }
   loop_control:
     loop_var: cask_package
   when: ansible_facts['distribution'] == 'MacOSX'
-
-- name: Check for config folder.
-  ansible.builtin.stat:
-    path: $HOME/.config
-  register: config
-
-- name: Create config folder.
-  ansible.builtin.file:
-    path: $HOME/.config
-    state: directory
-  when: not config.stat.exists
-
-- name: Check for kitty configuration file.
-  ansible.builtin.stat:
-    path: $HOME/.config/kitty/kitty.conf
-  register: kitty
-
-- name: Create kitty folder
-  ansible.builtin.file:
-    path: $HOME/.config/kitty
-    state: directory
-  when: not kitty.stat.exists
-
-- name: Create kitty config file.
-  ansible.builtin.file:
-    path: $HOME/.config/kitty/kitty.conf
-    state: touch
-  when: not kitty.stat.exists
-
-- name: Download MesloLGS NF
-  ansible.builtin.get_url:
-    url: '{{ font.url }}'
-    dest: $HOME/Library/Fonts/'{{ font.name }}'
-  loop:
-    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf', name: 'MesloLGS NF Regular.ttf' }
-    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf', name: 'MesloLGS NF Bold.ttf' }
-    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf', name: 'MesloLGS NF Italic.ttf' }
-    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf', name: 'MesloLGS NF Bold Italic.ttf' }
-  loop_control:
-    loop_var: font
-  when: kitty.stat.exists
-
-- name: Update Kitty Config to use MEsloLGS NF
-  ansible.builtin.lineinfile:
-    path: $HOME/.config/kitty/kitty.conf
-    regex: '^font_family*'
-    line: 'font_family MesloLGS NF'
-    state: present

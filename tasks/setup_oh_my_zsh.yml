@@ -6,9 +6,13 @@
 
 - name: Get oh_my_zsh 
   ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
-    dest: /tmp/oh-my-zsh.sh
+    url: '{{ script.url }}'
+    dest: '{{ script.dest }}'
     mode: 0755
+  loop:
+    - { url: 'https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh', dest: '/tmp/oh-my-zsh.sh'}
+  loop_control:
+    loop_var: script
   when: not oh_my_zsh_script.stat.exists
 
 - name: Check if oh_my_zsh is installed.
@@ -26,51 +30,23 @@
     path: $HOME/.oh-my-zsh/custom/plugins/
   register: oh_my_zsh_plugins
 
-- name: Check if zsh-syntax-highlighting exists.
-  ansible.builtin.stat:
-    path: $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-  register: zsh_syntax_highlighting
-  when: oh_my_zsh_plugins.stat.exists
-
-- name: Install zsh-syntax-highlighting
+- name: Install Plugins
   ansible.builtin.git:
-    repo: git@github.com:zsh-users/zsh-syntax-highlighting.git
-    dest: $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighing
+    repo: '{{ git.repo }}'
+    dest: '{{ git.dest }}'
     clone: true
-  when: not zsh_syntax_highlighting.stat.exists
-
-- name: Update zsh syntax highlighting
-  ansible.builtin.git:
-    repo: git@github.com:zsh-users/zsh-syntax-highlighting.git
-    dest: $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighing
     update: true
-  when: zsh_syntax_highlighting.stat.exists
-
-- name: Check if zsh-autosuggstions exists
-  ansible.builtin.stat:
-    path: $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-  register: zsh_autosuggestions
-  when: oh_my_zsh_plugins.stat.exists
-
-- name: Install zsh-autosuggestions
-  ansible.builtin.git:
-    repo: git@github.com:zsh-users/zsh-autosuggestions.git
-    dest: $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-    clone: true
-  when: not zsh_autosuggestions.stat.exists
-
-- name: Update zsh auto-suggestions
-  ansible.builtin.git:
-    repo: git@github.com:zsh-users/zsh-autosuggestions.git
-    dest: $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-    update: true
-  when: zsh_autosuggestions.stat.exists
+  loop:
+    - { repo: 'git@github.com:zsh-users/zsh-syntax-highlighting.git', dest: '$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighing'}
+    - { repo: 'git@github.com:zsh-users/zsh-autosuggestions.git', dest: '$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions'}
+  loop_control:
+    loop_var: git
 
 - name: Install colorls
   community.general.gem:
-    name: '{{ gem }}'
-    state: latest
-  with_items:
-    - colorls
+    name: '{{ gem.name }}'
+    state: '{{ gem.state }}'
+  loop:
+    - { name: 'colorls', state: 'latest' }
   loop_control:
     loop_var: gem

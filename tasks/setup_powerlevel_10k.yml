@@ -18,7 +18,14 @@
     update: true
   when: powerlevel10k_installed.stat.exists
 
-#- name: Check for PowerLevel10K configuration.
-#  ansible.builtin.stat:
-#    path: $HOME/.p10k.zsh
-#  register: p10k_configuration
+- name: Check for PowerLevel10K configuration.
+  ansible.builtin.stat:
+    path: $HOME/.p10k.zsh
+  register: p10k_configuration
+
+- name: Copy PowerLevel10K configuration.
+  ansible.bultin.copy:
+    src: files/.p10k.zsh
+    dest: $HOME/.pk10k.zsh
+    mode: 0700
+  when: not p10k_configuration.stat exists
