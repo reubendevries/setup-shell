@@ -52,11 +52,3 @@
     - { repo: 'git@github.com:powerline/powerline.git', dest: '$HOME/.vim/pack/vendor/start/powerline' }
   loop_control:
     loop_var: git
-
-- name: source .zshrc
-  ansible.builtin.shell:
-    cmd: source $HOME/.zshrc
-
-- name: Configure YouCompleteMe
-  ansible.builtin.shell:
-    cmd: python3 $HOME/.vim/pack/YouCompleteMe/start/install.py
