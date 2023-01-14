@@ -53,11 +53,6 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let python_highlight_all=1
 syntax on
 
-" set encoding to
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
 " Alows us to set which scheme to use based upon the vim mode.
 if has('gui_running')
   set background=dark
