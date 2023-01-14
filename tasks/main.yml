@@ -3,10 +3,10 @@
 - name: Setup Shell
   ansible.builtin.include_tasks: '{{ task }}'
   loop:
-    #- install_requirements.yml
-    #- setup_oh_my_zsh.yml
-    #- setup_zsh.yml
-    #- setup_powerlevel_10k.yml
+    - install_requirements.yml
+    - setup_oh_my_zsh.yml
+    - setup_zsh.yml
+    - setup_powerlevel_10k.yml
     - setup_vim.yml
   loop_control:
     loop_var: task

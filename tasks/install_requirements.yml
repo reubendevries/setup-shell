@@ -15,6 +15,7 @@
     - { name: 'git', state: 'latest' }
     - { name: 'packer', state: 'latest' }
     - { name: 'exa', state: 'latest' }
+    - { name: 'cmake', state: 'latest' }
   loop_control:
     loop_var: package
   become: true
@@ -51,6 +52,7 @@
     - { name: 'git', state: 'latest' }
     - { name: 'packer', state: 'latest' }
     - { name: 'exa', state: 'latest' }
+    - { name: 'cmake', state: 'latest' }
   loop_control:
     loop_var: brew_package
   when: ansible_facts['distribution'] == 'MacOSX'
