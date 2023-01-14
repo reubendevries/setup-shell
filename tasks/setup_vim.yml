@@ -1,4 +1,8 @@
 ---
+- name: source .zshrc
+  ansible.builtin.shell:
+    cmd: source ~/.zshrc
+  
 - name: Create .vim folder
   ansible.builtin.file:
     path: $HOME/.vim/pack/vendor/start/{plugin.name}
@@ -55,4 +59,4 @@
 
 - name: Configure YouCompleteMe
   ansible.builtin.shell:
-    cmd: /opt/homebrew/bin/python3 $HOME/.vim/pack/YouCompleteMe/start/install.py
+    cmd: python3 $HOME/.vim/pack/YouCompleteMe/start/install.py
