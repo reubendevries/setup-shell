@@ -57,4 +57,4 @@
 
 - name: Configure YouCompleteMe
   ansible.builtin.shell:
-    cmd: python $HOME/.vim/pack/YouCompleteMe/start/install.py
+    cmd: python3 $HOME/.vim/pack/YouCompleteMe/start/install.py
