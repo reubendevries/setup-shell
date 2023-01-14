@@ -53,6 +53,8 @@
     - { name: 'packer', state: 'latest' }
     - { name: 'exa', state: 'latest' }
     - { name: 'cmake', state: 'latest' }
+    - { name: 'zsh-autosuggestions', state: 'latest' }
+    - { name: 'zsh-syntax-highlighting', state: 'latest' }
   loop_control:
     loop_var: brew_package
   when: ansible_facts['distribution'] == 'MacOSX'

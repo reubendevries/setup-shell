@@ -13,15 +13,13 @@
   ansible.builtin.shell:
     cmd: /bin/bash /tmp/oh-my-zsh.sh
 
-- name: Install Custom Themes & Plugins
+- name: Install Powerlevel10k Custom Theme
   ansible.builtin.git:
     repo: '{{ git.repo }}'
     dest: '{{ git.dest }}'
     clone: true
     update: true
   loop:
-    - { repo: 'git@github.com:zsh-users/zsh-syntax-highlighting.git', dest: '$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighing'}
-    - { repo: 'git@github.com:zsh-users/zsh-autosuggestions.git', dest: '$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions'}
     - { repo: 'git@github.com:romkatv/powerlevel10k.git', dest: '$HOME/.oh-my-zsh/custom/themes/powerlevel10k' }
   loop_control:
     loop_var: git
