@@ -2,10 +2,6 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 ### Setup $PATH
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-      source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -101,6 +97,10 @@ ssh-add $HOME/.ssh/ut_jumpbox_id_rsa
 ssh-add $HOME/.ssh/ug_jumpbox_id_rsa
 ssh-add $HOME/.ssh/ug_id_rsa 
 ssh-add $HOME/.ssh/google_compute_engine
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+      source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
