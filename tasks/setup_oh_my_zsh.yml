@@ -9,9 +9,15 @@
   loop_control:
     loop_var: script
 
+- name: Check oh-my-zsh install
+  ansible.builtin.stat:
+    path: $HOME/.oh-my-zsh
+  register: oh_my_zsh_installed
+
 - name: Install oh-my-zsh.
   ansible.builtin.shell:
     cmd: /bin/bash /tmp/oh-my-zsh.sh
+  when: not oh_my_zsh_install.stat.exists
 
 - name: Install Powerlevel10k Custom Theme
   ansible.builtin.git:
