@@ -1,10 +1,9 @@
 ---
 - name: Create .vim folder
   ansible.builtin.file:
-    path: $HOME/.vim/pack/{plugin.name}/start
+    path: $HOME/.vim/pack/vendor/start/{plugin.name}
     state: directory
   loop:
-    - {name: 'Vundle'}
     - {name: 'SimpylFold'}
     - {name: 'indentpython'}
     - {name: 'YouCompleteMe'}
@@ -39,22 +38,21 @@
     clone: true
     update: true
   loop:
-    - { repo: 'git@github.com:VundleVim/Vundle.vim.git', dest: '$HOME/.vim/pack/Vundle/start' }
-    - { repo: 'git@github.com:tmhedberg/SimpylFold.git', dest: '$HOME/.vim/pack/SimpylFold/start' }
-    - { repo: 'git@github.com:vim-scripts/indentpython.vim.git', dest: '$HOME/.vim/pack/indentpython/start' }
-    - { repo: 'git@github.com:ycm-core/YouCompleteMe.git', dest: '$HOME/.vim/pack/YouCompleteMe/start' }
-    - { repo: 'git@github.com:vim-syntastic/syntastic.git', dest: '$HOME/.vim/pack/syntastic/start' }
-    - { repo: 'git@github.com:nvie/vim-flake8.git', dest: '$HOME/.vim/pack/vim-flake8/start' }
-    - { repo: 'git@github.com:jnurmine/Zenburn.git', dest: '$HOME/.vim/pack/Zenburn/start' }
-    - { repo: 'git@github.com:altercation/vim-colors-solarized.git', dest: '$HOME/.vim/pack/vim-colors-solarized/start' }
-    - { repo: 'git@github.com:preservim/nerdtree.git', dest: '$HOME/.vim/pack/nerdtree/start' }
-    - { repo: 'git@github.com:jistr/vim-nerdtree-tabs.git', dest: '$HOME/.vim/pack/vim-nerdtree-tabs/start' }
-    - { repo: 'git@github.com:kien/ctrlp.vim.git', dest: '$HOME/.vim/pack/ctrlp/start' }
-    - { repo: 'git@github.com:tpope/vim-fugitive.git', dest: '$HOME/.vim/pack/vim-fugitive/start' }
-    - { repo: 'git@github.com:powerline/powerline.git', dest: '$HOME/.vim/pack/powerline/start' }
+    - { repo: 'git@github.com:tmhedberg/SimpylFold.git', dest: '$HOME/.vim/pack/vendor/start/SimpylFold' }
+    - { repo: 'git@github.com:vim-scripts/indentpython.vim.git', dest: '$HOME/.vim/pack/vendor/start/indentpython' }
+    - { repo: 'git@github.com:ycm-core/YouCompleteMe.git', dest: '$HOME/.vim/pack/vendor/start/YouCompleteMe' }
+    - { repo: 'git@github.com:vim-syntastic/syntastic.git', dest: '$HOME/.vim/pack/vendor/start/syntastic' }
+    - { repo: 'git@github.com:nvie/vim-flake8.git', dest: '$HOME/.vim/pack/vendor/start/vim-flake8' }
+    - { repo: 'git@github.com:jnurmine/Zenburn.git', dest: '$HOME/.vim/pack/vendor/start/Zenburn' }
+    - { repo: 'git@github.com:altercation/vim-colors-solarized.git', dest: '$HOME/.vim/pack/vendor/start/vim-colors-solarized' }
+    - { repo: 'git@github.com:preservim/nerdtree.git', dest: '$HOME/.vim/pack/vendor/start/nerdtree/start' }
+    - { repo: 'git@github.com:jistr/vim-nerdtree-tabs.git', dest: '$HOME/.vim/pack/vendor/start/vim-nerdtree-tabs' }
+    - { repo: 'git@github.com:kien/ctrlp.vim.git', dest: '$HOME/.vim/pack/vendor/start/ctrlp' }
+    - { repo: 'git@github.com:tpope/vim-fugitive.git', dest: '$HOME/.vim/pack/vendor/start/vim-fugitive' }
+    - { repo: 'git@github.com:powerline/powerline.git', dest: '$HOME/.vim/pack/vendor/start/powerline' }
   loop_control:
     loop_var: git
 
 - name: Configure YouCompleteMe
   ansible.builtin.shell:
-    cmd: python3 $HOME/.vim/pack/YouCompleteMe/start/install.py
+    cmd: /opt/homebrew/bin/python3 $HOME/.vim/pack/YouCompleteMe/start/install.py
