@@ -17,7 +17,7 @@
 - name: Install oh-my-zsh.
   ansible.builtin.shell:
     cmd: /bin/bash /tmp/oh-my-zsh.sh
-  when: not oh_my_zsh_install.stat.exists
+  when: not oh_my_zsh_installed.stat.exists
 
 - name: Install Powerlevel10k Custom Theme
   ansible.builtin.git:
