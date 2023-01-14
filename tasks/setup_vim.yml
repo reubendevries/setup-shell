@@ -55,7 +55,7 @@
 
 - name: source .zshrc
   ansible.builtin.shell:
-    cmd: source ~/.zshrc
+    cmd: source $HOME/.zshrc
 
 - name: Configure YouCompleteMe
   ansible.builtin.shell:
