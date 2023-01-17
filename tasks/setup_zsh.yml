@@ -9,3 +9,5 @@
 - name: Source .zshrc
   ansible.builtin.shell:
     cmd: source $HOME/.zshrc
+  args:
+    executable: /opt/homebrew/Cellar/zsh/5.9/bin/zsh
