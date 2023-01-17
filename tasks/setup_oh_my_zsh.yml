@@ -19,17 +19,6 @@
     cmd: /bin/bash /tmp/oh-my-zsh.sh
   when: not oh_my_zsh_installed.stat.exists
 
-- name: Install Powerlevel10k Custom Theme
-  ansible.builtin.git:
-    repo: '{{ git.repo }}'
-    dest: '{{ git.dest }}'
-    clone: true
-    update: true
-  loop:
-    - { repo: 'git@github.com:romkatv/powerlevel10k.git', dest: '$HOME/.oh-my-zsh/custom/themes/powerlevel10k' }
-  loop_control:
-    loop_var: git
-
 - name: Install colorls
   community.general.gem:
     name: '{{ gem.name }}'

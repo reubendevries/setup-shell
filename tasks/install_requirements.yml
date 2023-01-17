@@ -53,6 +53,7 @@
     - { name: 'packer', state: 'latest' }
     - { name: 'exa', state: 'latest' }
     - { name: 'cmake', state: 'latest' }
+    - { name: 'romkatv/powerlevel10k/powerlevel10k', state: 'latest' }
     - { name: 'zsh-autosuggestions', state: 'latest' }
     - { name: 'zsh-syntax-highlighting', state: 'latest' }
     - { name: 'zsh-completions', state: 'latest' }
