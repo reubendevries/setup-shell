@@ -57,6 +57,7 @@
     - { name: 'zsh-autosuggestions', state: 'latest' }
     - { name: 'zsh-syntax-highlighting', state: 'latest' }
     - { name: 'zsh-completions', state: 'latest' }
+    - { name: 'zsh-history-substring-search', state: 'latest' }  
   loop_control:
     loop_var: brew_package
   when: ansible_facts['distribution'] == 'MacOSX'
