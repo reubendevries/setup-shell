@@ -1,6 +1,3 @@
-source $(brew --prefix powerlevel10k)/powerlevel10k.zsh-theme
-# User configuration
-
 ### Setup $PATH
 export PATH=/opt/homebrew/bin:$PATH
 
@@ -37,4 +34,3 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-

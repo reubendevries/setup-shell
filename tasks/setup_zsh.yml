@@ -5,3 +5,7 @@
     src:  files/.zshrc
     dest: $HOME/.zshrc
     mode: 0700
+
+- name: Source .zshrc
+  ansible.builtin.shell:
+    cmd: source $HOME/.zshrc
