@@ -55,5 +55,6 @@
 
 - name: Compile YouCompleteMe
   ansible.builtin.shell:
-    chdir: /opt/homebrew/bin/
-    cmd: python3 $HOME/.vim/pack/vendor/start/YouCompleteMe/install.py
+    cmd: python3.11 $HOME/.vim/pack/vendor/start/YouCompleteMe/install.py --all
+  args:
+    executable: /opt/homebrew/Cellar/python@3.11/3.11.1/bin/python3.11
