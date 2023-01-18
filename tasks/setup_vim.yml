@@ -54,7 +54,7 @@
     loop_var: git
 
 - name: Compile YouCompleteMe
-  ansible.builtin.script:
+  ansible.builtin.shell:
     cmd: $HOME/.vim/pack/vendor/start/YouCompleteMe/install.py --all
   args:
     executable: /opt/homebrew/Cellar/python@3.11/3.11.1/bin/python3.11

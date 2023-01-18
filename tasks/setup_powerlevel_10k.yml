@@ -2,7 +2,7 @@
 - name: Get MesloLGS Fonts.
   ansible.builtin.get_url:
     url: '{{ font.url }}'
-    dest: $HOME/Library/Fonts/
+    dest: $HOME/Library/Fonts/'{{ font.name }}'
     mode: 0644
   loop:
     - {url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf', name: 'MesloLGS NF Regular'}
