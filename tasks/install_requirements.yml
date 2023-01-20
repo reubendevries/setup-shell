@@ -67,7 +67,7 @@
     name: '{{ cask_repo.name }}'
     state: '{{ cask_repo.state }}'
   loop:
-    - {name: 'homebrew/cask-fonts', state: 'present' }
+    - {name: 'font-hack-nerd-font', state: 'present' }
   loop_control:
     loop_var: cask_repo
   when: ansible_facts['distribution'] == 'MacOSX'
