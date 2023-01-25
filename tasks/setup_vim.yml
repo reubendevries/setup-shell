@@ -1,7 +1,7 @@
 --- 
 - name: Create .vim folder
   ansible.builtin.file:
-    path: $HOME/.vim/pack/vendor/start/{plugin.name}
+    path: $HOME/.vim/pack/vendor/start/{{ plugin.name }}
     state: directory
   loop:
     - {name: 'SimpylFold'}
@@ -16,7 +16,6 @@
     - {name: 'ctrlp'}
     - {name: 'vim-fugitive'}
     - {name: 'powerline'}
-
   loop_control:
     loop_var: plugin
 
