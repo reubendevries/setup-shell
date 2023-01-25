@@ -23,6 +23,7 @@ source /opt/homebrew/Cellar/powerlevel10k/1.17.0/powerlevel10k.zsh-theme
 source /opt/homebrew/Cellar/zsh-autosuggestions/0.7.0/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/Cellar/zsh-syntax-highlighting/0.7.1/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/Cellar/zsh-history-substring-search/1.0.2/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /opt/homebrew/Cellar/zsh-autopair/1.0/share/zsh-autopair/autopair.zsh
 
 ### define fpath
 fpath=(/opt/homebrew/Cellar/zsh-completions/0.34.0/share/zsh-completions $fpath)
