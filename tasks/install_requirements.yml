@@ -54,6 +54,6 @@
     state: '{{ cask_package.state }}'
   loop:
     - { name: 'iterm2', state: 'latest' }
-    - { name: 'font-nerd-fonts', state: 'present' }
+    - { name: 'font-hack-nerd-font', state: 'present' }
   loop_control:
     loop_var: cask_package
