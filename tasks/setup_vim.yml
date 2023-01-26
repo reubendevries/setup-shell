@@ -50,7 +50,7 @@
     - { repo: 'git@github.com:kien/ctrlp.vim.git', dest: '$HOME/.vim/pack/vendor/start/ctrlp' }
     - { repo: 'git@github.com:tpope/vim-fugitive.git', dest: '$HOME/.vim/pack/vendor/start/vim-fugitive' }
     - { repo: 'git@github.com:powerline/powerline.git', dest: '$HOME/.vim/pack/vendor/start/powerline' }
-    - { repo: 'git@github.com:puremourning/vimspector.git' dest: '$HOME/.vim/pack/vendor/start/vimspector' }
+    - { repo: 'git@github.com:puremourning/vimspector.git', dest: '$HOME/.vim/pack/vendor/start/vimspector' }
   loop_control:
     loop_var: git
 
