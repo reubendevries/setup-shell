@@ -1,26 +1,4 @@
 ---
-- name: Install required packages via package manager
-  ansible.builtin.package:
-    name:
-      - '{{ package.name }}'
-    state: '{{ package.state }}'
-  loop:
-    - { name: 'vim', state: 'latest' }
-    - { name: 'zsh', state: 'latest' }
-    - { name: 'ruby', state: 'latest' }
-    - { name: 'vault', state: 'latest' }
-    - { name: 'terraform', state: 'latest' }
-    - { name: 'go', state: 'latest' }
-    - { name: 'python@3.11', state: 'latest' }
-    - { name: 'git', state: 'latest' }
-    - { name: 'packer', state: 'latest' }
-    - { name: 'exa', state: 'latest' }
-    - { name: 'cmake', state: 'latest' }
-  loop_control:
-    loop_var: package
-  become: true
-  when: ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'RedHat'
-
 - name: Get get installation script.
   ansible.builtin.get_url:
     url: '{{ script.url }}'
@@ -30,12 +8,10 @@
     - { url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh , name: /tmp/homebrew.sh }
   loop_control:
     loop_var: script
-  when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install homebrew from script.
   ansible.builtin.shell:
     cmd: /bin/bash /tmp/homebrew.sh
-  when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install required packages via homebrew.
   community.general.homebrew:
@@ -61,7 +37,15 @@
     - { name: 'zsh-autopair', state: 'latest' }
   loop_control:
     loop_var: brew_package
-  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Tap cask-fonts cask for Homebrew
+  community.general.homebrew_tap:
+    name: '{{ homebrew_tap.name }}'
+    state: '{{ homebrew_tap.state }}'
+  loop:
+    - { name: 'cask-fonts', state: 'present'}
+  loop_control:
+    loop_var: homebrew_tap
 
 - name: Install required packages via homebrew cask.
   community.general.homebrew_cask:
@@ -69,6 +53,6 @@
     state: '{{ cask_package.state }}'
   loop:
     - { name: 'iterm2', state: 'latest' }
+    - { name: 'font-nerd-fonts', state: 'present' }
   loop_control:
     loop_var: cask_package
-  when: ansible_facts['distribution'] == 'MacOSX'
