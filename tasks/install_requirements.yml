@@ -44,7 +44,7 @@
     name: '{{ homebrew_tap.name }}'
     state: '{{ homebrew_tap.state }}'
   loop:
-    - { name: 'cask-fonts', state: 'present'}
+    - { name: 'homebrew/cask-fonts', state: 'present'}
   loop_control:
     loop_var: homebrew_tap
 
