@@ -2,7 +2,7 @@
 export PATH=/opt/homebrew/bin:$PATH
 
 ### Set Ansible Variables
-export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/ansible_vault
+export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/.vaultfile
 
 ### Set Hashicorp Vault Variables
 export VAULT_ADDR=https://ssdlc-vault.soc.int.bell.ca
