@@ -4,18 +4,19 @@
     path: $HOME/.vim/pack/vendor/start/{{ plugin.name }}
     state: directory
   loop:
-    - {name: 'SimpylFold'}
-    - {name: 'indentpython'}
-    - {name: 'YouCompleteMe'}
-    - {name: 'syntastic'}
-    - {name: 'vim-flake8'}
-    - {name: 'Zenburn'}
-    - {name: 'vim-colors-solarized'}
-    - {name: 'nerdtree'}
-    - {name: 'vim-nerdtree-tabs'}
-    - {name: 'ctrlp'}
-    - {name: 'vim-fugitive'}
-    - {name: 'powerline'}
+    - { name: 'SimpylFold' }
+    - { name: 'indentpython' }
+    - { name: 'YouCompleteMe' }
+    - { name: 'syntastic' }
+    - { name: 'vim-flake8' }
+    - { name: 'Zenburn' }
+    - { name: 'vim-colors-solarized' }
+    - { name: 'nerdtree' }
+    - { name: 'vim-nerdtree-tabs' }
+    - { name: 'ctrlp' }
+    - { name: 'vim-fugitive' }
+    - { name: 'powerline' }
+    - { name: 'vimspector' }
   loop_control:
     loop_var: plugin
 
@@ -49,6 +50,7 @@
     - { repo: 'git@github.com:kien/ctrlp.vim.git', dest: '$HOME/.vim/pack/vendor/start/ctrlp' }
     - { repo: 'git@github.com:tpope/vim-fugitive.git', dest: '$HOME/.vim/pack/vendor/start/vim-fugitive' }
     - { repo: 'git@github.com:powerline/powerline.git', dest: '$HOME/.vim/pack/vendor/start/powerline' }
+    - { repo: 'git@github.com:puremourning/vimspector.git' dest: '$HOME/.vim/pack/vendor/start/vimspector' }
   loop_control:
     loop_var: git
 
