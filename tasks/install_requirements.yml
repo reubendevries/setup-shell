@@ -24,12 +24,13 @@
     - { name: 'vault', state: 'latest' }
     - { name: 'terraform', state: 'latest' }
     - { name: 'go', state: 'latest' }
-    - { name: 'python@3.11', state: 'latest' }
+    - { name: 'python@3.10', state: 'latest' }
     - { name: 'git', state: 'latest' }
     - { name: 'packer', state: 'latest' }
     - { name: 'exa', state: 'latest' }
     - { name: 'cmake', state: 'latest' }
     - { name: 'node', state: 'latest' }
+    - { name: 'gpg', state: 'latest' }
     - { name: 'romkatv/powerlevel10k/powerlevel10k', state: 'latest' }
     - { name: 'zsh-autosuggestions', state: 'latest' }
     - { name: 'zsh-syntax-highlighting', state: 'latest' }

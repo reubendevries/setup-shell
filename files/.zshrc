@@ -1,5 +1,5 @@
 ### Setup $PATH
-export PATH=/opt/homebrew/bin:$PATH
+export PATH=/opt/homebrew/Cellar:/opt/homebrew/bin:$PATH
 
 ### Set Ansible Variables
 export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/.vaultfile

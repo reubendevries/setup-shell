@@ -17,6 +17,7 @@
     - { name: 'vim-fugitive' }
     - { name: 'powerline' }
     - { name: 'vimspector' }
+    - { name: 'vim-terraform' }
   loop_control:
     loop_var: plugin
 
@@ -51,9 +52,11 @@
     - { repo: 'git@github.com:tpope/vim-fugitive.git', dest: '$HOME/.vim/pack/vendor/start/vim-fugitive' }
     - { repo: 'git@github.com:powerline/powerline.git', dest: '$HOME/.vim/pack/vendor/start/powerline' }
     - { repo: 'git@github.com:puremourning/vimspector.git', dest: '$HOME/.vim/pack/vendor/start/vimspector' }
+    - { repo: 'git@github.com:hashivim/vim-terraform.git', dest: '$HOME/.vim/pack/vendor/start/vim-terraform' }
   loop_control:
     loop_var: git
 
 - name: Compile YouCompleteMe
   ansible.builtin.command:
-    cmd: python3 $HOME/.vim/pack/vendor/start/YouCompleteMe/install.py 
+    cmd: python3 $HOME/.vim/pack/vendor/start/YouCompleteMe/install.py
+
