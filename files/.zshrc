@@ -1,5 +1,5 @@
 ### Setup $PATH
-export PATH=/opt/homebrew/Cellar:/opt/homebrew/bin:$PATH
+export PATH=/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc:/opt/homebrew/Cellar:/opt/homebrew/bin:$PATH
 
 ### Set Ansible Variables
 export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/.vaultfile
@@ -24,6 +24,9 @@ source /opt/homebrew/Cellar/zsh-autosuggestions/0.7.0/share/zsh-autosuggestions/
 source /opt/homebrew/Cellar/zsh-syntax-highlighting/0.7.1/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/Cellar/zsh-history-substring-search/1.0.2/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 source /opt/homebrew/Cellar/zsh-autopair/1.0/share/zsh-autopair/autopair.zsh
+
+### source gcloud command completion support
+source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 
 ### define fpath
 fpath=(/opt/homebrew/Cellar/zsh-completions/0.34.0/share/zsh-completions $fpath)
