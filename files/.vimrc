@@ -53,6 +53,39 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let python_highlight_all=1
 syntax on
 
+" When this variable is set, indentation will completely reset (unindent to column 0) after two newlines in insert-mode.
+let g:ansible_unindent_after_newline = 1
+
+" Ansible modules use a key=value format for specifying module-attributes in playbooks. This highlights those as specified. 
+" This highlight option is also used when highlighting key/value pairs in hosts files.
+let g:ansible_attribute_highlight = "ob"
+
+" Ansible modules commonly start with a name: key for self-documentation of playbooks. This option enables/changes 
+" highlight of this
+let g:ansible_name_highlight = 'd'
+
+" setting jinja2 templates
+let g:ansible_template_syntaxes = { '*.rb.j2': 'ruby' }
+
+" Highlight the following additional keywords:
+" become, become_exe, become_flags, become_method, become_user, become_pass, prompt_l10n, 
+" debugger, always_run, check_mode diff, no_log, args, tags, force_handlers, vars, vars_files, 
+" vars_prompt, delegate_facts, delegate_to, any_errors_fatal, ignore_errors, ignore_unreachable, 
+" max_fail_percentage, connection hosts, port, remote_user, module_defaults, environment, fact_path, 
+" gather_facts, gather_subset, gather_timeout, async poll, throttle timeout, order, run_once, serial strategy
+
+let g:ansible_extra_keywords_highlight = 1
+
+" Accepts any syntax group-name from :help E669 - e.g. Comment, Constant, Identifier
+let g:ansible_extra_keywords_highlight_group = 'Constant'
+
+" Accepts any syntax group-name from :help E669 - e.g. Comment, Constant, Identifier
+let g:ansible_loop_keywords_highlight = 'Constant'
+
+" Accepts a regex string that is used to match the filename to determine if the file should use the Ansible filetype
+let g:ansible_ftdetect_filename_regex = '\v(playbook|site|main|local|requirements)\.ya?ml$'
+
+
 " Alows us to set which scheme to use based upon the vim mode.
 if has('gui_running')
   set background=dark
