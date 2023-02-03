@@ -96,5 +96,9 @@ endif
 
 "ignore files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$'] 
-
 filetype plugin indent on    " required
+
+" adding support for fugitive-gitlab.vim
+let g:fugitive_gitlab_domains = ['https://gitlab.int.bell.ca']
+set completeopt-=preview
+
