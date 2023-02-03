@@ -58,7 +58,7 @@
     - { repo: 'git@github.com:hashivim/vim-terraform.git', dest: '$HOME/.vim/pack/vendor/start/vim-terraform' }
     - { repo: 'git@github.com:pearofducks/ansible-vim.git', dest: '$HOME/.vim/pack/vendor/start/ansible-vim' }
     - { repo: 'git@github.com:fatih/vim-go.git', dest: '$HOME/.vim/pack/vendor/start/vim-go' }
-    - { repo: 'git@github.com:shumphrey/fugitive-gitlab.vim.git' dest: '$HOME/.vim/pack/vendor/start/fugitive-gitlab.vim' }
+    - { repo: 'git@github.com:shumphrey/fugitive-gitlab.vim.git', dest: '$HOME/.vim/pack/vendor/start/fugitive-gitlab.vim' }
   loop_control:
     loop_var: git
 
