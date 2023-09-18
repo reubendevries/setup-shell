@@ -16,20 +16,18 @@ export VAULT_CACERT=/etc/ssl/certs/ssdlc-vault.soc.int.bell.ca.pem
 
 ### Add ssh keys
 eval $(ssh-agent -s)
-ssh-add $HOME/.ssh/id_rsa
 ssh-add $HOME/.ssh/id_ed25519
 ssh-add $HOME/.ssh/ua_jumpbox_id_rsa
 ssh-add $HOME/.ssh/ut_jumpbox_id_rsa
 ssh-add $HOME/.ssh/ug_jumpbox_id_rsa
 ssh-add $HOME/.ssh/ug_id_rsa 
-ssh-add $HOME/.ssh/google_compute_engine
 
 ### zsh addons
-source /opt/homebrew/Cellar/powerlevel10k/1.17.0/powerlevel10k.zsh-theme
+source /opt/homebrew/Cellar/powerlevel10k/1.19.0/share/powerlevel10k/powerlevel10k.zsh-theme
 source /opt/homebrew/Cellar/zsh-autosuggestions/0.7.0/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/Cellar/zsh-syntax-highlighting/0.7.1/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/homebrew/Cellar/zsh-history-substring-search/1.0.2/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 source /opt/homebrew/Cellar/zsh-autopair/1.0/share/zsh-autopair/autopair.zsh
+source /opt/homebrew/Cellar/zsh-history-substring-search/1.1.0/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 ### source gcloud command completion support
 source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
