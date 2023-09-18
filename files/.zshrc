@@ -1,5 +1,11 @@
-### Setup $PATH
-export PATH=/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc:/opt/homebrew/Cellar:/opt/homebrew/bin:$PATH
+### Setup HomeBrew
+
+export HOMEBREW_PREFIX="/opt/homebrew"
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+export HOMEBREW_REPOSITORY="/opt/homebrew"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}"
+export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
 
 ### Set Ansible Variables
 export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/.vaultfile
