@@ -27,7 +27,7 @@
     - { name: 'python@3.11', state: 'latest' }
     - { name: 'git', state: 'latest' }
     - { name: 'packer', state: 'latest' }
-    - { name: 'exa', state: 'latest' }
+    - { name: 'eza', state: 'latest' }
     - { name: 'cmake', state: 'latest' }
     - { name: 'node', state: 'latest' }
     - { name: 'gpg', state: 'latest' }
