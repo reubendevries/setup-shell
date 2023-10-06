@@ -28,6 +28,7 @@
     - { name: 'cmake', state: 'latest' }
     - { name: 'node', state: 'latest' }
     - { name: 'gpg', state: 'latest' }
+    - { name: 'openssh', state: 'latest' }
     - { name: 'powerlevel10k', state: 'latest' }
     - { name: 'zsh-autosuggestions', state: 'latest' }
     - { name: 'zsh-syntax-highlighting', state: 'latest' }
