@@ -21,12 +21,9 @@
     - { name: 'vim', state: 'latest' }
     - { name: 'zsh', state: 'latest' }
     - { name: 'ruby', state: 'latest' }
-    - { name: 'vault', state: 'latest' }
-    - { name: 'terraform', state: 'latest' }
     - { name: 'go', state: 'latest' }
     - { name: 'python@3.11', state: 'latest' }
     - { name: 'git', state: 'latest' }
-    - { name: 'packer', state: 'latest' }
     - { name: 'eza', state: 'latest' }
     - { name: 'cmake', state: 'latest' }
     - { name: 'node', state: 'latest' }
@@ -40,12 +37,13 @@
   loop_control:
     loop_var: brew_package
 
-- name: Tap cask-fonts cask for Homebrew
+- name: Tap casks for Homebrew
   community.general.homebrew_tap:
     name: '{{ homebrew_tap.name }}'
     state: '{{ homebrew_tap.state }}'
   loop:
     - { name: 'homebrew/cask-fonts', state: 'present'}
+    - { name: 'hashicorp/tap', state: 'present'}
   loop_control:
     loop_var: homebrew_tap
 
@@ -57,5 +55,8 @@
     - { name: 'iterm2', state: 'latest' }
     - { name: 'font-hack-nerd-font', state: 'latest' }
     - { name: 'google-cloud-sdk', state: 'latest' }
+    - { name: 'terraform', state: 'latest'}
+    - { name: 'packer', state: 'latest'}
+    - { name: 'vault', state: 'latest'}
   loop_control:
     loop_var: cask_package
