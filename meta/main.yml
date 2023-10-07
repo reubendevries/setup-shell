@@ -1,10 +1,8 @@
 ---
 galaxy_info:
-  role_name: setup_os
-  namespace: nts_devops
-  author: NTS DevOps Practice and Tools Team
-  description: Setup Dynamic Inventory for localhost.
-  company: Bell Canada
+  role_name: setup_shell
+  author: reubendevries
+  description: Setup Shell on localhost.
   license: see license file
   platforms:
     - name: 'EL'

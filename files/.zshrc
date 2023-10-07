@@ -7,20 +7,9 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}"
 export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
 export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
 
-### Set Ansible Variables
-export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/.vaultfile
-
-### Set Hashicorp Vault Variables
-export VAULT_ADDR=https://ssdlc-vault.soc.int.bell.ca
-export VAULT_CACERT=/etc/ssl/certs/ssdlc-vault.soc.int.bell.ca.pem
-
 ### Add ssh keys
 eval $(ssh-agent -s)
 ssh-add $HOME/.ssh/id_ed25519
-ssh-add $HOME/.ssh/ua_jumpbox_id_rsa
-ssh-add $HOME/.ssh/ut_jumpbox_id_rsa
-ssh-add $HOME/.ssh/ug_jumpbox_id_rsa
-ssh-add $HOME/.ssh/ug_id_rsa 
 
 ### zsh addons
 source /opt/homebrew/Cellar/powerlevel10k/1.19.0/share/powerlevel10k/powerlevel10k.zsh-theme
