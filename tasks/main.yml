@@ -1,11 +1,29 @@
 ---
 # tasks file for setup-shell
-- name: Setup Shell
-  ansible.builtin.include_tasks: '{{ task }}'
-  loop:
-    - install_requirements.yml
-    - setup_zsh.yml
-    - setup_powerlevel_10k.yml
-    - setup_vim.yml
+- name: Install required packages for MacOS
+  ansible.builtin.include_tasks:
+    file:
+      - install_requirements_darwin.yml
+  when: ansible_facts['distribution'] == 'Darwin'
+
+- name: Install required packages for Debian
+  ansible.builtin.include_tasks:
+    file:
+      - install_requirements_debian.yml
+  when: ansible_facts['distribution'] == 'Debian'
+
+- name: Install required packages for RedHat
+  ansible.builtin.include_tasks:
+    file:
+      - install_requirements_redhat.yml
+  when: ansible_facts['distribution'] == 'RedHat'
+
+- name: Setup shell for *nix type systems.
+  ansible.builtin.include_tasks:
+    file: '{{ task.file }}'
+    loop:
+      - { file: 'setup_zsh.yml' }
+      - { file: 'setup_powerlevel_10k.yml' }
+      - { file: 'setup_vim.yml' }
   loop_control:
-    loop_var: task
+    loop_var: tasks

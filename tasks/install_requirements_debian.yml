@@ -1,0 +1,32 @@
+---
+
+- name: Install required packages via apt.
+  ansible.builtin.apt:
+    name: '{{ apt_package.name }}'
+    state: '{{ apt_package.state }}'
+  loop:
+    - { name: 'vim', state: 'latest' }
+    - { name: 'zsh', state: 'latest' }
+    - { name: 'ruby', state: 'latest' }
+    - { name: 'go', state: 'latest' }
+    - { name: 'python@3.11', state: 'latest' }
+    - { name: 'git', state: 'latest' }
+    - { name: 'eza', state: 'latest' }
+    - { name: 'cmake', state: 'latest' }
+    - { name: 'node', state: 'latest' }
+    - { name: 'gpg', state: 'latest' }
+    - { name: 'openssh', state: 'latest' }
+    - { name: 'powerlevel10k', state: 'latest' }
+    - { name: 'zsh-autosuggestions', state: 'latest' }
+    - { name: 'zsh-syntax-highlighting', state: 'latest' }
+    - { name: 'zsh-completions', state: 'latest' }
+    - { name: 'zsh-history-substring-search', state: 'latest' }  
+    - { name: 'zsh-autopair', state: 'latest' }
+    - { name: 'konsole', state: 'latest' }
+    - { name: 'font-hack-nerd-font', state: 'latest' }
+    - { name: 'google-cloud-sdk', state: 'latest' }
+    - { name: 'terraform', state: 'latest'}
+    - { name: 'packer', state: 'latest'}
+    - { name: 'vault', state: 'latest'}
+  loop_control:
+    loop_var: apt_package
