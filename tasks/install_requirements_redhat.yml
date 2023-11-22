@@ -1,32 +1,113 @@
 ---
+- name: Set variable required_packages to false.
+  ansible.builtin.set_fact:
+    required_packages: false
+
+- name: Get repositories gpg key and add repositories for required packages.
+  block:
+
+    - name: Add repositories gpg key for required packages.
+      ansible.builtin.get_url:
+        url: '{{ key.url }}'
+        dest: '/etc/pki/rpm-gpg/{{ key.dest }}'
+        mode: '0o644'
+        force: true
+      loop:
+        - { 
+            url: 'https://apt.releases.hashicorp.com/gpg', 
+            dest: 'hashicorp-archive-keyring.asc' 
+          }
+        - {
+            url: 'https://download.opensuse.org/repositories/shells:zsh-users:zsh-completions/xUbuntu_22.04/Release.key',
+            dest: 'zsh-completions.asc'
+          }
+        - {
+            url: 'https://download.opensuse.org/repositories/shells:zsh-users:zsh-history-substring-search/xUbuntu_22.04/Release.key',
+            dest: 'zsh-history-substring-search.asc'
+          }
+        - {
+            url: 'https://packages.cloud.google.com/apt/doc/apt-key.gpg',
+            dest: 'cloud.google.asc'
+          }
+        - {
+            url: 'https://packages.microsoft.com/keys/microsoft.asc',
+            dest: 'microsoft.asc'
+          }
+        - {
+            url: 'https://raw.githubusercontent.com/eza-community/eza/main/deb.asc',
+            dest: 'eza-community.asc'
+          }
+        
+      loop_control:
+        loop_var: key
+
+    - name: Add repositories for required packages.
+      ansible.builtin.yum_repository:
+        baseurl: '{{ repository.baseurl }}'
+        state: present
+        gpgkey: '/etc/pki/rpm-gpg/{{ repository.gpgkey }}'
+        gpgcheck: true
+        enabled: true
+      loop:
+        - { 
+            baseurl: 'https://rpm.releases.hashicorp.com/fedora/hashicorp.repo',
+            gpgkey: 'hashicorp-archive-keyring.asc'
+          }
+        - {
+            baseurl: 'https://download.opensuse.org/repositories/shells:zsh-users:zsh-completions/Fedora_Rawhide/shells:zsh-users:zsh-completions.repo',
+            gpgkey: 'zsh-completions.asc'
+          }
+        - {
+            baseurl: 'http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/',
+            gpgkey: 'zsh-history-substring-search.asc'
+          }
+        - {
+            baseurl: 'https://packages.cloud.google.com/rpm/',
+            gpgkey: 'cloud.google.asc'
+          }
+        - {
+            baseurl: 'https://packages.microsoft.com/repos/azure-cli/',
+            gpgkey: 'microsoft.asc'
+          }
+        - {
+            baseurl: 'https://packages.microsoft.com/repos/vscode/',
+            gpgkey: 'microsoft.asc'
+          }
+        - {
+            baseurl: 'http://deb.gierens.de',
+            gpgkey: 'eza-community.asc'
+          }
+      loop_control:
+        loop_var: repository
 
 - name: Install required packages via dnf.
   ansible.builtin.dnf:
     name: '{{ dnf_package.name }}'
-    state: '{{ dnf_package.state }}'
+    state: latest
   loop:
-    - { name: 'vim', state: 'latest' }
-    - { name: 'zsh', state: 'latest' }
-    - { name: 'ruby', state: 'latest' }
-    - { name: 'go', state: 'latest' }
-    - { name: 'python@3.11', state: 'latest' }
-    - { name: 'git', state: 'latest' }
-    - { name: 'eza', state: 'latest' }
-    - { name: 'cmake', state: 'latest' }
-    - { name: 'node', state: 'latest' }
-    - { name: 'gpg', state: 'latest' }
-    - { name: 'openssh', state: 'latest' }
-    - { name: 'powerlevel10k', state: 'latest' }
-    - { name: 'zsh-autosuggestions', state: 'latest' }
-    - { name: 'zsh-syntax-highlighting', state: 'latest' }
-    - { name: 'zsh-completions', state: 'latest' }
-    - { name: 'zsh-history-substring-search', state: 'latest' }  
-    - { name: 'zsh-autopair', state: 'latest' }
-    - { name: 'konsole', state: 'latest' }
-    - { name: 'font-hack-nerd-font', state: 'latest' }
-    - { name: 'google-cloud-sdk', state: 'latest' }
-    - { name: 'terraform', state: 'latest'}
-    - { name: 'packer', state: 'latest'}
-    - { name: 'vault', state: 'latest'}
+    - { name: 'vim'}
+    - { name: 'zsh'}
+    - { name: 'ruby'}
+    - { name: 'golang'}
+    - { name: 'python@3.11' }
+    - { name: 'git' }
+    - { name: 'cmake' }
+    - { name: 'node' }
+    - { name: 'gpg' }
+    - { name: 'openssh' }
+    - { name: 'powerlevel10k' }
+    - { name: 'zsh-autosuggestions' }
+    - { name: 'zsh-syntax-highlighting' }
+    - { name: 'zsh-completions' }
+    - { name: 'zsh-history-substring-search' }
+    - { name: 'konsole' }
+    - { name: 'code' }
+    - { name: 'google-cloud-sdk' }
+    - { name: 'awscli' }
+    - { name: 'azure-cli' }
+    - { name: 'eza' }
+    - { name: 'terraform' } # TODO: replace with OpenTofu once available.
+    - { name: 'packer' } # TODO: if open source replacement becomes availabe, then we will replace.
+    - { name: 'vault' } # TODO: if open source replacement becomes availabe, then we will replace.
   loop_control:
     loop_var: dnf_package

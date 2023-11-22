@@ -1,32 +1,164 @@
 ---
+- name: Set variable required_packages to false.
+  ansible.builtin.set_fact:
+    required_packages: false
+
+- name: Get repositories gpg key and add repositories for required packages.
+  block:
+
+    - name: Add repositories gpg key for required packages.
+      ansible.builtin.get_url:
+        url: '{{ key.url }}'
+        dest: '/etc/apt/trusted.gpg.d/{{ key.dest }}'
+        mode: '0o644'
+        force: true
+      loop:
+        - { 
+            url: 'https://apt.releases.hashicorp.com/gpg', 
+            dest: 'hashicorp-archive-keyring.asc' 
+          }
+        - {
+            url: 'https://download.opensuse.org/repositories/shells:zsh-users:zsh-completions/xUbuntu_22.04/Release.key',
+            dest: 'zsh-completions.asc'
+          }
+        - {
+            url: 'https://download.opensuse.org/repositories/shells:zsh-users:zsh-history-substring-search/xUbuntu_22.04/Release.key',
+            dest: 'zsh-history-substring-search.asc'
+          }
+        - {
+            url: 'https://packages.cloud.google.com/apt/doc/apt-key.gpg',
+            dest: 'cloud.google.asc'
+          }
+        - {
+            url: 'https://packages.microsoft.com/keys/microsoft.asc',
+            dest: 'microsoft.asc'
+          }
+        - {
+            url: 'https://raw.githubusercontent.com/eza-community/eza/main/deb.asc',
+            dest: 'eza-community.asc'
+          }
+        
+      loop_control:
+        loop_var: key
+
+    - name: Add repositories for required packages.
+      ansible.builtin.apt_repository:
+        name: '{{ repository.name }}'
+        state: present
+      loop:
+        - { 
+            name: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/hashicorp-archive-keyring.asc https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main'
+          }
+        - {
+            name: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/zsh-completions.asc] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/ {{ ansible_distribution_release }} main'
+          }
+        - {
+            name: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/zsh-history-substring-search.asc] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/ {{ ansible_distribution_release}} main'
+          }
+        - {
+            name: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/cloud.google.asc] https://packages.cloud.google.com/apt/ cloud-sdk main'
+          }
+        - {
+            name: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/microsoft.asc] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main'
+          }
+        - {
+            name: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/microsoft.asc] https://packages.microsoft.com/repos/vscode/ {{ ansible_distribution_release }} main'
+          }
+        - {
+            name: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de {{ ansible_distribution_release }} main'
+          }
+      loop_control:
+        loop_var: repository
 
 - name: Install required packages via apt.
   ansible.builtin.apt:
     name: '{{ apt_package.name }}'
-    state: '{{ apt_package.state }}'
+    state: latest
   loop:
-    - { name: 'vim', state: 'latest' }
-    - { name: 'zsh', state: 'latest' }
-    - { name: 'ruby', state: 'latest' }
-    - { name: 'go', state: 'latest' }
-    - { name: 'python@3.11', state: 'latest' }
-    - { name: 'git', state: 'latest' }
-    - { name: 'eza', state: 'latest' }
-    - { name: 'cmake', state: 'latest' }
-    - { name: 'node', state: 'latest' }
-    - { name: 'gpg', state: 'latest' }
-    - { name: 'openssh', state: 'latest' }
-    - { name: 'powerlevel10k', state: 'latest' }
-    - { name: 'zsh-autosuggestions', state: 'latest' }
-    - { name: 'zsh-syntax-highlighting', state: 'latest' }
-    - { name: 'zsh-completions', state: 'latest' }
-    - { name: 'zsh-history-substring-search', state: 'latest' }  
-    - { name: 'zsh-autopair', state: 'latest' }
-    - { name: 'konsole', state: 'latest' }
-    - { name: 'font-hack-nerd-font', state: 'latest' }
-    - { name: 'google-cloud-sdk', state: 'latest' }
-    - { name: 'terraform', state: 'latest'}
-    - { name: 'packer', state: 'latest'}
-    - { name: 'vault', state: 'latest'}
+    - { name: 'vim'}
+    - { name: 'zsh'}
+    - { name: 'ruby'}
+    - { name: 'golang'}
+    - { name: 'python@3.11' }
+    - { name: 'git' }
+    - { name: 'cmake' }
+    - { name: 'node' }
+    - { name: 'gpg' }
+    - { name: 'openssh' }
+    - { name: 'powerlevel10k' }
+    - { name: 'zsh-autosuggestions' }
+    - { name: 'zsh-syntax-highlighting' }
+    - { name: 'zsh-completions' }
+    - { name: 'zsh-history-substring-search' }
+    - { name: 'konsole' }
+    - { name: 'code' }
+    - { name: 'google-cloud-sdk' }
+    - { name: 'awscli' }
+    - { name: 'azure-cli' }
+    - { name: 'eza' }
+    - { name: 'terraform' } # TODO: replace with OpenTofu once available.
+    - { name: 'packer' } # TODO: if open source replacement becomes availabe, then we will replace.
+    - { name: 'vault' } # TODO: if open source replacement becomes availabe, then we will replace.
   loop_control:
     loop_var: apt_package
+
+- name: Install hack-nerd-font
+  block:
+
+    - name: Download hack-nerd-font
+      ansible.builtin.get_url:
+        url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip
+        dest: /tmp/hack.zip
+        owner: root
+        group: root
+        mode: '0o644'
+    
+    - name: Copy hack-nerd-font into /usr/local/share/fonts/
+      ansible.builtin.unarchive:
+        path: /tmp/hack.zip
+        dest: /usr/local/share/fonts/
+        owner: root
+        group: root
+        mode: '0o644'
+    
+    - name: Clean up hack.zip file.
+      ansible.builtin.file:
+        path: /tmp/hack.zip
+        state: absent
+        owner: root
+        group: root
+
+- name: Manually install zsh-autopair.
+  block:
+    
+    - name: Download zsh-autopair from github.com
+      ansible.builtin.git:
+        repo: git@github.com:hlissner/zsh-autopair.git
+        dest: $HOME/.zsh-autopair/
+        clone: true
+        update: true
+      tags:
+        - debug
+    
+    - name: Check if .zshrc exists.
+      ansible.builtin.stat:
+        path: $HOME/.zshrc
+      register: config
+      tags:
+        - debug
+    
+    - name: Debug config variable
+      ansible.builtin.debug:
+        msg: config.stat
+      tags:
+        - debug
+
+    - name: Find in file source $HOME/.zsh-autopair/autopair.zsh
+      ansible.builtin.file:
+      when: config.stat.isfile is defined and config.stat.isfile
+      tags:
+        - debug
+
+- name: Set variable required_packages to true.
+  ansible.builtin.set_fact:
+    required_packages: true
