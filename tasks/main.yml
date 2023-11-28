@@ -1,5 +1,6 @@
 ---
 # tasks file for setup-shell
+
 - name: Install required packages for MacOS
   ansible.builtin.include_tasks:
     file:
