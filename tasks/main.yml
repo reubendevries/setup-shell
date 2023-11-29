@@ -21,10 +21,10 @@
 
 - name: Setup shell for *nix type systems.
   ansible.builtin.include_tasks:
-    file: '{{ tasks.src_file }}'
-    loop:
-      - { src_file: 'setup_zsh.yml' }
-      - { src_file: 'setup_powerlevel_10k.yml' }
-      - { src_file: 'setup_vim.yml' }
+    file: '{{ item }}'
+    with_items:
+      - setup_zsh.yml
+      - setup_powerlevel_10k.yml
+      - setup_vim.yml
   loop_control:
     loop_var: tasks
