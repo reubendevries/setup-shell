@@ -20,7 +20,7 @@
   when: ansible_facts['distribution'] == 'RedHat'
 
 - name: Setup shell for *nix type systems.
-  ansible.builtin.include_tasks:
+  ansible.builtin.import_tasks:
     file: '{{ item }}'
     with_items:
       - setup_zsh.yml
