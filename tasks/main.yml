@@ -19,10 +19,9 @@
       - install_requirements_redhat.yml
   when: ansible_facts['distribution'] == 'RedHat'
 
-- name: Setup shell for *nix type systems.
+- name: Setup shell for *nix type systems.  
   ansible.builtin.include_tasks:
-    file: '{{ item }}'
-    with_items:
+    file:
       - setup_zsh.yml
       - setup_powerlevel_10k.yml
       - setup_vim.yml
