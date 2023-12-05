@@ -2,29 +2,31 @@
 # tasks file for setup-shell
 - name: Print facts.
   ansible.builtin.debug:
-    var: ansible_facts
+    var: role_path
 
 - name: Install required packages for MacOS
   ansible.builtin.include_tasks:
     file:
-      - install_requirements_darwin.yml
-  when: ansible_facts['distribution'] == 'Darwin'
+      - ./install_requirements_darwin.yml
+  when: ansible_facts['os_family'] | lower  == 'darwin'
 
 - name: Install required packages for Debian
   ansible.builtin.include_tasks:
     file:
-      - install_requirements_ubuntu.yml
-  when: ansible_facts['distribution'] == 'Ubuntu'
+      - ./install_requirements_debian.yml
+  when: ansible_facts['os_family'] | lower == 'debian'
 
 - name: Install required packages for RedHat
   ansible.builtin.include_tasks:
     file:
-      - install_requirements_redhat.yml
-  when: ansible_facts['distribution'] == 'RedHat'
+      - ./install_requirements_redhat.yml
+  when: ansible_facts['os_family'] | lower == 'redhat'
 
 - name: Setup shell for *nix type systems.  
   ansible.builtin.include_tasks:
-    file:
-      - setup_zsh.yml
-      - setup_powerlevel_10k.yml
-      - setup_vim.yml
+    file: '{{ items }}'
+  with_items:
+    - ./setup_zsh.yml
+    - ./setup_powerlevel_10k.yml
+    - ./setup_vim.yml
+
