@@ -2,7 +2,7 @@
 # tasks file for setup-shell
 - name: Print facts.
   ansible.builtin.debug:
-    var: ansible_facts['distribution']
+    var: ansible_facts
 
 - name: Install required packages for MacOS
   ansible.builtin.include_tasks:
@@ -13,8 +13,8 @@
 - name: Install required packages for Debian
   ansible.builtin.include_tasks:
     file:
-      - install_requirements_debian.yml
-  when: ansible_facts['distribution'] == 'Debian'
+      - install_requirements_ubuntu.yml
+  when: ansible_facts['distribution'] == 'Ubuntu'
 
 - name: Install required packages for RedHat
   ansible.builtin.include_tasks:
