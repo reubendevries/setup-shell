@@ -3,19 +3,19 @@
 - name: Install required packages for MacOS
   ansible.builtin.include_tasks:
     file:
-      - ./install_requirements_darwin.yml
+      - install_requirements_darwin.yml
   when: ansible_facts['os_family'] | lower  == 'darwin'
 
 - name: Install required packages for Debian
   ansible.builtin.include_tasks:
     file:
-      - ./install_requirements_debian.yml
+      - install_requirements_debian.yml
   when: ansible_facts['os_family'] | lower == 'debian'
 
 - name: Install required packages for RedHat
   ansible.builtin.include_tasks:
     file:
-      - ./install_requirements_redhat.yml
+      - install_requirements_redhat.yml
   when: ansible_facts['os_family'] | lower == 'redhat'
 
 - name: Setup shell for *nix type systems.  
