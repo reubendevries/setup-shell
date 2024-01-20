@@ -2,25 +2,22 @@
 # tasks file for setup-shell
 - name: Install required packages for MacOS
   ansible.builtin.include_tasks:
-    file:
-      - install_requirements_darwin.yml
+    file: install_requirements_darwin.yml
   when: ansible_facts['os_family'] | lower  == 'darwin'
 
 - name: Install required packages for Debian
   ansible.builtin.include_tasks:
-    file:
-      - install_requirements_debian.yml
+    file: install_requirements_debian.yml
   when: ansible_facts['os_family'] | lower == 'debian'
 
 - name: Install required packages for RedHat
   ansible.builtin.include_tasks:
-    file:
-      - install_requirements_redhat.yml
+    file: install_requirements_redhat.yml
   when: ansible_facts['os_family'] | lower == 'redhat'
 
 - name: Setup shell for *nix type systems.  
   ansible.builtin.include_tasks:
-    file: '{{ items }}'
+    file: 'task_list'
   with_items:
     - setup_zsh.yml
     - setup_powerlevel_10k.yml

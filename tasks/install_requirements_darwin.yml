@@ -16,48 +16,49 @@
 - name: Install required packages via homebrew.
   community.general.homebrew:
     name: '{{ brew_package.name }}'
-    state: '{{ brew_package.state }}'
+    state: latest
   loop:
-    - { name: 'vim', state: 'latest' }
-    - { name: 'zsh', state: 'latest' }
-    - { name: 'ruby', state: 'latest' }
-    - { name: 'go', state: 'latest' }
-    - { name: 'python@3.11', state: 'latest' }
-    - { name: 'git', state: 'latest' }
-    - { name: 'eza', state: 'latest' }
-    - { name: 'cmake', state: 'latest' }
-    - { name: 'node', state: 'latest' }
-    - { name: 'gpg', state: 'latest' }
-    - { name: 'openssh', state: 'latest' }
-    - { name: 'powerlevel10k', state: 'latest' }
-    - { name: 'zsh-autosuggestions', state: 'latest' }
-    - { name: 'zsh-syntax-highlighting', state: 'latest' }
-    - { name: 'zsh-completions', state: 'latest' }
-    - { name: 'zsh-history-substring-search', state: 'latest' }  
-    - { name: 'zsh-autopair', state: 'latest' }
+    - { name: 'vim'}
+    - { name: 'zsh'}
+    - { name: 'ruby'}
+    - { name: 'go'}
+    - { name: 'python@3.12'}
+    - { name: 'git'}
+    - { name: 'eza'}
+    - { name: 'cmake'}
+    - { name: 'gcc'}
+    - { name: 'node'}
+    - { name: 'gpg'}
+    - { name: 'openssh'}
+    - { name: 'powerlevel10k'}
+    - { name: 'zsh-autosuggestions'}
+    - { name: 'zsh-syntax-highlighting'}
+    - { name: 'zsh-completions'}
+    - { name: 'zsh-history-substring-search'}  
+    - { name: 'zsh-autopair'}
   loop_control:
     loop_var: brew_package
 
 - name: Tap casks for Homebrew
   community.general.homebrew_tap:
     name: '{{ homebrew_tap.name }}'
-    state: '{{ homebrew_tap.state }}'
+    state: present
   loop:
-    - { name: 'homebrew/cask-fonts', state: 'present'}
-    - { name: 'hashicorp/tap', state: 'present'}
+    - { name: 'homebrew/cask-fonts'}
+    - { name: 'hashicorp/tap'}
   loop_control:
     loop_var: homebrew_tap
 
 - name: Install required packages via homebrew cask.
   community.general.homebrew_cask:
     name: '{{ cask_package.name }}'
-    state: '{{ cask_package.state }}'
+    state: latest
   loop:
-    - { name: 'iterm2', state: 'latest' }
-    - { name: 'font-hack-nerd-font', state: 'latest' }
-    - { name: 'google-cloud-sdk', state: 'latest' }
-    - { name: 'terraform', state: 'latest'}
-    - { name: 'packer', state: 'latest'}
-    - { name: 'vault', state: 'latest'}
+    - { name: 'iterm2'}
+    - { name: 'font-hack-nerd-font'}
+    - { name: 'google-cloud-sdk'}
+    - { name: 'terraform'}
+    - { name: 'packer'}
+    - { name: 'vault'}
   loop_control:
     loop_var: cask_package
