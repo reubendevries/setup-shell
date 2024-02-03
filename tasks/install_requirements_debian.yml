@@ -46,17 +46,33 @@
     - {
         name: "zsh-completions",
         types: ["deb"],
-        uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/",
+        uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/xUbuntu_22.04/",
         signed_by: "https://download.opensuse.org/repositories/shells:zsh-users:zsh-completions/xUbuntu_22.04/Release.key",
-        suites: "Debian_11",
+        suites: "/",
+        components: "main"
+      }
+    - {
+        name: "zsh-autosuggestions",
+        types: ["deb"],
+        uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-autosuggestions/xUbuntu_22.04/",
+        signed_by: "https://download.opensuse.org/repositories/shells:zsh-users:/zsh-autosuggestions/xUbuntu_22.04/Release.key",
+        suites: "/",
         components: "main"
       }
     - {
         name: "zsh-history-substring-search",
         types: ["deb"],
-        uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/",
+        uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/xUbuntu_22.04/",
         signed_by: "https://download.opensuse.org/repositories/shells:zsh-users:zsh-history-substring-search/xUbuntu_22.04/Release.key",
-        suites: "Debian_11",
+        suites: "/",
+        components: "main"
+      }
+    - {
+        name: "zzsh-syntax-highlighting",
+        types: ["deb"],
+        uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-syntax-highlighting/xUbuntu_22.04/",
+        signed_by: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-syntax-highlighting/xUbuntu_22.04/Release.key",
+        suites: "/",
         components: "main"
       }
     - {
