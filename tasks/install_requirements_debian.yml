@@ -76,7 +76,7 @@
         types: ["deb"],
         uris: "http://deb.gierens.de",
         signed_by: "https://raw.githubusercontent.com/eza-community/eza/main/deb.asc",
-        suites: "{{ ansible_distribution_release }}",
+        suites: "stable",
         components: "main"
       }  
   loop_control:
