@@ -55,7 +55,7 @@
 
     - name: Add repositories for required packages.
       ansible.builtin.apt_repository:
-        repo: '{{ repo.entry }}'
+        repo: '{{ repo.entry.split("\n") }}'
         state: present
         filename: '{{ repo.filename }}'
       loop:
@@ -88,10 +88,6 @@
         - {
             entry: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft.asc] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main',
             filename: 'azure-cli'
-          }
-        - {
-            entry: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft.asc] https://packages.microsoft.com/repos/vscode/ {{ ansible_distribution_release }} main',
-            filename: 'vscode'
           }
         - {
             entry: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de {{ ansible_distribution_release }} main',
