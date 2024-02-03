@@ -48,7 +48,7 @@
         types: ["deb"],
         uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/",
         signed_by: "https://download.opensuse.org/repositories/shells:zsh-users:zsh-completions/xUbuntu_22.04/Release.key",
-        suites: "{{ ansible_distribution_release }}",
+        suites: "Debian_11",
         components: "main"
       }
     - {
@@ -56,7 +56,7 @@
         types: ["deb"],
         uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/",
         signed_by: "https://download.opensuse.org/repositories/shells:zsh-users:zsh-history-substring-search/xUbuntu_22.04/Release.key",
-        suites: "{{ ansible_distribution_release }}",
+        suites: "Debian_11",
         components: "main"
       }
     - {
