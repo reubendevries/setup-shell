@@ -60,11 +60,11 @@
         filename: '{{ repo.filename }}'
       loop:
         - { 
-            entry: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.asc https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main',
+            entry: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.asc] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main',
             filename: 'hashicorp'
           }
         - {
-            entry: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/vscodium.asc ] https://download.vscodium.com/debs vscodium main',
+            entry: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/vscodium.asc] https://download.vscodium.com/debs vscodium main',
             filename: 'vscodium'
           }
         - {
