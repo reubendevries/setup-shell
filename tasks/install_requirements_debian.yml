@@ -82,6 +82,11 @@
   loop_control:
     loop_var: repo
 
+- name: update apt cache before downloading pacakges.
+  ansible.builtin.apt:
+    update_cache: true
+  register: apt_cache_updated
+
 - name: Install required packages via apt.
   ansible.builtin.apt:
     name: "{{ apt_package.name }}"
@@ -113,6 +118,7 @@
     - { name: "vault" } # TODO: if open source replacement becomes availabe, then we will replace.
   loop_control:
     loop_var: apt_package
+  when: apt_cache_updated is changed
 
 - name: Install hack-nerd-font
   block:
