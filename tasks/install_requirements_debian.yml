@@ -3,105 +3,84 @@
   ansible.builtin.set_fact:
     required_packages: false
 
-- name: Get repositories gpg key and add repositories for required packages.
-  block:
-
-    - name: Add repositories gpg key for required packages.
-      ansible.builtin.get_url:
-        url: "{{ key.url }}"
-        dest: "/usr/share/keyrings/{{ key.dest }}"
-        mode: "0o666"
-      loop:
-        - {
-            url: "https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg",
-            dest: "vscodium.gpg"
-          }
-        - {
-            url: "https://get.opentofu.org/opentofu.gpg",
-            dest: "opentofu.gpg"
-          }
-        - {
-            url: "https://packages.opentofu.org/opentofu/tofu/gpgkey",
-            dest: "opentofu-repo.gpg"
-          }
-        - { 
-            url: "https://apt.releases.hashicorp.com/gpg", 
-            dest: "hashicorp.gpg" 
-          }
-        - {
-            url: "https://download.opensuse.org/repositories/shells:zsh-users:zsh-completions/xUbuntu_22.04/Release.key",
-            dest: "zsh-completions.gpg"
-          }
-        - {
-            url: "https://download.opensuse.org/repositories/shells:zsh-users:zsh-history-substring-search/xUbuntu_22.04/Release.key",
-            dest: "zsh-history-substring-search.gpg"
-          }
-        - {
-            url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg",
-            dest: "cloud.google.gpg"
-          }
-        - {
-            url: "https://packages.microsoft.com/keys/microsoft.asc",
-            dest: "microsoft.gpg"
-          }
-        - {
-            url: "https://raw.githubusercontent.com/eza-community/eza/main/deb.asc",
-            dest: "eza-community.gpg"
-          }
-        
-      loop_control:
-        loop_var: key
-
-    - name: Add repositories for required packages.
-      ansible.builtin.apt_repository:
-        repo: "{{ repo.entry }}"
-        state: present
-        filename: "{{ repo.filename }}"
-        update_cache: true
-        mode: "0o644"
-        validate_certs: false
-      loop:
-        - { 
-            entry:
-            "deb [signed-by=/usr/share/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main",
-            filename: "hashicorp"
-          }
-        - {
-            entry:
-              "deb [signed-by=/usr/share/keyrings/vscodium.gpg] https://download.vscodium.com/debs vscodium main",
-            filename: "vscodium"
-          }
-        - {
-            entry:
-              "deb [signed-by=/usr/share/keyrings/opentofu.gpg,/usr/share/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main",
-            filename: "opentofu"
-          }
-        - {
-            entry: 
-              "deb [signed-by=/usr/share/keyrings/zsh-completions.gpg] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/ {{ ansible_distribution_release }} main",
-            filename: "zsh-completions"
-          }
-        - {
-            entry: 
-              "deb [signed-by=/usr/share/keyrings/zsh-history-substring-search.gpg] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/ {{ ansible_distribution_release}} main",
-            filename: "zsh-history-substring-search"
-          }
-        - {
-            entry: 
-              "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt/ cloud-sdk main",
-            filename: "google-cloud-sdk"
-          }
-        - {
-            entry: "deb [signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main",
-            filename: "azure-cli"
-          }
-        - {
-            entry: 
-              "deb [signed-by=/usr/share/keyrings/gierens.gpg] http://deb.gierens.de {{ ansible_distribution_release }} main",
-            filename: "eza-community"
-          }
-      loop_control:
-        loop_var: repo
+- name: Add repostiories gpg key and add the repositories for all required packages.
+  ansible.builtin.deb822_repository:
+    name: "{{ repo.name }}"
+    types: "{{ repo.types }}"
+    uris: "{{ repo.uris }}"
+    architecture: amd64
+    signed_by: "{{ repo.signed_by }}"
+    suites: "{{ repo.suites }}"
+    components: "{{ repo.components }}"
+    state: present
+    enabled: true
+  loop:
+    - {
+        name: "vscodium",
+        types: "deb",
+        uris: "https://download.vscodium.com/debs",
+        signed_by: "https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg",
+        suites: "vscodium",
+        components: "main"
+      }
+    - {
+        name: "opentofu",
+        types: ["deb", "deb-src"],
+        uris: "https://packages.opentofu.org/opentofu/tofu/any/",
+        signed_by: ["https://packages.opentofu.org/opentofu/tofu/gpgkey","https://get.opentofu.org/opentofu.gpg"],
+        suites: "any",
+        components: "main"
+      }
+    - {
+        name: "hashicorp",
+        types: ["deb"],
+        uris: "https://apt.releases.hashicorp.com",
+        signed_by: "https://apt.releases.hashicorp.com/gpg",
+        suites: "{{ ansible_distribution_release }}",
+        components: "main"
+      }
+    - {
+        name: "zsh-completions",
+        types: ["deb"],
+        uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/",
+        signed_by: "https://download.opensuse.org/repositories/shells:zsh-users:zsh-completions/xUbuntu_22.04/Release.key",
+        suites: "{{ ansible_distribution_release }}",
+        components: "main"
+      }
+    - {
+        name: "zsh-history-substring-search",
+        types: ["deb"],
+        uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/",
+        signed_by: "https://download.opensuse.org/repositories/shells:zsh-users:zsh-history-substring-search/xUbuntu_22.04/Release.key",
+        suites: "{{ ansible_distribution_release }}",
+        components: "main"
+      }
+    - {
+        name: "google-cloud",
+        types: ["deb"],
+        uris: "https://packages.cloud.google.com/apt/",
+        signed_by: "https://packages.cloud.google.com/apt/doc/apt-key.gpg",
+        suites: "cloud-sdk",
+        components: "main"
+      }
+    - {
+        name: "microsoft",
+        types: ["deb"],
+        uris: "https://packages.microsoft.com/repos/azure-cli/",
+        signed_by: "https://packages.microsoft.com/keys/microsoft.asc",
+        suites: "{{ ansible_distribution_release }}",
+        components: "main"
+      }
+    - {
+        name: "eza-community",
+        types: ["deb"],
+        uris: "http://deb.gierens.de",
+        signed_by: "https://raw.githubusercontent.com/eza-community/eza/main/deb.asc",
+        suites: "{{ ansible_distribution_release }}",
+        components: "main"
+      }  
+  loop_control:
+    loop_var: key
 
 - name: Install required packages via apt.
   ansible.builtin.apt:
