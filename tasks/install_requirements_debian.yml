@@ -4,11 +4,8 @@
     required_packages: false
 
 - name: Debug ansible_facts
-  gather_facts: true
   ansible.builtin.debug:
     var: "{{ ansible_facts }}"
-  tag:
-    - debug_playbook
 
 - name: Add repostiories gpg key and add the repositories for all required packages.
   ansible.builtin.deb822_repository:
