@@ -26,9 +26,9 @@
     - {
         name: "opentofu",
         types: ["deb", "deb-src"],
-        uris: "https://packages.opentofu.org/opentofu/tofu/any/",
-        signed_by: "https://get.opentofu.org/opentofu.gpg",
-        suites: "any",
+        uris: "https://packagecloud.io/opentofu/tofu/ubuntu",
+        signed_by: "https://packagecloud.io/opentofu/tofu/gpgkey",
+        suites: "{{ ansible_distribution_release }}",
         components: "main"
       }
     - {
