@@ -61,7 +61,7 @@
       loop:
         - { 
             entry:
-            "deb [signed-by=/etc/apt/keyrings/hashicorp.gpg\\] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main",
+            "deb [signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main",
             filename: "hashicorp"
           }
         - {
@@ -82,7 +82,7 @@
           }
         - {
             entry: 
-              "deb [signed-by=/etc/apt/keyrings/zsh-history-substring-search.gpg\\] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/ {{ ansible_distribution_release}} main",
+              "deb [signed-by=/etc/apt/keyrings/zsh-history-substring-search.gpg] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/ {{ ansible_distribution_release}} main",
             filename: "zsh-history-substring-search"
           }
         - {
@@ -91,12 +91,12 @@
             filename: "google-cloud-sdk"
           }
         - {
-            entry: "deb [signed-by=/etc/apt/keyrings/microsoft.gpg\\] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main",
+            entry: "deb [signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main",
             filename: "azure-cli"
           }
         - {
             entry: 
-              "deb [signed-by=/etc/apt/keyrings/gierens.gpg\\] http://deb.gierens.de {{ ansible_distribution_release }} main",
+              "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de {{ ansible_distribution_release }} main",
             filename: "eza-community"
           }
       loop_control:
