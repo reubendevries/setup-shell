@@ -10,8 +10,7 @@
       ansible.builtin.get_url:
         url: "{{ key.url }}"
         dest: "/usr/share/keyrings/{{ key.dest }}"
-        mode: "0o644"
-        force: true
+        mode: "0o666"
       loop:
         - {
             url: "https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg",
@@ -58,6 +57,9 @@
         repo: "{{ repo.entry }}"
         state: present
         filename: "{{ repo.filename }}"
+        update_cache: true
+        mode: "0o644"
+        validate_certs: false
       loop:
         - { 
             entry:
