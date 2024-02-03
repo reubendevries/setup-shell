@@ -9,7 +9,7 @@
     - name: Add repositories gpg key for required packages.
       ansible.builtin.get_url:
         url: "{{ key.url }}"
-        dest: "/etc/apt/keyrings/{{ key.dest }}"
+        dest: "/usr/share/keyrings/{{ key.dest }}"
         mode: "0o644"
         force: true
       loop:
@@ -61,41 +61,41 @@
       loop:
         - { 
             entry:
-            "deb [signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main",
+            "deb [signed-by=/usr/share/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main",
             filename: "hashicorp"
           }
         - {
             entry:
-              "deb [signed-by=/etc/apt/keyrings/vscodium.gpg] https://download.vscodium.com/debs vscodium main",
+              "deb [signed-by=/usr/share/keyrings/vscodium.gpg] https://download.vscodium.com/debs vscodium main",
             filename: "vscodium"
           }
         - {
             entry:
-              "deb [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main",
+              "deb [signed-by=/usr/share/keyrings/opentofu.gpg,/usr/share/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main",
             filename: "opentofu"
           }
         - {
             entry: 
-              "deb [signed-by=/etc/apt/keyrings/zsh-completions.gpg] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/ {{ ansible_distribution_release }} main",
+              "deb [signed-by=/usr/share/keyrings/zsh-completions.gpg] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/ {{ ansible_distribution_release }} main",
             filename: "zsh-completions"
           }
         - {
             entry: 
-              "deb [signed-by=/etc/apt/keyrings/zsh-history-substring-search.gpg] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/ {{ ansible_distribution_release}} main",
+              "deb [signed-by=/usr/share/keyrings/zsh-history-substring-search.gpg] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/ {{ ansible_distribution_release}} main",
             filename: "zsh-history-substring-search"
           }
         - {
             entry: 
-              "deb [signed-by=/etc/apt/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt/ cloud-sdk main",
+              "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt/ cloud-sdk main",
             filename: "google-cloud-sdk"
           }
         - {
-            entry: "deb [signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main",
+            entry: "deb [signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main",
             filename: "azure-cli"
           }
         - {
             entry: 
-              "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de {{ ansible_distribution_release }} main",
+              "deb [signed-by=/usr/share/keyrings/gierens.gpg] http://deb.gierens.de {{ ansible_distribution_release }} main",
             filename: "eza-community"
           }
       loop_control:
