@@ -61,44 +61,43 @@
       loop:
         - { 
             entry:
-              "deb [signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main",
-            filename: "hashicorp"
+            'deb [signed-by=/etc/apt/keyrings/hashicorp.gpg\\] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main',
+            filename: 'hashicorp'
           }
         - {
             entry:
-              "deb [signed-by=/etc/apt/keyrings/vscodium.gpg] https://download.vscodium.com/debs vscodium main",
-            filename: "vscodium"
+              'deb [signed-by=/etc/apt/keyrings/vscodium.gpg] https://download.vscodium.com/debs vscodium main',
+            filename: 'vscodium'
           }
         - {
             entry:
-              "deb [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main\\n
-              deb-src [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main",
-            filename: "opentofu"
+              'deb [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg\] https://packages.opentofu.org/opentofu/tofu/any/ any main
+               deb-src [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg\] https://packages.opentofu.org/opentofu/tofu/any/ any main',
+            filename: 'opentofu'
           }
         - {
-            entry:
-              "deb [signed-by=/etc/apt/keyrings/zsh-completions.gpg] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/ {{ ansible_distribution_release }} main",
-            filename: "zsh-completions"
+            entry: 
+              'deb [signed-by=/etc/apt/keyrings/zsh-completions.gpg] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/ {{ ansible_distribution_release }} main',
+            filename: 'zsh-completions'
           }
         - {
-            entry:
-              "deb [signed-by=/etc/apt/keyrings/zsh-history-substring-search.gpg] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/ {{ ansible_distribution_release}} main",
-            filename: "zsh-history-substring-search"
+            entry: 
+              'deb [signed-by=/etc/apt/keyrings/zsh-history-substring-search.gpg\\] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/ {{ ansible_distribution_release}} main',
+            filename: 'zsh-history-substring-search'
           }
         - {
-            entry:
-              "deb [signed-by=/etc/apt/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt/ cloud-sdk main",
-            filename: "google-cloud-sdk"
+            entry: 
+              'deb [signed-by=/etc/apt/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt/ cloud-sdk main',
+            filename: 'google-cloud-sdk'
           }
         - {
-            entry:
-              "deb [signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main",
-            filename: "azure-cli"
+            entry: 'deb [signed-by=/etc/apt/keyrings/microsoft.gpg\\] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main',
+            filename: 'azure-cli'
           }
         - {
-            entry:
-              "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de {{ ansible_distribution_release }} main",
-            filename: "eza-community"
+            entry: 
+              'deb [signed-by=/etc/apt/keyrings/gierens.gpg\\] http://deb.gierens.de {{ ansible_distribution_release }} main',
+            filename: 'eza-community'
           }
       loop_control:
         loop_var: repo
