@@ -80,7 +80,7 @@
         components: "main"
       }  
   loop_control:
-    loop_var: key
+    loop_var: repo
 
 - name: Install required packages via apt.
   ansible.builtin.apt:
