@@ -55,7 +55,7 @@
 
     - name: Add repositories for required packages.
       ansible.builtin.apt_repository:
-        repo: "{{ repo.entry.split('\n') }}"
+        repo: "{{ repo.entry }}"
         state: present
         filename: "{{ repo.filename }}"
       loop:
@@ -71,8 +71,7 @@
           }
         - {
             entry:
-              "deb [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main
-               deb-src [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main",
+              "deb [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main",
             filename: "opentofu"
           }
         - {
