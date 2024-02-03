@@ -28,8 +28,8 @@
         types: ["deb", "deb-src"],
         uris: "https://packagecloud.io/opentofu/tofu/ubuntu",
         signed_by: "https://packagecloud.io/opentofu/tofu/gpgkey",
-        suites: "{{ ansible_distribution_release }}",
-        components: "main"
+        suites: "any",
+        components: "any"
       }
     - {
         name: "hashicorp",
