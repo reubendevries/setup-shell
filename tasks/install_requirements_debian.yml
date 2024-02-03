@@ -13,6 +13,18 @@
         mode: '0o644'
         force: true
       loop:
+        - {
+            url: 'https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg',
+            dest: 'vscodium.asc'
+          }
+        - {
+            url: 'https://get.opentofu.org/opentofu.gpg',
+            dest: 'opentofu.asc'
+          }
+        - {
+            url: 'https://packages.opentofu.org/opentofu/tofu/gpgkey',
+            dest: 'opentofu-repo.gpg'
+          }
         - { 
             url: 'https://apt.releases.hashicorp.com/gpg', 
             dest: 'hashicorp-archive-keyring.asc' 
@@ -43,32 +55,50 @@
 
     - name: Add repositories for required packages.
       ansible.builtin.apt_repository:
-        name: '{{ repository.name }}'
+        repo: '{{ repo.entry }}'
         state: present
+        name: '{{ repo.name }}'
       loop:
         - { 
-            name: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/hashicorp-archive-keyring.asc https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main'
+            entry: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/hashicorp-archive-keyring.asc https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main',
+            name: 'hashicorp'
           }
         - {
-            name: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/zsh-completions.asc] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/ {{ ansible_distribution_release }} main'
+            entry: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/vscodium.asc ] https://download.vscodium.com/debs vscodium main',
+            name: 'vscodium'
           }
         - {
-            name: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/zsh-history-substring-search.asc] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/ {{ ansible_distribution_release}} main'
+            entry:
+              'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/opentofu.asc,/etc/apt/trusted.gpg.d/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main
+              deb-src [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/opentofu.asc,/etc/apt/trusted.gpg.d/opentofu-repo.asc] https://packages.opentofu.org/opentofu/tofu/any/ any main',
+            name: 'opentofu'
           }
         - {
-            name: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/cloud.google.asc] https://packages.cloud.google.com/apt/ cloud-sdk main'
+            entry: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/zsh-completions.asc] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/ {{ ansible_distribution_release }} main',
+            name: 'zsh-completions'
           }
         - {
-            name: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/microsoft.asc] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main'
+            entry: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/zsh-history-substring-search.asc] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/ {{ ansible_distribution_release}} main',
+            name: 'zsh-history-substring-search'
           }
         - {
-            name: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/microsoft.asc] https://packages.microsoft.com/repos/vscode/ {{ ansible_distribution_release }} main'
+            entry: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/cloud.google.asc] https://packages.cloud.google.com/apt/ cloud-sdk main',
+            name: 'google-cloud-sdk'
           }
         - {
-            name: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de {{ ansible_distribution_release }} main'
+            entry: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/microsoft.asc] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main',
+            name: 'azure-cli'
+          }
+        - {
+            entry: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/microsoft.asc] https://packages.microsoft.com/repos/vscode/ {{ ansible_distribution_release }} main',
+            name: 'vscode'
+          }
+        - {
+            entry: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de {{ ansible_distribution_release }} main',
+            name: 'eza-community'
           }
       loop_control:
-        loop_var: repository
+        loop_var: repo
 
 - name: Install required packages via apt.
   ansible.builtin.apt:
@@ -79,7 +109,7 @@
     - { name: 'zsh'}
     - { name: 'ruby'}
     - { name: 'golang'}
-    - { name: 'python@3.11' }
+    - { name: 'python@3.12' }
     - { name: 'git' }
     - { name: 'cmake' }
     - { name: 'node' }
@@ -91,12 +121,12 @@
     - { name: 'zsh-completions' }
     - { name: 'zsh-history-substring-search' }
     - { name: 'konsole' }
-    - { name: 'code' }
+    - { name: 'codium' }
     - { name: 'google-cloud-sdk' }
     - { name: 'awscli' }
     - { name: 'azure-cli' }
     - { name: 'eza' }
-    - { name: 'terraform' } # TODO: replace with OpenTofu once available.
+    - { name: 'tofu' }
     - { name: 'packer' } # TODO: if open source replacement becomes availabe, then we will replace.
     - { name: 'vault' } # TODO: if open source replacement becomes availabe, then we will replace.
   loop_control:
