@@ -8,7 +8,7 @@
     name: "{{ repo.name }}"
     types: "{{ repo.types }}"
     uris: "{{ repo.uris }}"
-    architecture: amd64
+    architectures: amd64
     signed_by: "{{ repo.signed_by }}"
     suites: "{{ repo.suites }}"
     components: "{{ repo.components }}"
