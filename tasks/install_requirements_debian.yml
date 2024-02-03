@@ -57,45 +57,45 @@
       ansible.builtin.apt_repository:
         repo: '{{ repo.entry }}'
         state: present
-        name: '{{ repo.name }}'
+        filename: '{{ repo.filename }}'
       loop:
         - { 
             entry: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/hashicorp-archive-keyring.asc https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main',
-            name: 'hashicorp'
+            filename: 'hashicorp'
           }
         - {
             entry: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/vscodium.asc ] https://download.vscodium.com/debs vscodium main',
-            name: 'vscodium'
+            filename: 'vscodium'
           }
         - {
             entry:
               'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/opentofu.asc,/etc/apt/trusted.gpg.d/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main
               deb-src [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/opentofu.asc,/etc/apt/trusted.gpg.d/opentofu-repo.asc] https://packages.opentofu.org/opentofu/tofu/any/ any main',
-            name: 'opentofu'
+            filename: 'opentofu'
           }
         - {
             entry: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/zsh-completions.asc] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/ {{ ansible_distribution_release }} main',
-            name: 'zsh-completions'
+            filename: 'zsh-completions'
           }
         - {
             entry: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/zsh-history-substring-search.asc] http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/ {{ ansible_distribution_release}} main',
-            name: 'zsh-history-substring-search'
+            filename: 'zsh-history-substring-search'
           }
         - {
             entry: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/cloud.google.asc] https://packages.cloud.google.com/apt/ cloud-sdk main',
-            name: 'google-cloud-sdk'
+            filename: 'google-cloud-sdk'
           }
         - {
             entry: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/microsoft.asc] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main',
-            name: 'azure-cli'
+            filename: 'azure-cli'
           }
         - {
             entry: 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/microsoft.asc] https://packages.microsoft.com/repos/vscode/ {{ ansible_distribution_release }} main',
-            name: 'vscode'
+            filename: 'vscode'
           }
         - {
             entry: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de {{ ansible_distribution_release }} main',
-            name: 'eza-community'
+            filename: 'eza-community'
           }
       loop_control:
         loop_var: repo
