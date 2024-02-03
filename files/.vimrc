@@ -62,10 +62,10 @@ let g:ansible_attribute_highlight = "ob"
 
 " Ansible modules commonly start with a name: key for self-documentation of playbooks. This option enables/changes 
 " highlight of this
-let g:ansible_name_highlight = 'd'
+let g:ansible_name_highlight = "d"
 
 " setting jinja2 templates
-let g:ansible_template_syntaxes = { '*.rb.j2': 'ruby' }
+let g:ansible_template_syntaxes = { "*.rb.j2": "ruby" }
 
 " Highlight the following additional keywords:
 " become, become_exe, become_flags, become_method, become_user, become_pass, prompt_l10n, 
@@ -77,17 +77,17 @@ let g:ansible_template_syntaxes = { '*.rb.j2': 'ruby' }
 let g:ansible_extra_keywords_highlight = 1
 
 " Accepts any syntax group-name from :help E669 - e.g. Comment, Constant, Identifier
-let g:ansible_extra_keywords_highlight_group = 'Constant'
+let g:ansible_extra_keywords_highlight_group = "Constant"
 
 " Accepts any syntax group-name from :help E669 - e.g. Comment, Constant, Identifier
-let g:ansible_loop_keywords_highlight = 'Constant'
+let g:ansible_loop_keywords_highlight = "Constant"
 
 " Accepts a regex string that is used to match the filename to determine if the file should use the Ansible filetype
-let g:ansible_ftdetect_filename_regex = '\v(playbook|site|main|local|requirements)\.ya?ml$'
+let g:ansible_ftdetect_filename_regex = "\v(playbook|site|main|local|requirements)\.ya?ml$"
 
 
 " Alows us to set which scheme to use based upon the vim mode.
-if has('gui_running')
+if has("gui_running")
   set background=dark
   colorscheme solarized
 else
@@ -95,10 +95,10 @@ else
 endif
 
 "ignore files in NERDTree
-let NERDTreeIgnore=['\.pyc$', '\~$'] 
+let NERDTreeIgnore=["\.pyc$", "\~$"] 
 filetype plugin indent on    " required
 
 " adding support for fugitive-gitlab.vim
-let g:fugitive_gitlab_domains = ['https://gitlab.int.bell.ca']
+let g:fugitive_gitlab_domains = ["https://gitlab.int.bell.ca"]
 set completeopt-=preview
 
