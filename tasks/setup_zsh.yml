@@ -1,7 +1,7 @@
 ---
 
 - name: Copy .zshrc configuration.
-  ansible.builtin.templates:
+  ansible.builtin.template:
     src:  ./templates/.zshrc
     dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
     mode: "0o700"
