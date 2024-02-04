@@ -1,13 +1,13 @@
 ---
 
 - name: Copy .zshrc configuration.
-  ansible.builtin.copy:
-    src:  files/.zshrc
-    dest: $HOME/.zshrc
-    mode: 0700
+  ansible.builtin.templates:
+    src:  ./templates/.zshrc
+    dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
+    mode: "0o700"
+  register: "zshrc_copied"
+  notify: "Source .zshrc"
 
 - name: Source .zshrc
-  ansible.builtin.shell:
-    cmd: source $HOME/.zshrc
-  args:
-    executable: /opt/homebrew/Cellar/zsh/5.9/bin/zsh
+  ansible.builtin.meta: flush_handlers
+  

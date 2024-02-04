@@ -1,0 +1,7 @@
+---
+- name: Source .zshrc
+  ansible.builtin.shell:
+    cmd: "source {{ ansible_facts['home_dir']/.zshrc"
+  args:
+    executable: /bin/bash
+  when: zshrc_copied is changed
