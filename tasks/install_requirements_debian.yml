@@ -26,7 +26,7 @@
     - {
         name: "opentofu",
         types: ["deb", "deb-src"],
-        uris: "https://packagecloud.io/opentofu/tofu/ubuntu",
+        uris: "https://packages.opentofu.org/opentofu/tofu/any/",
         signed_by: "https://packagecloud.io/opentofu/tofu/gpgkey",
         suites: "any",
         components: "main"
