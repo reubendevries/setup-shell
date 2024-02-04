@@ -2,12 +2,6 @@
 - name: Set variable required_packages to false.
   ansible.builtin.set_fact:
     required_packages: false
-  
-- name: Debug ansible_facts.
-  ansible.builtin.debug:
-    var: ansible_facts
-  tags:
-    - debug
 
 - name: Add repostiories gpg key and add the repositories for all required packages.
   become: true
