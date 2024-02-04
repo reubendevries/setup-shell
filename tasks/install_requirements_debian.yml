@@ -26,10 +26,10 @@
     - {
         name: "opentofu",
         types: ["deb", "deb-src"],
-        uris: "https://packagecloud.io/opentofu/tofu/ubuntu/",
+        uris: "https://packagecloud.io/opentofu/tofu/ubuntu",
         signed_by: "https://packagecloud.io/opentofu/tofu/gpgkey",
         suites: "any",
-        components: "any"
+        components: "main"
       }
     - {
         name: "hashicorp",
