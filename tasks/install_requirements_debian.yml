@@ -10,8 +10,8 @@
     - debug
 
 - name: Add repostiories gpg key and add the repositories for all required packages.
+  become: true
   ansible.builtin.deb822_repository:
-    become: true
     name: "{{ repo.name }}"
     types: "{{ repo.types }}"
     uris: "{{ repo.uris }}"
@@ -106,14 +106,14 @@
     loop_var: repo
 
 - name: update apt cache before downloading pacakges.
+  become: true
   ansible.builtin.apt:
-    become: true
     update_cache: true
   register: apt_cache_updated
 
 - name: Install required packages via apt.
+  become: true
   ansible.builtin.apt:
-    become: true
     name: "{{ apt_package.name }}"
     state: latest
   loop:
@@ -146,8 +146,8 @@
   when: apt_cache_updated is changed
 
 - name: Update user to use ZSH instead of BASH.
+  become: true
   ansible.builtin.user:
-    become: true
     user: "{{ ansible_facts[user_id] }}"
     shell: "/usr/bin/zsh"
      
@@ -164,8 +164,8 @@
   block:
 
     - name: Download hack-nerd-font
+      become: true
       ansible.builtin.get_url:
-        become: true
         url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip
         dest: /tmp/hack.zip
         owner: root
@@ -173,8 +173,8 @@
         mode: "0o644"
     
     - name: Copy hack-nerd-font into /usr/local/share/fonts/
+      become: true
       ansible.builtin.unarchive:
-        become: true
         path: /tmp/hack.zip
         dest: /usr/local/share/fonts/
         owner: root
@@ -182,8 +182,8 @@
         mode: "0o644"
     
     - name: Clean up hack.zip file.
+      become: true
       ansible.builtin.file:
-        become: true
         path: /tmp/hack.zip
         state: absent
 
