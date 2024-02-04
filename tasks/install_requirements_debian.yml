@@ -175,7 +175,7 @@
     - name: Copy hack-nerd-font into /usr/local/share/fonts/
       become: true
       ansible.builtin.unarchive:
-        path: /tmp/hack.zip
+        src: /tmp/hack.zip
         dest: /usr/local/share/fonts/
         owner: root
         group: root
