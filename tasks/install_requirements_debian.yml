@@ -6,9 +6,12 @@
 - name: Debug ansible_facts.
   ansible.builtin.debug:
     var: ansible_facts
+  tags:
+    - debug
 
 - name: Add repostiories gpg key and add the repositories for all required packages.
   ansible.builtin.deb822_repository:
+    become: true
     name: "{{ repo.name }}"
     types: "{{ repo.types }}"
     uris: "{{ repo.uris }}"
@@ -104,11 +107,13 @@
 
 - name: update apt cache before downloading pacakges.
   ansible.builtin.apt:
+    become: true
     update_cache: true
   register: apt_cache_updated
 
 - name: Install required packages via apt.
   ansible.builtin.apt:
+    become: true
     name: "{{ apt_package.name }}"
     state: latest
   loop:
@@ -140,23 +145,27 @@
     loop_var: apt_package
   when: apt_cache_updated is changed
 
-#- name: Update user to use ZSH instead of BASH.
-#  ansible.builtin.user:
-#    user: "{{ ansible_facts[] }}"
+- name: Update user to use ZSH instead of BASH.
+  ansible.builtin.user:
+    become: true
+    user: "{{ ansible_facts[user_id] }}"
+    shell: "/usr/bin/zsh"
+     
 
-#- name: Git clone PowerLevel10k for zsh.
-#  ansible.builtin.git:
-#    repo: "git@github.com:romkatv/powerlevel10k.git"
-#    dest: "$HOME/powerlevel10k/"
-#    version: "master"
-#    clone: true
-#    update: true
+- name: Git clone PowerLevel10k for zsh.
+  ansible.builtin.git:
+    repo: "git@github.com:romkatv/powerlevel10k.git"
+    dest: "{{ ansible_facts['user_dir'] }}/powerlevel10k/"
+    version: "master"
+    clone: true
+    update: true
 
 - name: Install hack-nerd-font
   block:
 
     - name: Download hack-nerd-font
       ansible.builtin.get_url:
+        become: true
         url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip
         dest: /tmp/hack.zip
         owner: root
@@ -165,6 +174,7 @@
     
     - name: Copy hack-nerd-font into /usr/local/share/fonts/
       ansible.builtin.unarchive:
+        become: true
         path: /tmp/hack.zip
         dest: /usr/local/share/fonts/
         owner: root
@@ -173,10 +183,9 @@
     
     - name: Clean up hack.zip file.
       ansible.builtin.file:
+        become: true
         path: /tmp/hack.zip
         state: absent
-        owner: root
-        group: root
 
 - name: Manually install zsh-autopair.
   block:
@@ -184,7 +193,7 @@
     - name: Download zsh-autopair from github.com
       ansible.builtin.git:
         repo: git@github.com:hlissner/zsh-autopair.git
-        dest: $HOME/.zsh-autopair/
+        dest: "{{ ansible_facts['user_dir'] }}/.zsh-autopair/"
         clone: true
         update: true
       tags:
