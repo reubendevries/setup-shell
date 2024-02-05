@@ -3,6 +3,11 @@
   ansible.builtin.set_fact:
     required_packages: false
 
+- name: Debug variables.
+  ansible.builtin.debug:
+    vars:
+      - ansible_facts['ansible_user_dir']
+
 - name: Add repostiories gpg key and add the repositories for all required packages.
   become: true
   ansible.builtin.deb822_repository:
