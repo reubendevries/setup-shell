@@ -6,7 +6,7 @@
 - name: Debug variables.
   ansible.builtin.debug:
     var:
-      - ansible_facts['ansible_user_dir']
+      - ansible_facts
 
 - name: Add repostiories gpg key and add the repositories for all required packages.
   become: true
