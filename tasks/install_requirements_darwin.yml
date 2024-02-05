@@ -1,11 +1,17 @@
 ---
+- name: Set variable required_packages to true.
+  ansible.builtin.set_fact:
+    required_packages: false
+
 - name: Get get installation script.
   ansible.builtin.get_url:
     url: "{{ script.url }}"
     dest: "{{ script.name }}"
-    mode: 0755
+    mode: "0o644"
+    owner: "root"
+    group: "root"
   loop:
-    - { url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh , name: /tmp/homebrew.sh }
+    - { url: "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh", name: "/tmp/homebrew.sh" }
   loop_control:
     loop_var: script
 
@@ -18,47 +24,51 @@
     name: "{{ brew_package.name }}"
     state: latest
   loop:
-    - { name: "vim"}
-    - { name: "zsh"}
-    - { name: "ruby"}
-    - { name: "go"}
-    - { name: "python@3.12"}
-    - { name: "git"}
-    - { name: "eza"}
-    - { name: "cmake"}
-    - { name: "gcc"}
-    - { name: "node"}
-    - { name: "gpg"}
-    - { name: "openssh"}
-    - { name: "powerlevel10k"}
-    - { name: "zsh-autosuggestions"}
-    - { name: "zsh-syntax-highlighting"}
-    - { name: "zsh-completions"}
-    - { name: "zsh-history-substring-search"}  
-    - { name: "zsh-autopair"}
+    - { name: "vim" }
+    - { name: "zsh" }
+    - { name: "ruby" }
+    - { name: "go" }
+    - { name: "python@3.11" }
+    - { name: "git" }
+    - { name: "eza" }
+    - { name: "cmake" }
+    - { name: "gcc" }
+    - { name: "node" }
+    - { name: "gpg" }
+    - { name: "openssh" }
+    - { name: "powerlevel10k" }
+    - { name: "zsh-autosuggestions" }
+    - { name: "zsh-syntax-highlighting" }
+    - { name: "zsh-completions" }
+    - { name: "zsh-history-substring-search" }  
+    - { name: "zsh-autopair" }
   loop_control:
     loop_var: brew_package
 
 - name: Tap casks for Homebrew
   community.general.homebrew_tap:
-    name: "{{ homebrew_tap.name }}"
+    name: "{{ tap.name }}"
     state: present
   loop:
-    - { name: "homebrew/cask-fonts"}
-    - { name: "hashicorp/tap"}
+    - { name: "homebrew/cask-fonts" }
+    - { name: "hashicorp/tap" }
   loop_control:
-    loop_var: homebrew_tap
+    loop_var: tap
 
 - name: Install required packages via homebrew cask.
   community.general.homebrew_cask:
-    name: "{{ cask_package.name }}"
+    name: "{{ cask.name }}"
     state: latest
   loop:
-    - { name: "iterm2"}
-    - { name: "font-hack-nerd-font"}
-    - { name: "google-cloud-sdk"}
-    - { name: "terraform"}
-    - { name: "packer"}
-    - { name: "vault"}
+    - { name: "iterm2" }
+    - { name: "font-hack-nerd-font" }
+    - { name: "google-cloud-sdk" }
+    - { name: "terraform" }
+    - { name: "packer" }
+    - { name: "vault" }
   loop_control:
-    loop_var: cask_package
+    loop_var: cask
+
+- name: Set variable required_packages to true.
+  ansible.builtin.set_fact:
+    required_packages: true

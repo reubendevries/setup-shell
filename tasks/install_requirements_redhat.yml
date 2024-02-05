@@ -1,4 +1,8 @@
 ---
+- name: Set variable required_packages to true.
+  ansible.builtin.set_fact:
+    required_packages: true
+
 - name: Set variable required_packages to false.
   ansible.builtin.set_fact:
     required_packages: false
@@ -111,3 +115,7 @@
     - { name: "vault" } # TODO: if open source replacement becomes availabe, then we will replace.
   loop_control:
     loop_var: dnf_package
+
+- name: Set variable required_packages to true.
+  ansible.builtin.set_fact:
+    required_packages: true
