@@ -154,6 +154,10 @@
     clone: true
     update: true
 
+- name: Debug "{{ ansible_facts }}" 
+  ansible.builtin.debug:
+    msg: "{{ ansible_facts }}"
+
 - name: Make {{ ansible_facts['user_dir'] }}/.local/share/fonts dir.
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir']}}/.local/share/fonts"
