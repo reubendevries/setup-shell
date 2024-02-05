@@ -163,8 +163,8 @@
     path: "{{ ansible_facts['user_dir']}}/.local/share/fonts"
     state: directory
     mode: '0o700'
-    owner: "{{ ansible_facts['user'] }}"
-    group: "{{ ansible_facts['group'] }}" 
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['group_id'] }}" 
 
 - name: Install hack-nerd-font
   block:
@@ -183,8 +183,8 @@
       ansible.builtin.unarchive:
         src: /tmp/hack.zip
         dest: "{{ ansible_facts['user_dir']}}/.local/share/fonts/"
-        owner: "{{ ansible_facts['user'] }}"
-        group: "{{ ansible_facts['group'] }}"
+        owner: "{{ ansible_facts['user_id'] }}"
+        group: "{{ ansible_facts['group_id'] }}"
         mode: "0o600"
     
     - name: Clean up hack.zip file.
