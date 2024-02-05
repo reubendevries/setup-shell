@@ -3,6 +3,9 @@
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/{{ plugin.name }}"
     state: directory
+    mode: "0o700"
+    owner: "{{ ansible_facts['user'] }}"
+    group: "{{ ansible_facts['group'] }}"
   loop:
     - { name: "SimpylFold" }
     - { name: "indentpython" }
@@ -28,7 +31,9 @@
   ansible.builtin.copy:
     src: "{{ file.src }}"
     dest: "{{ file.dest }}"
-    mode: "0o644"
+    mode: "0o600"
+    owner: "{{ ansible_facts['user'] }}"
+    group: "{{ ansible_facts['group'] }}"
   loop:
     - { src: "../files/.inputrc", dest: "{{ ansible_facts['user_dir'] }}/.inputrc" } 
     - { src: "../files/.vimrc", dest: "{{ ansible_facts['user_dir'] }}/.vimrc" }

@@ -2,8 +2,10 @@
 - name: Get MesloLGS Fonts.
   ansible.builtin.get_url:
     url: "{{ font.url }}"
-    dest: "{{ ansible_facts['user_dir'] }}/Library/Fonts/{{ font.name }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/share/fonts/{{ font.name }}"
     mode: "0o644"
+    owner: "{{ ansible_facts['user'] }}"
+    group: "{{ ansible_facts['group'] }}"
   loop:
     - {url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf", name: "MesloLGS_NF_Regular.ttf"}
     - {url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf", name: "MesloLGS_NF_Bold.ttf"}
@@ -11,9 +13,12 @@
     - {url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf", name: "MesloLGS_NF_Bold_Italic.ttf"}
   loop_control:
     loop_var: font
+  when: ansible_facts["os_family"] | lower == "debian"
 
 - name: Copy PowerLevel10K configuration.
   ansible.builtin.copy:
     src: files/.p10k.zsh
     dest: "{{ ansible_facts['user_dir'] }}/.p10k.zsh"
     mode: "0o700"
+    owner: "{{ ansible_facts['user'] }}"
+    group: "{{ ansible_facts['group'] }}"

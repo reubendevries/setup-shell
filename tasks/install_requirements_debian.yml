@@ -154,6 +154,14 @@
     clone: true
     update: true
 
+- name: Make {{ ansible_facts['user_dir'] }}/.local/share/fonts dir.
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir']}}/.local/share/fonts"
+    state: directory
+    mode: '0o700'
+    owner: "{{ ansible_facts['user'] }}"
+    group: "{{ ansible_facts['group'] }}" 
+
 - name: Install hack-nerd-font
   block:
 
@@ -166,14 +174,14 @@
         group: root
         mode: "0o644"
     
-    - name: Copy hack-nerd-font into /usr/local/share/fonts/
+    - name: Copy hack-nerd-font into {{ ansible_facts['user_dir']}}/.local/share/fonts/"
       become: true
       ansible.builtin.unarchive:
         src: /tmp/hack.zip
-        dest: /usr/local/share/fonts/
-        owner: root
-        group: root
-        mode: "0o644"
+        dest: "{{ ansible_facts['user_dir']}}/.local/share/fonts/"
+        owner: "{{ ansible_facts['user'] }}"
+        group: "{{ ansible_facts['group'] }}"
+        mode: "0o600"
     
     - name: Clean up hack.zip file.
       become: true
