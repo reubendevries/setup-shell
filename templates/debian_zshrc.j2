@@ -11,7 +11,7 @@ prompt adam1
 
 setopt histignorealldups sharehistory
 
-export PATH=$"{{ ansible_facts['ansible_env']['PATH'] }}":"{{ ansible_facts['user_dir'] }}/.local/bin/"
+export PATH=$"{{ ansible_facts['env']['PATH'] }}":"{{ ansible_facts['user_dir'] }}/.local/bin/"
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
