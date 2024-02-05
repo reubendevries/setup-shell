@@ -4,8 +4,8 @@
     path: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/{{ plugin.name }}"
     state: directory
     mode: "0o700"
-    owner: "{{ ansible_facts['user_id'] }}"
-    group: "{{ ansible_facts['group_id'] }}"
+    owner: "{{ ansible_facts['user_uid'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
   loop:
     - { name: "SimpylFold" }
     - { name: "indentpython" }
@@ -32,8 +32,8 @@
     src: "{{ file.src }}"
     dest: "{{ file.dest }}"
     mode: "0o600"
-    owner: "{{ ansible_facts['user_id'] }}"
-    group: "{{ ansible_facts['group_id'] }}"
+    owner: "{{ ansible_facts['user_uid'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
   loop:
     - { src: "../files/.inputrc", dest: "{{ ansible_facts['user_dir'] }}/.inputrc" } 
     - { src: "../files/.vimrc", dest: "{{ ansible_facts['user_dir'] }}/.vimrc" }

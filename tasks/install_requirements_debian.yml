@@ -142,7 +142,7 @@
 - name: Update user to use ZSH instead of BASH.
   become: true
   ansible.builtin.user:
-    user: "{{ ansible_facts['user_id'] }}"
+    user: "{{ ansible_facts['user_uid'] }}"
     shell: "/usr/bin/zsh"
      
 
@@ -154,17 +154,13 @@
     clone: true
     update: true
 
-- name: Debug "{{ ansible_facts }}" 
-  ansible.builtin.debug:
-    msg: "{{ ansible_facts }}"
-
 - name: Make {{ ansible_facts['user_dir'] }}/.local/share/fonts dir.
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir']}}/.local/share/fonts"
     state: directory
     mode: '0o700'
-    owner: "{{ ansible_facts['user_id'] }}"
-    group: "{{ ansible_facts['group_id'] }}" 
+    owner: "{{ ansible_facts['user_uid'] }}"
+    group: "{{ ansible_facts['user_gid'] }}" 
 
 - name: Install hack-nerd-font
   block:
@@ -183,8 +179,8 @@
       ansible.builtin.unarchive:
         src: /tmp/hack.zip
         dest: "{{ ansible_facts['user_dir']}}/.local/share/fonts/"
-        owner: "{{ ansible_facts['user_id'] }}"
-        group: "{{ ansible_facts['group_id'] }}"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
         mode: "0o600"
     
     - name: Clean up hack.zip file.

@@ -4,8 +4,8 @@
     url: "{{ font.url }}"
     dest: "{{ ansible_facts['user_dir'] }}/.local/share/fonts/{{ font.name }}"
     mode: "0o644"
-    owner: "{{ ansible_facts['user_id'] }}"
-    group: "{{ ansible_facts['group_id'] }}"
+    owner: "{{ ansible_facts['user_uid'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
   loop:
     - {url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf", name: "MesloLGS_NF_Regular.ttf"}
     - {url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf", name: "MesloLGS_NF_Bold.ttf"}
@@ -21,4 +21,4 @@
     dest: "{{ ansible_facts['user_dir'] }}/.p10k.zsh"
     mode: "0o700"
     owner: "{{ ansible_facts['user_id'] }}"
-    group: "{{ ansible_facts['group_id'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"

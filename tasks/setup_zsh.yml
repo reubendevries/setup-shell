@@ -5,8 +5,8 @@
     src:  debian_zshrc.j2
     dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
     mode: "0o700"
-    owner: "{{ ansible_facts['user_id'] }}"
-    group: "{{ ansible_facts['group_id'] }}"
+    owner: "{{ ansible_facts['user_uid'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
   register: zshrc_copied
   notify: Source .zshrc
   when: ansible_facts["os_family"] | lower == "debian"
