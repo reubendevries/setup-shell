@@ -142,7 +142,7 @@
 - name: Update user to use ZSH instead of BASH.
   become: true
   ansible.builtin.user:
-    user: "{{ ansible_facts['user_uid'] }}"
+    user: "{{ ansible_facts['user_id'] }}"
     shell: "/usr/bin/zsh"
      
 
