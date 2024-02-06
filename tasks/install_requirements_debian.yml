@@ -110,7 +110,7 @@
 - name: Add preferences to use deb over snapd
   become: true
   ansible.builtin.template:
-    path: "apt_template.j2"
+    src: "apt_template.j2"
     dest: "/etc/apt/preferences.d/{{ file.name }}"
     owner: root
     group: root
