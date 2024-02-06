@@ -27,7 +27,7 @@
   loop_control:
     loop_var: plugin
 
-- name: Copy files to {{ ansible_facts['user_dir'] }}
+- name: "Copy files to {{ ansible_facts['user_dir'] }}"
   ansible.builtin.copy:
     src: "{{ file.src }}"
     dest: "{{ file.dest }}"

@@ -1,6 +1,6 @@
 ---
 
-- name: Copy .zshrc configuration.
+- name: "Copy .zshrc configuration on {{ ansible_facts['system'] | lower }} systems."
   ansible.builtin.template:
     src:  "nix_zshrc.j2"
     dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
@@ -11,9 +11,9 @@
   notify:
     - "Remove .zcompdump file"
     - "Run commands to init zsh add-ons"
-  when: ansible_facts["system"] | lower == "linux"
+  when: ansible_facts['system'] | lower == 'linux'
 
-- name: Copy .zshrc configuration.
+- name: "Copy .zshrc configuration on {{ ansible_facts['os_family'] | lower }} systems."
   ansible.builtin.template:
     src:  "darwin_zshrc.j2"
     dest: "{{ ansible_facts['user_dir'] }}/.zshrc"

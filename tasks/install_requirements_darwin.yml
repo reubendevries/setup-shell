@@ -1,9 +1,9 @@
 ---
-- name: Set variable required_packages to true.
+- name: "Set variable required_packages to true."
   ansible.builtin.set_fact:
     required_packages: false
 
-- name: Get get installation script.
+- name: "Get get installation script."
   ansible.builtin.get_url:
     url: "{{ script.url }}"
     dest: "{{ script.name }}"
@@ -17,11 +17,11 @@
   register: download_homebrew
   notify: Install homebrew from script.
 
-- name: Flush Handlers
+- name: "Flush Handlers"
   ansible.builtin.meta: flush_handlers
   when: download_homebrew is changed
 
-- name: Install required packages via homebrew.
+- name: "Install required packages via homebrew."
   community.general.homebrew:
     name: "{{ brew_package.name }}"
     state: latest
@@ -47,7 +47,7 @@
   loop_control:
     loop_var: brew_package
 
-- name: Tap casks for Homebrew
+- name: "Tap casks for Homebrew"
   community.general.homebrew_tap:
     name: "{{ tap.name }}"
     state: present
@@ -57,7 +57,7 @@
   loop_control:
     loop_var: tap
 
-- name: Install required packages via homebrew cask.
+- name: "Install required packages via homebrew cask."
   community.general.homebrew_cask:
     name: "{{ cask.name }}"
     state: latest
@@ -71,6 +71,6 @@
   loop_control:
     loop_var: cask
 
-- name: Set variable required_packages to true.
+- name: "Set variable required_packages to true."
   ansible.builtin.set_fact:
     required_packages: true

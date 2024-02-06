@@ -1,16 +1,12 @@
 ---
-- name: Set variable required_packages to true.
-  ansible.builtin.set_fact:
-    required_packages: true
-
-- name: Set variable required_packages to false.
+- name: "Set variable required_packages to false."
   ansible.builtin.set_fact:
     required_packages: false
 
-- name: Get repositories gpg key and add repositories for required packages.
+- name: "Get repositories gpg key and add repositories for required packages."
   block:
 
-    - name: Add repositories gpg key for required packages.
+    - name: "Add repositories gpg key for required packages."
       ansible.builtin.get_url:
         url: "{{ key.url }}"
         dest: "/etc/pki/rpm-gpg/{{ key.dest }}"
@@ -41,11 +37,10 @@
             url: "https://raw.githubusercontent.com/eza-community/eza/main/deb.asc",
             dest: "eza-community.asc"
           }
-        
       loop_control:
         loop_var: key
 
-    - name: Add repositories for required packages.
+    - name: "Add repositories for required packages."
       ansible.builtin.yum_repository:
         baseurl: "{{ repository.baseurl }}"
         state: present
@@ -84,7 +79,7 @@
       loop_control:
         loop_var: repository
 
-- name: Install required packages via dnf.
+- name: "Install required packages via dnf."
   ansible.builtin.dnf:
     name: "{{ dnf_package.name }}"
     state: latest
@@ -99,11 +94,6 @@
     - { name: "node" }
     - { name: "gpg" }
     - { name: "openssh" }
-    - { name: "powerlevel10k" }
-    - { name: "zsh-autosuggestions" }
-    - { name: "zsh-syntax-highlighting" }
-    - { name: "zsh-completions" }
-    - { name: "zsh-history-substring-search" }
     - { name: "konsole" }
     - { name: "code" }
     - { name: "google-cloud-sdk" }
@@ -116,6 +106,6 @@
   loop_control:
     loop_var: dnf_package
 
-- name: Set variable required_packages to true.
+- name: "Set variable required_packages to true."
   ansible.builtin.set_fact:
     required_packages: true

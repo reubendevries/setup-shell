@@ -1,9 +1,9 @@
 ---
-- name: Set variable required_packages to false.
+- name: "Set variable required_packages to false."
   ansible.builtin.set_fact:
     required_packages: false
 
-- name: Add repostiories gpg key and add the repositories for all required packages.
+- name: "Add repostiories gpg key and add the repositories for all required packages."
   become: true
   ansible.builtin.deb822_repository:
     name: "{{ repo.name }}"
@@ -75,7 +75,7 @@
   loop_control:
     loop_var: repo
 
-- name: Add preferences to use deb over snapd
+- name: "Add preferences to use deb over snapd"
   become: true
   ansible.builtin.template:
     src: "apt_template.j2"
@@ -95,13 +95,13 @@
   loop_control:
     loop_var: file
 
-- name: update apt cache before downloading pacakges.
+- name: "update apt cache before downloading pacakges."
   become: true
   ansible.builtin.apt:
     update_cache: true
   register: apt_cache_updated
 
-- name: Install required packages via apt.
+- name: "Install required packages via apt."
   become: true
   ansible.builtin.apt:
     name: "{{ apt_package.name }}"
@@ -132,16 +132,16 @@
     loop_var: apt_package
   when: apt_cache_updated is changed
 
-- name: Update user to use /usr/bin/zsh instead of /bin/bash.
+- name: "Update user to use /usr/bin/zsh instead of /bin/bash."
   become: true
   ansible.builtin.user:
     user: "{{ ansible_facts['user_id'] }}"
     shell: "/usr/bin/zsh"
 
-- name: Setup /usr/bin/zsh add-ons
+- name: "Setup /usr/bin/zsh add-ons"
   block:
 
-    - name: Create .zsh directory.
+    - name: "Create directories for zsh add-ons."
       ansible.builtin.file:
         path: "{{ ansible_facts['user_dir'] }}/{{ dir.path }}"
         state: directory
@@ -160,7 +160,7 @@
         loop_var: dir
 
 
-    - name: Git clone for zsh add-ons.
+    - name: "Git clone for zsh add-ons."
       ansible.builtin.git:
         repo: "{{ addon.repo }}"
         dest: "{{ ansible_facts['user_dir'] }}/.zsh/{{ addon.dest }}"
@@ -195,7 +195,7 @@
       loop_control:
         loop_var: addon
 
-- name: Install hack-nerd-font
+- name: "Install hack-nerd-font"
   block:
 
     - name: Make {{ ansible_facts['user_dir'] }}/.local/share/fonts dir.
@@ -230,6 +230,6 @@
         path: /tmp/hack.zip
         state: absent
 
-- name: Set variable required_packages to true.
+- name: "Set variable required_packages to true."
   ansible.builtin.set_fact:
     required_packages: true

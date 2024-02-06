@@ -1,5 +1,5 @@
 ---
-- name: Install MesloLGS Fonts on "{{ ansible_facts['os_family'] }} systems"
+- name: Install MesloLGS Fonts on "{{ ansible_facts['system'] | lower }} systems"
   ansible.builtin.get_url:
     url: "{{ font.url }}"
     dest: "{{ ansible_facts['user_dir'] }}/.local/share/fonts/{{ font.name }}"
@@ -13,9 +13,9 @@
     - {url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf", name: "MesloLGS_NF_Bold_Italic.ttf"}
   loop_control:
     loop_var: font
-  when: ansible_facts["os_family"] | lower == "debian"
+  when: ansible_facts['system'] | lower == 'linux'
 
-- name: Install MesloLGS Fonts on "{{ ansible_facts['os_family'] }} systems"
+- name: "Install MesloLGS Fonts on {{ ansible_facts['os_family'] | lower }} systems"
   ansible.builtin.get_url:
     url: "{{ font.url }}"
     dest: "{{ ansible_facts['user_dir'] }}/Library/Fonts/{{ font.name }}"
