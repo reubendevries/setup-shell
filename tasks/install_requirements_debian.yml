@@ -25,6 +25,14 @@
         components: "main"
       }
     - {
+        name: "firefox",
+        types: "deb",
+        uris: "https://packages.mozilla.org/apt",
+        signed_by: https://packages.mozilla.org/apt/repo-signing-key.gpg,
+        suites: "mozilla",
+        components: "main"
+      }
+    - {
         name: "opentofu",
         types: ["deb", "deb-src"],
         uris: "https://packages.opentofu.org/opentofu/tofu/any/",
@@ -111,6 +119,7 @@
     name: "{{ apt_package.name }}"
     state: latest
   loop:
+    - { name: "firefox" }
     - { name: "vim"}
     - { name: "zsh"}
     - { name: "ruby"}
