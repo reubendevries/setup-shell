@@ -1,7 +1,9 @@
 ---
 - name: "Remove .zcompdump file"
   ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir']/.zcompdump"
+    path: "{{ ansible_facts['user_dir'] }}/.zcompdump"
+    owner: "{{ ansible_facts['user_uid'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
     state: absent
 
 - name: "Run commands to init zsh add-ons"
