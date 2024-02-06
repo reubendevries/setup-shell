@@ -10,7 +10,6 @@
   register: zshrc_copied
   notify:
     - "Remove .zcompdump file"
-    - "Run commands to init zsh add-ons"
   when: ansible_facts['system'] | lower == 'linux'
 
 - name: "Copy .zshrc configuration on {{ ansible_facts['os_family'] | lower }} systems."
@@ -22,7 +21,6 @@
     group: "{{ ansible_facts['user_gid'] }}"
   register: zshrc_copied
   notify:
-    - "Remove .zcompdump file"
     - "Run commands to init zsh add-ons"
   when: ansible_facts["os_family"] | lower  == "darwin"
 

@@ -19,7 +19,7 @@
   ansible.builtin.include_tasks:
     file: "{{ item }}"
   with_items:
-    - setup_zsh.yml
     - setup_powerlevel_10k.yml
+    - setup_zsh.yml
     - setup_vim.yml
 

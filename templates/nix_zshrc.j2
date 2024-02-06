@@ -44,7 +44,7 @@ zstyle ':completion:*:kill:*' command 'ps -u "{{ ansible_facts['env']['USER'] }}
 
 ### zsh addons
 source "{{ ansible_facts['user_dir'] }}/.zsh/powerlevel10k/powerlevel10k.zsh-theme"
-source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-autopair/autopair.zsh
+source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-autopair/autopair.zsh"
 source "{{ ansible_facts['user_dir'] }}/.zsh//zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "{{ ansible_facts['user_dir'] }}//.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "{{ ansible_facts['user_dir'] }}//.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"

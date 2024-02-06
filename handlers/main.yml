@@ -11,6 +11,7 @@
     executable: /bin/bash
   loop:
     - { cmd: "source {{ ansible_facts['user_dir'] }}/.zshrc" }
+    - { cmd: "source {{ ansible_facts['user_dir'] }}/.p10k.zsh" }
     - { cmd: "autopair-init" }
     - { cmd: "compinit" }
   loop_control:
