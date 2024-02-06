@@ -9,7 +9,7 @@
     group: "{{ ansible_facts['user_gid'] }}"
   register: zshrc_copied
   notify: Source .zshrc
-  when: ansible_facts["os_family"] | lower == "debian"
+  when: ansible_facts["system"] | lower == "linux"
 
 - name: Flush Handlers
   ansible.builtin.meta: flush_handlers
