@@ -4,4 +4,9 @@
     cmd: "source {{ ansible_facts['user_dir'] }}/.zshrc"
   args:
     executable: /bin/bash
-  when: zshrc_copied is changed
+
+- name: Install homebrew from script.
+  ansible.builtin.shell:
+    cmd: /tmp/homebrew.sh
+  args:
+    executable: /bin/zsh

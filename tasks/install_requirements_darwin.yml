@@ -14,10 +14,12 @@
     - { url: "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh", name: "/tmp/homebrew.sh" }
   loop_control:
     loop_var: script
+  register: download_homebrew
+  notify: Install homebrew from script.
 
-- name: Install homebrew from script.
-  ansible.builtin.shell:
-    cmd: /bin/bash /tmp/homebrew.sh
+- name: Flush Handlers
+  ansible.builtin.meta: flush_handlers
+  when: download_homebrew is changed
 
 - name: Install required packages via homebrew.
   community.general.homebrew:

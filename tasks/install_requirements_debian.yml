@@ -3,6 +3,10 @@
   ansible.builtin.set_fact:
     required_packages: false
 
+- name: Debug ansible_facts.
+  ansible.builtin.debug:
+    msg: "{{ ansible_facts }}"
+
 - name: Add repostiories gpg key and add the repositories for all required packages.
   become: true
   ansible.builtin.deb822_repository:
@@ -222,37 +226,13 @@
       ansible.builtin.file:
         path: /tmp/hack.zip
         state: absent
-
-- name: Manually install zsh-autopair.
-  block:
     
-    - name: Download zsh-autopair from github.com
-      ansible.builtin.git:
-        repo: git@github.com:hlissner/zsh-autopair.git
-        dest: "{{ ansible_facts['user_dir'] }}/.zsh-autopair/"
-        clone: true
-        update: true
-      tags:
-        - debug
-    
-    - name: Check if .zshrc exists.
-      ansible.builtin.stat:
-        path: $HOME/.zshrc
-      register: config
-      tags:
-        - debug
-    
-    - name: Debug config variable
-      ansible.builtin.debug:
-        msg: config.stat
-      tags:
-        - debug
-
-    - name: Find in file source $HOME/.zsh-autopair/autopair.zsh
-      ansible.builtin.file:
-      when: config.stat.isfile is defined and config.stat.isfile
-      tags:
-        - debug
+- name: Download zsh-autopair from github.com
+  ansible.builtin.git:
+    repo: git@github.com:hlissner/zsh-autopair.git
+    dest: "{{ ansible_facts['user_dir'] }}/.zsh-autopair/"
+    clone: true
+    update: true
 
 - name: Set variable required_packages to true.
   ansible.builtin.set_fact:

@@ -28,15 +28,15 @@
     loop_var: plugin
 
 - name: Copy files to {{ ansible_facts['user_dir'] }}
-  ansible.builtin.template:
+  ansible.builtin.copy:
     src: "{{ file.src }}"
     dest: "{{ file.dest }}"
     mode: "0o600"
     owner: "{{ ansible_facts['user_uid'] }}"
     group: "{{ ansible_facts['user_gid'] }}"
   loop:
-    - { src: ".inputrc.j2", dest: "{{ ansible_facts['user_dir'] }}/.inputrc" } 
-    - { src: ".vimrc.j2", dest: "{{ ansible_facts['user_dir'] }}/.vimrc" }
+    - { src: ".inputrc", dest: "{{ ansible_facts['user_dir'] }}/.inputrc" } 
+    - { src: ".vimrc", dest: "{{ ansible_facts['user_dir'] }}/.vimrc" }
   loop_control:
     loop_var: file
 

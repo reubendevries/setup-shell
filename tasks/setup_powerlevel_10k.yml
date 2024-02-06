@@ -32,8 +32,8 @@
   when: ansible_facts["os_family"] | lower == "darwin"
 
 - name: Copy PowerLevel10K configuration.
-  ansible.builtin.template:
-    src: ".p10k.zsh.j2"
+  ansible.builtin.copy:
+    src: ".p10k.zsh"
     dest: "{{ ansible_facts['user_dir'] }}/.p10k.zsh"
     mode: "0o700"
     owner: "{{ ansible_facts['user_id'] }}"
