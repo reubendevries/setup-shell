@@ -2,7 +2,7 @@
 
 - name: Copy .zshrc configuration.
   ansible.builtin.template:
-    src:  "debian_zshrc.j2"
+    src:  "nix_zshrc.j2"
     dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
     mode: "0o700"
     owner: "{{ ansible_facts['user_uid'] }}"

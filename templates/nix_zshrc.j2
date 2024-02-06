@@ -49,5 +49,9 @@ source "{{ ansible_facts['user_dir'] }}/powerlevel10k/powerlevel10k.zsh-theme"
 # powerlevel10k settings
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
+if [[ -r "{{ ansible_facts['env']['XDG_CACHE_HOME'] }}":"-{{ ansible_facts['home_dir'] }}/.cache/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+      source "{{ ansible_facts['env']['XDG_CACHE_HOME'] }}":"-{{ ansible_facts['home_dir'] }}/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # To customize prompt, run `p10k configure` or edit "{{ ansible_facts['user_dir'] }}/.p10k.zsh"
 [[ ! -f {{ ansible_facts['user_dir'] }}/.p10k.zsh ]] || source {{ ansible_facts['user_dir'] }}/.p10k.zsh
