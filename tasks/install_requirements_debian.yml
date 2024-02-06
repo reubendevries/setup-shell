@@ -49,38 +49,6 @@
         components: "main"
       }
     - {
-        name: "zsh-completions",
-        types: ["deb"],
-        uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/xUbuntu_22.04/",
-        signed_by: "https://download.opensuse.org/repositories/shells:zsh-users:zsh-completions/xUbuntu_22.04/Release.key",
-        suites: "/",
-        components:
-      }
-    - {
-        name: "zsh-autosuggestions",
-        types: ["deb"],
-        uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-autosuggestions/xUbuntu_22.04/",
-        signed_by: "https://download.opensuse.org/repositories/shells:zsh-users:/zsh-autosuggestions/xUbuntu_22.04/Release.key",
-        suites: "/",
-        components:
-      }
-    - {
-        name: "zsh-history-substring-search",
-        types: ["deb"],
-        uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/xUbuntu_22.04/",
-        signed_by: "https://download.opensuse.org/repositories/shells:zsh-users:zsh-history-substring-search/xUbuntu_22.04/Release.key",
-        suites: "/",
-        components:
-      }
-    - {
-        name: "zsh-syntax-highlighting",
-        types: ["deb"],
-        uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-syntax-highlighting/xUbuntu_22.04/",
-        signed_by: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-syntax-highlighting/xUbuntu_22.04/Release.key",
-        suites: "/",
-        components:
-      }
-    - {
         name: "google-cloud",
         types: ["deb"],
         uris: "https://packages.cloud.google.com/apt/",
@@ -120,17 +88,12 @@
     - { name: "firefox", url: "packages.mozilla.org" }
     - { name: "opentofu", url: "packages.opentofu.org" }
     - { name: "hashicorp", url: "releases.hashicorp.com" }
-    - { name: "zsh-completions", url: "download.opensuse.org" }
-    - { name: "zsh-autosuggestions", url: "download.opensuse.org" }
-    - { name: "zsh-history-substring-search", url: "download.opensuse.org" }
-    - { name: "zsh-syntax-highlighting", url: "download.opensuse.org" }
     - { name: "google-cloud", url: "packages.cloud.google.com" }
     - { name: "microsoft", url: "packages.microsoft.com" }
     - { name: "eza-community", url: "gierens.de" }
 
   loop_control:
     loop_var: file
-
 
 - name: update apt cache before downloading pacakges.
   become: true
@@ -156,10 +119,6 @@
     - { name: "gpg" }
     - { name: "openssh-server" }
     - { name: "zsh" }
-    - { name: "zsh-autosuggestions" }
-    - { name: "zsh-syntax-highlighting" }
-    - { name: "zsh-completions" }
-    - { name: "zsh-history-substring-search" }
     - { name: "konsole" }
     - { name: "codium" }
     - { name: "google-cloud-sdk" }
@@ -173,31 +132,79 @@
     loop_var: apt_package
   when: apt_cache_updated is changed
 
-- name: Update user to use ZSH instead of BASH.
+- name: Update user to use /usr/bin/zsh instead of /bin/bash.
   become: true
   ansible.builtin.user:
     user: "{{ ansible_facts['user_id'] }}"
     shell: "/usr/bin/zsh"
-     
 
-- name: Git clone PowerLevel10k for zsh.
-  ansible.builtin.git:
-    repo: "git@github.com:romkatv/powerlevel10k.git"
-    dest: "{{ ansible_facts['user_dir'] }}/powerlevel10k/"
-    version: "master"
-    clone: true
-    update: true
+- name: Setup /usr/bin/zsh add-ons
+  block:
 
-- name: Make {{ ansible_facts['user_dir'] }}/.local/share/fonts dir.
-  ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir']}}/.local/share/fonts"
-    state: directory
-    mode: '0o700'
-    owner: "{{ ansible_facts['user_uid'] }}"
-    group: "{{ ansible_facts['user_gid'] }}" 
+    - name: Create .zsh directory.
+      ansible.builtin.file:
+        path: "{{ ansible_facts['user_dir'] }}/{{ dir.path }}"
+        state: directory
+        mode: "0o700"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+      loop:
+        - { path: ".zsh/" }
+        - { path: ".zsh/powerlevel10k/" }
+        - { path: ".zsh/zsh-autopair"}
+        - { path: ".zsh/zsh-autosuggestions/" }
+        - { path: ".zsh/zsh-syntax-highlighting/" }
+        - { path: ".zsh/zsh-completions/" }
+        - { path: ".zsh/zsh-history-substring-search/" }
+      loop_control:
+        loop_var: dir
+
+
+    - name: Git clone for zsh add-ons.
+      ansible.builtin.git:
+        repo: "{{ addon.repo }}"
+        dest: "{{ ansible_facts['user_dir'] }}/.zsh/{{ addon.dest }}"
+        version: "master"
+        clone: true
+        update: true
+      loop:
+        - { 
+            repo: "git@github.com:romkatv/powerlevel10k.git", 
+            dest: "powerlevel10k/"
+          }
+        - {
+            repo: git@github.com:hlissner/zsh-autopair,
+            dest: "zsh-autopair/"
+          }
+        - {
+            repo: "git@github.com:zsh-users/zsh-autosuggestions",
+            dest: "zsh-autosuggestions/"
+          }
+        - {
+            repo: "git@github.com:zsh-users/zsh-syntax-highlighting.git",
+            dest: "zsh-syntax-highlighting/"
+          }
+        - {
+            repo: "git@github.com:zsh-users/zsh-history-substring-search",
+            dest: "zsh-history-substring-search/"
+          }
+        - {
+            repo: "git@github.com:zsh-users/zsh-completions.git",
+            dest: "zsh-completions/"
+          }
+      loop_control:
+        loop_var: addon
 
 - name: Install hack-nerd-font
   block:
+
+    - name: Make {{ ansible_facts['user_dir'] }}/.local/share/fonts dir.
+      ansible.builtin.file:
+        path: "{{ ansible_facts['user_dir']}}/.local/share/fonts"
+        state: directory
+        mode: '0o700'
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}" 
 
     - name: Download hack-nerd-font
       become: true
@@ -222,13 +229,6 @@
       ansible.builtin.file:
         path: /tmp/hack.zip
         state: absent
-    
-- name: Download zsh-autopair from github.com
-  ansible.builtin.git:
-    repo: git@github.com:hlissner/zsh-autopair.git
-    dest: "{{ ansible_facts['user_dir'] }}/.zsh-autopair/"
-    clone: true
-    update: true
 
 - name: Set variable required_packages to true.
   ansible.builtin.set_fact:

@@ -8,8 +8,23 @@
     owner: "{{ ansible_facts['user_uid'] }}"
     group: "{{ ansible_facts['user_gid'] }}"
   register: zshrc_copied
-  notify: Source .zshrc
+  notify:
+    - "Remove .zcompdump file"
+    - "Run commands to init zsh add-ons"
   when: ansible_facts["system"] | lower == "linux"
+
+- name: Copy .zshrc configuration.
+  ansible.builtin.template:
+    src:  "darwin_zshrc.j2"
+    dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
+    mode: "0o700"
+    owner: "{{ ansible_facts['user_uid'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
+  register: zshrc_copied
+  notify:
+    - "Remove .zcompdump file"
+    - "Run commands to init zsh add-ons"
+  when: ansible_facts["os_family"] | lower  == "darwin"
 
 - name: Flush Handlers
   ansible.builtin.meta: flush_handlers

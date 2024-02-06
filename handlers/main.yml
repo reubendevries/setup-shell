@@ -1,9 +1,20 @@
 ---
-- name: Source .zshrc
+- name: "Remove .zcompdump file"
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir']/.zcompdump"
+    state: absent
+
+- name: "Run commands to init zsh add-ons"
   ansible.builtin.shell:
-    cmd: "source {{ ansible_facts['user_dir'] }}/.zshrc"
+    cmd: "{{ shell.cmd }}"
   args:
     executable: /bin/bash
+  loop:
+    - { cmd: "source {{ ansible_facts['user_dir'] }}/.zshrc" }
+    - { cmd: "autopair-init" }
+    - { cmd: "compinit" }
+  loop_control:
+    loop_var: shell
 
 - name: Install homebrew from script.
   ansible.builtin.shell:
