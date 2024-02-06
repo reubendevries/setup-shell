@@ -73,7 +73,7 @@
         components:
       }
     - {
-        name: "zzsh-syntax-highlighting",
+        name: "zsh-syntax-highlighting",
         types: ["deb"],
         uris: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-syntax-highlighting/xUbuntu_22.04/",
         signed_by: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-syntax-highlighting/xUbuntu_22.04/Release.key",
@@ -106,6 +106,31 @@
       }  
   loop_control:
     loop_var: repo
+
+- name: Add preferences to use deb over snapd
+  become: true
+  ansible.builtin.template:
+    path: "apt_template.j2"
+    dest: "/etc/apt/preferences.d/{{ file.name }}"
+    owner: root
+    group: root
+    mode: "0o644"
+  loop:
+    - { name: "vscodium", url: "download.vscodium.com" }
+    - { name: "firefox", url: "packages.mozilla.org" }
+    - { name: "opentofu", url: "packages.opentofu.org" }
+    - { name: "hashicorp", url: "releases.hashicorp.com" }
+    - { name: "zsh-completions", url: "download.opensuse.org" }
+    - { name: "zsh-autosuggestions", url: "download.opensuse.org" }
+    - { name: "zsh-history-substring-search", url: "download.opensuse.org" }
+    - { name: "zsh-syntax-highlighting", url: "download.opensuse.org" }
+    - { name: "google-cloud", url: "packages.cloud.google.com" }
+    - { name: "microsoft", url: "packages.microsoft.com" }
+    - { name: "eza-community", url: "gierens.de" }
+
+  loop_control:
+    loop_var: file
+
 
 - name: update apt cache before downloading pacakges.
   become: true
