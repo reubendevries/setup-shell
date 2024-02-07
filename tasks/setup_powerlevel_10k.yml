@@ -38,5 +38,3 @@
     mode: "0o700"
     owner: "{{ ansible_facts['user_id'] }}"
     group: "{{ ansible_facts['user_gid'] }}"
-  notify: "Run commands to init zsh add-ons"
-  

@@ -43,12 +43,13 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u "{{ ansible_facts['env']['USER'] }}" -o pid,%cpu,tty,cputime,cmd'
 
 ### zsh addons
-source {{ ansible_facts['user_dir'] }}/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+
 source {{ ansible_facts['user_dir'] }}/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 source {{ ansible_facts['user_dir'] }}/.zsh//zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source {{ ansible_facts['user_dir'] }}//.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source {{ ansible_facts['user_dir'] }}//.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 fpath+=({{ ansible_facts['user_dir'] }}/.zsh/zsh-completions/src $fpath)
+source {{ ansible_facts['user_dir'] }}/.p10k.zsh
 
 ### powerlevel10k settings
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
