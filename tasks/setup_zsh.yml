@@ -1,4 +1,7 @@
 ---
+- name: "Set variable setup_powerlevel10k to false."
+  ansible.builtin.set_fact:
+    setup_zsh: false
 
 - name: "Copy .zshrc configuration on {{ ansible_facts['system'] | lower }} systems."
   ansible.builtin.template:
@@ -27,4 +30,8 @@
 - name: Flush Handlers
   ansible.builtin.meta: flush_handlers
   when: zshrc_copied is changed
+
+- name: "Set variable setup_powerlevel10k to true."
+  ansible.builtin.set_fact:
+    setup_zsh: true
   

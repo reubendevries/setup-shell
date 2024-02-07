@@ -17,10 +17,15 @@
 
 - name: Setup shell for *nix type systems.  
   ansible.builtin.include_tasks:
-    file: "{{ item }}"
-  with_items:
-    - setup_powerlevel_10k.yml
-    - setup_zsh.yml
-    - setup_vim.yml
+    file: setup_powerlevel_10k.yml
   when: required_packages is true
 
+- name: Setup zsh.
+  ansible.builtin.include_tasks:
+    file: setup_zsh.yml
+  when: setup_powerlevel10k is true
+
+- name: Setup vim.
+  ansible.builtin.include_tasks:
+    file: setup_vim.yml
+  when: setup_zsh is true
