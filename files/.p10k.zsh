@@ -37,7 +37,7 @@
     vcs                     # git status
     # =========================[ Line #2 ]=========================
     newline                 # \n
-    prompt_char           # prompt symbol
+    # prompt_char           # prompt symbol
   )
 
   # The list of segments shown on the right. Fill it with less important segments.
@@ -95,18 +95,18 @@
     midnight_commander      # midnight commander shell (https://midnight-commander.org/)
     nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
     vi_mode                 # vi mode (you don"t need this if you"ve enabled prompt_char)
-    vpn_ip                  # virtual private network indicator
-    load                    # CPU load
-    disk_usage              # disk usage
-    ram                     # free RAM
-    swap                    # used swap
-    todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
+    #vpn_ip                  # virtual private network indicator
+    #load                    # CPU load
+    #disk_usage              # disk usage
+    #ram                     # free RAM
+    #swap                    # used swap
+    #todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
     timewarrior             # timewarrior tracking status (https://timewarrior.net/)
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
-    cpu_arch                # CPU architecture
+    #cpu_arch                # CPU architecture
     time                    # current time
     # =========================[ Line #2 ]=========================
-    newline                 # \n
+    #newline                 # \n
     #ip                    # ip address and bandwidth usage for a specified network interface
     #public_ip             # public IP address
     #proxy                 # system-wide http/https/ftp proxy
