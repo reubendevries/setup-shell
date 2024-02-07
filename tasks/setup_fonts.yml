@@ -1,0 +1,77 @@
+- name: "Set variable install_fonts to false."
+  ansible.builtin.set_fact:
+    install_fonts: false
+
+- name: Make {{ ansible_facts['user_dir'] }}/.local/share/fonts dir.
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir']}}/.local/share/fonts"
+    state: directory
+    mode: '0o700'
+    owner: "{{ ansible_facts['user_uid'] }}"
+    group: "{{ ansible_facts['user_gid'] }}" 
+
+- name: "Install hack-nerd-font"
+  block:
+
+    - name: Download hack-nerd-font
+      become: true
+      ansible.builtin.get_url:
+        url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip
+        dest: /tmp/hack.zip
+        owner: root
+        group: root
+        mode: "0o644"
+    
+    - name: Copy hack-nerd-font into {{ ansible_facts['user_dir']}}/.local/share/fonts/"
+      become: true
+      ansible.builtin.unarchive:
+        src: /tmp/hack.zip
+        dest: "{{ ansible_facts['user_dir']}}/.local/share/fonts/"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+        mode: "0o600"
+    
+    - name: Clean up hack.zip file.
+      become: true
+      ansible.builtin.file:
+        path: /tmp/hack.zip
+        state: absent
+
+- name: "Install MesloLGS Fonts"
+  block:
+
+    - name: Install MesloLGS Fonts on "{{ ansible_facts['system'] | lower }} systems"
+      ansible.builtin.get_url:
+        url: "{{ font.url }}"
+        dest: "{{ ansible_facts['user_dir'] }}/.local/share/fonts/{{ font.name }}"
+        mode: "0o644"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+      loop:
+        - {url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf", name: "MesloLGS_NF_Regular.ttf"}
+        - {url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf", name: "MesloLGS_NF_Bold.ttf"}
+        - {url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf", name: "MesloLGS_NF_Italic.ttf"}
+        - {url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf", name: "MesloLGS_NF_Bold_Italic.ttf"}
+      loop_control:
+        loop_var: font
+      when: ansible_facts['system'] | lower == 'linux'
+
+    - name: "Install MesloLGS Fonts on {{ ansible_facts['os_family'] | lower }} systems"
+      ansible.builtin.get_url:
+        url: "{{ font.url }}"
+        dest: "{{ ansible_facts['user_dir'] }}/Library/Fonts/{{ font.name }}"
+        mode: "0o644"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+      loop:
+        - {url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf", name: "MesloLGS_NF_Regular.ttf"}
+        - {url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf", name: "MesloLGS_NF_Bold.ttf"}
+        - {url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf", name: "MesloLGS_NF_Italic.ttf"}
+        - {url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf", name: "MesloLGS_NF_Bold_Italic.ttf"}
+      loop_control:
+        loop_var: font
+      when: ansible_facts["os_family"] | lower == "darwin"
+
+- name: "Set variable install_fonts to true."
+  ansible.builtin.set_fact:
+    install_fonts: true

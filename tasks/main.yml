@@ -15,17 +15,22 @@
     file: install_requirements_redhat.yml
   when: ansible_facts["os_family"] | lower == "redhat"
 
-- name: Setup shell for *nix type systems.  
+- name: Setup Powerlevel10K for *nix type systems.  
   ansible.builtin.include_tasks:
-    file: setup_powerlevel_10k.yml
+    file: setup_fonts.yml
   when: required_packages is true
 
-- name: Setup zsh.
+- name: Setup Powerlevel10K for *nix type systems.  
+  ansible.builtin.include_tasks:
+    file: setup_powerlevel_10k.yml
+  when: install_fonts is true
+
+- name: Setup zsh for *nix type systems.
   ansible.builtin.include_tasks:
     file: setup_zsh.yml
   when: setup_powerlevel10k is true
 
-- name: Setup vim.
+- name: Setup vim for *nix type systems.
   ansible.builtin.include_tasks:
     file: setup_vim.yml
   when: setup_zsh is true

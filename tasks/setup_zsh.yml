@@ -3,6 +3,69 @@
   ansible.builtin.set_fact:
     setup_zsh: false
 
+- name: "Update user to use /usr/bin/zsh instead of /bin/bash."
+  become: true
+  ansible.builtin.user:
+    user: "{{ ansible_facts['user_id'] }}"
+    shell: "/usr/bin/zsh"
+
+- name: "Setup /usr/bin/zsh add-ons"
+  block:
+
+    - name: "Create directories for zsh add-ons."
+      ansible.builtin.file:
+        path: "{{ ansible_facts['user_dir'] }}/{{ dir.path }}"
+        state: directory
+        mode: "0o700"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+      loop:
+        - { path: ".zsh/" }
+        - { path: ".zsh/powerlevel10k/" }
+        - { path: ".zsh/zsh-autopair"}
+        - { path: ".zsh/zsh-autosuggestions/" }
+        - { path: ".zsh/zsh-syntax-highlighting/" }
+        - { path: ".zsh/zsh-completions/" }
+        - { path: ".zsh/zsh-history-substring-search/" }
+      loop_control:
+        loop_var: dir
+
+
+    - name: "Git clone for zsh add-ons."
+      ansible.builtin.git:
+        repo: "{{ addon.repo }}"
+        dest: "{{ ansible_facts['user_dir'] }}/.zsh/{{ addon.dest }}"
+        version: "master"
+        clone: true
+        update: true
+      loop:
+        - { 
+            repo: "git@github.com:romkatv/powerlevel10k.git", 
+            dest: "powerlevel10k/"
+          }
+        - {
+            repo: git@github.com:hlissner/zsh-autopair,
+            dest: "zsh-autopair/"
+          }
+        - {
+            repo: "git@github.com:zsh-users/zsh-autosuggestions",
+            dest: "zsh-autosuggestions/"
+          }
+        - {
+            repo: "git@github.com:zsh-users/zsh-syntax-highlighting.git",
+            dest: "zsh-syntax-highlighting/"
+          }
+        - {
+            repo: "git@github.com:zsh-users/zsh-history-substring-search",
+            dest: "zsh-history-substring-search/"
+          }
+        - {
+            repo: "git@github.com:zsh-users/zsh-completions.git",
+            dest: "zsh-completions/"
+          }
+      loop_control:
+        loop_var: addon
+
 - name: "Copy .zshrc configuration on {{ ansible_facts['system'] | lower }} systems."
   ansible.builtin.template:
     src:  "nix_zshrc.j2"
