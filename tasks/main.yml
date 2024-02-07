@@ -22,5 +22,5 @@
     - setup_powerlevel_10k.yml
     - setup_zsh.yml
     - setup_vim.yml
-  when: rrequired_packages is true
+  when: required_packages is true
 
