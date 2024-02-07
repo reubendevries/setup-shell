@@ -15,7 +15,7 @@
     file: install_requirements_redhat.yml
   when: ansible_facts["os_family"] | lower == "redhat"
 
-- name: Setup Powerlevel10K for *nix type systems.  
+- name: Setup Fonts for *nix type systems.  
   ansible.builtin.include_tasks:
     file: setup_fonts.yml
   when: required_packages is true
