@@ -1,11 +1,4 @@
 ---
-- name: "Remove .zcompdump file"
-  ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/.zcompdump"
-    owner: "{{ ansible_facts['user_uid'] }}"
-    group: "{{ ansible_facts['user_gid'] }}"
-    state: absent
-
 - name: "Run commands to init zsh add-ons"
   ansible.builtin.shell:
     cmd: "{{ shell.cmd }}"
@@ -13,9 +6,6 @@
     executable: /bin/bash
   loop:
     - { cmd: "source {{ ansible_facts['user_dir'] }}/.zshrc" }
-    - { cmd: "source {{ ansible_facts['user_dir'] }}/.p10k.zsh" }
-    - { cmd: "autopair-init" }
-    - { cmd: "compinit" }
   loop_control:
     loop_var: shell
 
