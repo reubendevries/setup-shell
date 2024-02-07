@@ -22,7 +22,7 @@
         group: root
         mode: "0o644"
     
-    - name: Copy hack-nerd-font into {{ ansible_facts['user_dir']}}/.local/share/fonts/"
+    - name: Copy hack-nerd-font on linux systems."
       become: true
       ansible.builtin.unarchive:
         src: /tmp/hack.zip
@@ -30,6 +30,17 @@
         owner: "{{ ansible_facts['user_uid'] }}"
         group: "{{ ansible_facts['user_gid'] }}"
         mode: "0o600"
+      when: ansible_facts['system'] | lower == 'linux'
+
+    - name: Copy hack-nerd-font on darwin systems."
+      become: true
+      ansible.builtin.unarchive:
+        src: /tmp/hack.zip
+        dest: "{{ ansible_facts['user_dir'] }}/Library/Fonts/"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+        mode: "0o600"
+      when: ansible_facts["os_family"] | lower == "darwin"
     
     - name: Clean up hack.zip file.
       become: true
@@ -40,7 +51,7 @@
 - name: "Install MesloLGS Fonts"
   block:
 
-    - name: Install MesloLGS Fonts on "{{ ansible_facts['system'] | lower }} systems"
+    - name: "Install MesloLGS Fonts on linux systems"
       ansible.builtin.get_url:
         url: "{{ font.url }}"
         dest: "{{ ansible_facts['user_dir'] }}/.local/share/fonts/{{ font.name }}"
@@ -56,7 +67,7 @@
         loop_var: font
       when: ansible_facts['system'] | lower == 'linux'
 
-    - name: "Install MesloLGS Fonts on {{ ansible_facts['os_family'] | lower }} systems"
+    - name: "Install MesloLGS Fonts on darwin systems"
       ansible.builtin.get_url:
         url: "{{ font.url }}"
         dest: "{{ ansible_facts['user_dir'] }}/Library/Fonts/{{ font.name }}"
