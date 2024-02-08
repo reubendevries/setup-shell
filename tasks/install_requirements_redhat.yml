@@ -18,7 +18,7 @@
         name: "opentofu",
         description: "opentofu",
         baseurl: "https://packages.opentofu.org/opentofu/tofu/rpm_any/rpm_any/$basearch",
-        gpgkey: "https://packages.opentofu.org/opentofu/tofu/gpgkey"
+        gpgkey: ["https://get.opentofu.org/opentofu.gpg","https://packages.opentofu.org/opentofu/tofu/gpgkey"]
       }
     - {
         name: "vscodium",
