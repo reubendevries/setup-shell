@@ -10,7 +10,7 @@
     description: "{{ repository.description }}"
     baseurl: "{{ repository.baseurl }}"
     state: present
-    gpgkey: "/etc/pki/rpm-gpg/{{ repository.gpgkey }}"
+    gpgkey: "{{ repository.gpgkey }}"
     gpgcheck: true
     enabled: true
   loop:
