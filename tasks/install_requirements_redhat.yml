@@ -25,19 +25,19 @@
           }
         - {
             url: "https://rpm.releases.hashicorp.com/gpg",
-            filename: "hashicorp-archive-keyring.asc"
+            filename: "hashicorp.asc"
           }
         - {
             url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg",
-            filename: "google.cloud.asc"
+            filename: "google_cloud.asc"
           }
         - {
             url: "https://packages.microsoft.com/keys/microsoft.asc",
-            filename: "eza-community.asc"
+            filename: "microsoft.asc"
           }
         - {
             url: "https://raw.githubusercontent.com/eza-community/eza/main/deb.asc",
-            filename: "eza-community.asc"
+            filename: "eza_community.asc"
           }
       loop_control:
         loop_var: key
@@ -45,22 +45,32 @@
     - name: "Add repositories for required packages."
       become: true
       ansible.builtin.yum_repository:
+        name: "{{ repositiory.name }}"
         baseurl: "{{ repository.baseurl }}"
         state: present
         gpgkey: "/etc/pki/rpm-gpg/{{ repository.gpgkey }}"
         gpgcheck: true
         enabled: true
       loop:
-        
+        - {
+            name: "opentofu",
+            baseurl: "https://packages.opentofu.org/opentofu/tofu/rpm_any/rpm_any/$basearch",
+            gpgkey: "opentofu.asc"
+          }
+        - {
+            name: "vscodium",
+            baseurl: "https://download.vscodium.com/rpms/",
+            gpgkey: "vscodium.asc"
+          }
         - { 
-            name: "Hashicorp",
+            name: "hashicorp",
             baseurl: "https://rpm.releases.hashicorp.com/fedora/hashicorp.repo",
-            gpgkey: "hashicorp-archive-keyring.asc"
+            gpgkey: "hashicorp.asc"
           }
         - {
             name: "Google Cloud",
             baseurl: "https://packages.cloud.google.com/rpm/",
-            gpgkey: "cloud.google.asc"
+            gpgkey: "cloud_google.asc"
           }
         - {
             Name: "Microsoft",
@@ -70,7 +80,7 @@
         - {
             name: "Eza Community",
             baseurl: "http://deb.gierens.de",
-            gpgkey: "eza-community.asc"
+            gpgkey: "eza_community.asc"
           }
       loop_control:
         loop_var: repository
