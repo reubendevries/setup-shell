@@ -78,7 +78,7 @@
             gpgkey: "cloud_google.asc"
           }
         - {
-            Name: "microsoft",
+            name: "microsoft",
             description: "microsoft",
             baseurl: "https://packages.microsoft.com/repos/azure-cli/",
             gpgkey: "microsoft.asc"
