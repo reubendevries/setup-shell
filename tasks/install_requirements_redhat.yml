@@ -14,17 +14,17 @@
         mode: "0o644"
         force: true
       loop:
-        - { 
-            url: "https://apt.releases.hashicorp.com/gpg", 
-            dest: "hashicorp-archive-keyring.asc" 
+        - {
+            url: ["https://get.opentofu.org/opentofu.gpg", https://packages.opentofu.org/opentofu/tofu/gpgkey],
+            dest: "opentofu.asc"
           }
         - {
-            url: "https://download.opensuse.org/repositories/shells:zsh-users:zsh-completions/xUbuntu_22.04/Release.key",
-            dest: "zsh-completions.asc"
+            url: "https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg",
+            dest: "vscodium.asc"
           }
         - {
-            url: "https://download.opensuse.org/repositories/shells:zsh-users:zsh-history-substring-search/xUbuntu_22.04/Release.key",
-            dest: "zsh-history-substring-search.asc"
+            url: "https://rpm.releases.hashicorp.com/gpg",
+            dest: "hashicorp-archive-keyring.asc"
           }
         - {
             url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg",
@@ -50,36 +50,35 @@
         gpgcheck: true
         enabled: true
       loop:
+        
         - { 
+            name: "Hashicorp",
             baseurl: "https://rpm.releases.hashicorp.com/fedora/hashicorp.repo",
             gpgkey: "hashicorp-archive-keyring.asc"
           }
         - {
-            baseurl: "https://download.opensuse.org/repositories/shells:zsh-users:zsh-completions/Fedora_Rawhide/shells:zsh-users:zsh-completions.repo",
-            gpgkey: "zsh-completions.asc"
-          }
-        - {
-            baseurl: "http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-history-substring-search/",
-            gpgkey: "zsh-history-substring-search.asc"
-          }
-        - {
+            name: "Google Cloud",
             baseurl: "https://packages.cloud.google.com/rpm/",
             gpgkey: "cloud.google.asc"
           }
         - {
+            Name: "Microsoft",
             baseurl: "https://packages.microsoft.com/repos/azure-cli/",
             gpgkey: "microsoft.asc"
-          }
+          } 
         - {
-            baseurl: "https://packages.microsoft.com/repos/vscode/",
-            gpgkey: "microsoft.asc"
-          }
-        - {
+            name: "Eza Community",
             baseurl: "http://deb.gierens.de",
             gpgkey: "eza-community.asc"
           }
       loop_control:
         loop_var: repository
+
+- name: "Updated DNF Cache"
+  become: true
+  ansible.builtin.dnf:
+    update_cache: true
+  register: dnf_cache_updated
 
 - name: "Install required packages via dnf."
   become: true
@@ -87,27 +86,30 @@
     name: "{{ dnf_package.name }}"
     state: latest
   loop:
+    - { name: "firefox" }
     - { name: "vim"}
     - { name: "zsh"}
     - { name: "ruby"}
     - { name: "golang"}
-    - { name: "python@3.11" }
+    - { name: "python3.11" }
     - { name: "git" }
     - { name: "cmake" }
-    - { name: "node" }
+    - { name: "nodejs" }
     - { name: "gpg" }
-    - { name: "openssh" }
+    - { name: "openssh-server" }
+    - { name: "zsh" }
     - { name: "konsole" }
-    - { name: "code" }
+    - { name: "codium" }
     - { name: "google-cloud-sdk" }
     - { name: "awscli" }
     - { name: "azure-cli" }
     - { name: "eza" }
-    - { name: "terraform" } # TODO: replace with OpenTofu once available.
+    - { name: "tofu" }
     - { name: "packer" } # TODO: if open source replacement becomes availabe, then we will replace.
     - { name: "vault" } # TODO: if open source replacement becomes availabe, then we will replace.
   loop_control:
-    loop_var: dnf_package
+    loop_var: apt_package
+  when: dnf_cache_updated is changed
 
 - name: "Set variable required_packages to true."
   ansible.builtin.set_fact:
