@@ -8,35 +8,27 @@
 
     - name: "Add repositories gpg key for required packages."
       become: true
-      ansible.builtin.get_url:
-        url: "{{ key.url }}"
-        dest: "/etc/pki/rpm-gpg/{{ key.dest }}"
-        mode: "0o644"
-        force: true
+      ansible.builtin.rpm_key:
+        key: "{{ key.url }}"
+        state: present
       loop:
         - {
-            url: ["https://get.opentofu.org/opentofu.gpg", https://packages.opentofu.org/opentofu/tofu/gpgkey],
-            dest: "opentofu.asc"
+            url: "https://get.opentofu.org/opentofu.gpg",
           }
         - {
             url: "https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg",
-            dest: "vscodium.asc"
           }
         - {
             url: "https://rpm.releases.hashicorp.com/gpg",
-            dest: "hashicorp-archive-keyring.asc"
           }
         - {
             url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg",
-            dest: "cloud.google.asc"
           }
         - {
             url: "https://packages.microsoft.com/keys/microsoft.asc",
-            dest: "microsoft.asc"
           }
         - {
             url: "https://raw.githubusercontent.com/eza-community/eza/main/deb.asc",
-            dest: "eza-community.asc"
           }
       loop_control:
         loop_var: key
