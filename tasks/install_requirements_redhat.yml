@@ -46,6 +46,7 @@
       become: true
       ansible.builtin.yum_repository:
         name: "{{ repository.name }}"
+        description: "{{ repository.description }}"
         baseurl: "{{ repository.baseurl }}"
         state: present
         gpgkey: "/etc/pki/rpm-gpg/{{ repository.gpgkey }}"
@@ -54,31 +55,37 @@
       loop:
         - {
             name: "opentofu",
+            description: "opentofu",
             baseurl: "https://packages.opentofu.org/opentofu/tofu/rpm_any/rpm_any/$basearch",
             gpgkey: "opentofu.asc"
           }
         - {
             name: "vscodium",
+            description: "vscodium",
             baseurl: "https://download.vscodium.com/rpms/",
             gpgkey: "vscodium.asc"
           }
         - { 
             name: "hashicorp",
+            description: "hashicorp",
             baseurl: "https://rpm.releases.hashicorp.com/fedora/hashicorp.repo",
             gpgkey: "hashicorp.asc"
           }
         - {
-            name: "Google Cloud",
+            name: "google cloud",
+            description: "google cloud",
             baseurl: "https://packages.cloud.google.com/rpm/",
             gpgkey: "cloud_google.asc"
           }
         - {
-            Name: "Microsoft",
+            Name: "microsoft",
+            description: "microsoft",
             baseurl: "https://packages.microsoft.com/repos/azure-cli/",
             gpgkey: "microsoft.asc"
           } 
         - {
-            name: "Eza Community",
+            name: "eza community",
+            description: "eza community",
             baseurl: "http://deb.gierens.de",
             gpgkey: "eza_community.asc"
           }
