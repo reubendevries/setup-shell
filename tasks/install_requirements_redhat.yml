@@ -13,7 +13,7 @@
         state: present
       loop:
         - {
-            url: "https://get.opentofu.org/opentofu.gpg",
+            url: "https://packages.opentofu.org/opentofu/tofu/gpgkey",
           }
         - {
             url: "https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg",
