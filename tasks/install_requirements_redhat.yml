@@ -7,6 +7,7 @@
   block:
 
     - name: "Add repositories gpg key for required packages."
+      become: true
       ansible.builtin.get_url:
         url: "{{ key.url }}"
         dest: "/etc/pki/rpm-gpg/{{ key.dest }}"
@@ -41,6 +42,7 @@
         loop_var: key
 
     - name: "Add repositories for required packages."
+      become: true
       ansible.builtin.yum_repository:
         baseurl: "{{ repository.baseurl }}"
         state: present
@@ -80,6 +82,7 @@
         loop_var: repository
 
 - name: "Install required packages via dnf."
+  become: true
   ansible.builtin.dnf:
     name: "{{ dnf_package.name }}"
     state: latest
