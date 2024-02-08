@@ -41,8 +41,8 @@
     - {
         name: "microsoft",
         description: "microsoft",
-        baseurl: "https://packages.microsoft.com/{{ os }}/{{ version }}/prod/",
-        gpgkey: "https://packages.microsoft.com/{{ os }}/{{ version }}/prod/repodata/repomd.xml.key"
+        baseurl: "https://packages.microsoft.com/fedora/{{ fedora_version }}/prod/",
+        gpgkey: "https://packages.microsoft.com/fedora/{{ fedora_version }}/prod/repodata/repomd.xml.key"
       } 
   loop_control:
     loop_var: repository
