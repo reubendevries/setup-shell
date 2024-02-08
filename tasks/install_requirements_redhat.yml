@@ -45,7 +45,7 @@
     - name: "Add repositories for required packages."
       become: true
       ansible.builtin.yum_repository:
-        name: "{{ repositiory.name }}"
+        name: "{{ repository.name }}"
         baseurl: "{{ repository.baseurl }}"
         state: present
         gpgkey: "/etc/pki/rpm-gpg/{{ repository.gpgkey }}"
