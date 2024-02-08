@@ -126,7 +126,7 @@
     - { name: "packer" } # TODO: if open source replacement becomes availabe, then we will replace.
     - { name: "vault" } # TODO: if open source replacement becomes availabe, then we will replace.
   loop_control:
-    loop_var: apt_package
+    loop_var: dnf_package
   #when: dnf_cache_updated is changed
 
 - name: "Set variable required_packages to true."
