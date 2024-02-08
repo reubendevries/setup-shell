@@ -3,94 +3,49 @@
   ansible.builtin.set_fact:
     required_packages: false
 
-- name: "Get repositories gpg key and add repositories for required packages."
-  block:
-
-    - name: "Add repositories gpg key for required packages."
-      become: true
-      ansible.builtin.get_url:
-        url: "{{ key.url }}"
-        dest: "/etc/pki/rpm-gpg/{{ key.filename }}"
-        owner: "root"
-        group: "root"
-        mode: "0o644"
-      loop:
-        - {
-            url: "https://packages.opentofu.org/opentofu/tofu/gpgkey",
-            filename: "opentofu.asc"
-          }
-        - {
-            url: "https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg",
-            filename: "vscodium.asc"
-          }
-        - {
-            url: "https://rpm.releases.hashicorp.com/gpg",
-            filename: "hashicorp.asc"
-          }
-        - {
-            url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg",
-            filename: "google_cloud.asc"
-          }
-        - {
-            url: "https://packages.microsoft.com/keys/microsoft.asc",
-            filename: "microsoft.asc"
-          }
-        - {
-            url: "https://raw.githubusercontent.com/eza-community/eza/main/deb.asc",
-            filename: "eza_community.asc"
-          }
-      loop_control:
-        loop_var: key
-
-    - name: "Add repositories for required packages."
-      become: true
-      ansible.builtin.yum_repository:
-        name: "{{ repository.name }}"
-        description: "{{ repository.description }}"
-        baseurl: "{{ repository.baseurl }}"
-        state: present
-        gpgkey: "/etc/pki/rpm-gpg/{{ repository.gpgkey }}"
-        gpgcheck: true
-        enabled: true
-      loop:
-        - {
-            name: "opentofu",
-            description: "opentofu",
-            baseurl: "https://packages.opentofu.org/opentofu/tofu/rpm_any/rpm_any/$basearch",
-            gpgkey: "opentofu.asc"
-          }
-        - {
-            name: "vscodium",
-            description: "vscodium",
-            baseurl: "https://download.vscodium.com/rpms/",
-            gpgkey: "vscodium.asc"
-          }
-        - { 
-            name: "hashicorp",
-            description: "hashicorp",
-            baseurl: "https://rpm.releases.hashicorp.com/fedora/hashicorp.repo",
-            gpgkey: "hashicorp.asc"
-          }
-        - {
-            name: "google cloud",
-            description: "google cloud",
-            baseurl: "https://packages.cloud.google.com/rpm/",
-            gpgkey: "cloud_google.asc"
-          }
-        - {
-            name: "microsoft",
-            description: "microsoft",
-            baseurl: "https://packages.microsoft.com/repos/azure-cli/",
-            gpgkey: "microsoft.asc"
-          } 
-        - {
-            name: "eza community",
-            description: "eza community",
-            baseurl: "http://deb.gierens.de",
-            gpgkey: "eza_community.asc"
-          }
-      loop_control:
-        loop_var: repository
+- name: "Add repositories for required packages."
+  become: true
+  ansible.builtin.yum_repository:
+    name: "{{ repository.name }}"
+    description: "{{ repository.description }}"
+    baseurl: "{{ repository.baseurl }}"
+    state: present
+    gpgkey: "/etc/pki/rpm-gpg/{{ repository.gpgkey }}"
+    gpgcheck: true
+    enabled: true
+  loop:
+    - {
+        name: "opentofu",
+        description: "opentofu",
+        baseurl: "https://packages.opentofu.org/opentofu/tofu/rpm_any/rpm_any/$basearch",
+        gpgkey: "https://packages.opentofu.org/opentofu/tofu/gpgkey"
+      }
+    - {
+        name: "vscodium",
+        description: "vscodium",
+        baseurl: "https://download.vscodium.com/rpms/",
+        gpgkey: "https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg"
+      }
+    - { 
+        name: "hashicorp",
+        description: "hashicorp",
+        baseurl: "https://rpm.releases.hashicorp.com/RHEL/$releasever/$basearch/stable",
+        gpgkey: "https://rpm.releases.hashicorp.com/gpg"
+      }
+    - {
+        name: "google_cloud",
+        description: "google cloud",
+        baseurl: "https://packages.cloud.google.com/yum/repos/cloud-sdk-el9-x86_64",
+        gpgkey: "https://packages.cloud.google.com/apt/doc/rpm-package-key.gpg"
+      }
+    - {
+        name: "microsoft",
+        description: "microsoft",
+        baseurl: "https://packages.microsoft.com/repos/azure-cli/",
+        gpgkey: "https://packages.microsoft.com/keys/microsoft.asc"
+      } 
+  loop_control:
+    loop_var: repository
 
 - name: "Updated DNF Cache"
   become: true
