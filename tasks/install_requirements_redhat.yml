@@ -127,7 +127,7 @@
     - { name: "vault" } # TODO: if open source replacement becomes availabe, then we will replace.
   loop_control:
     loop_var: apt_package
-  when: dnf_cache_updated is changed
+  #when: dnf_cache_updated is changed
 
 - name: "Set variable required_packages to true."
   ansible.builtin.set_fact:
