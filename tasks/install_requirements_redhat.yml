@@ -29,7 +29,7 @@
     - { 
         name: "hashicorp",
         description: "hashicorp",
-        baseurl: "https://rpm.releases.hashicorp.com/RHEL/$releasever/$basearch/stable",
+        baseurl: "https://rpm.releases.hashicorp.com/fedora/$releasever/$basearch/stable",
         gpgkey: "https://rpm.releases.hashicorp.com/gpg"
       }
     - {
@@ -41,8 +41,8 @@
     - {
         name: "microsoft",
         description: "microsoft",
-        baseurl: "https://packages.microsoft.com/repos/azure-cli/",
-        gpgkey: "https://packages.microsoft.com/keys/microsoft.asc"
+        baseurl: "https://packages.microsoft.com/{{ os }}/{{ version }}/prod/",
+        gpgkey: "https://packages.microsoft.com/{{ os }}/{{ version }}/prod/repodata/repomd.xml.key"
       } 
   loop_control:
     loop_var: repository
