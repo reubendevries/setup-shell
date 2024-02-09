@@ -30,7 +30,7 @@
     - { name: "zsh" }
     - { name: "ruby" }
     - { name: "go" }
-    - { name: "python@3.11" }
+    - { name: "python@3.12" }
     - { name: "git" }
     - { name: "eza" }
     - { name: "cmake" }
@@ -38,12 +38,10 @@
     - { name: "node" }
     - { name: "gpg" }
     - { name: "openssh" }
-    - { name: "powerlevel10k" }
-    - { name: "zsh-autosuggestions" }
-    - { name: "zsh-syntax-highlighting" }
-    - { name: "zsh-completions" }
-    - { name: "zsh-history-substring-search" }  
-    - { name: "zsh-autopair" }
+    - { name: "codium" }
+    - { name: "awscli" }
+    - { name: "azure-cli" }
+    - { name: "tofu" }
   loop_control:
     loop_var: brew_package
 
