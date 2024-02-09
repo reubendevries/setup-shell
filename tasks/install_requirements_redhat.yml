@@ -61,11 +61,11 @@
   loop:
     - { name: firefox }
     - { name: "vim" }
-    - { name: "zsh" }
+    - { name: "rustc" }
     - { name: "ruby" }
     - { name: "golang" }
     - { name: "clang" }
-    - { name: "python3.12" }
+    - { name: "python3.11" }
     - { name: "python3-devel" }
     - { name: "git" }
     - { name: "cmake" }
