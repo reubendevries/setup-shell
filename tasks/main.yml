@@ -8,12 +8,12 @@
 - name: Install required packages for Debian
   ansible.builtin.include_tasks:
     file: install_requirements_debian.yml
-  when: ansible_facts["os_family"] | lower == "debian"
+  when: ansible_facts["distribution"] | lower == "ubuntu"
 
 - name: Install required packages for RedHat
   ansible.builtin.include_tasks:
     file: install_requirements_redhat.yml
-  when: ansible_facts["os_family"] | lower == "redhat"
+  when: ansible_facts["distribution"] | lower == "fedora"
 
 - name: Setup Fonts for *nix type systems.  
   ansible.builtin.include_tasks:
