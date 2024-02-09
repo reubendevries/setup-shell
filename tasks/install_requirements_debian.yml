@@ -108,12 +108,13 @@
     state: latest
   loop:
     - { name: "firefox" }
-    - { name: "vim"}
-    - { name: "zsh"}
-    - { name: "ruby"}
-    - { name: "golang"}
-    - { name: "python3.11" }
-    - { name: "python-dev" }
+    - { name: "vim" }
+    - { name: "zsh" }
+    - { name: "ruby" }
+    - { name: "golang" }
+    - { name: "clang" }
+    - { name: "python3.12" }
+    - { name: "python3-devel" }
     - { name: "git" }
     - { name: "cmake" }
     - { name: "nodejs" }
