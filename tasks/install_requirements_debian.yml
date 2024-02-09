@@ -113,7 +113,7 @@
     - { name: "golang" }
     - { name: "clang" }
     - { name: "python3.11" }
-    - { name: "python3-devel" }
+    - { name: "python3-dev" }
     - { name: "git" }
     - { name: "cmake" }
     - { name: "nodejs" }
