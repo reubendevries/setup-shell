@@ -66,7 +66,7 @@
       loop_control:
         loop_var: addon
 
-- name: "Copy .zshrc configuration on {{ ansible_facts['system'] | lower }} systems."
+- name: "Copy .zshrc configuration on linux systems."
   ansible.builtin.template:
     src:  "nix_zshrc.j2"
     dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
@@ -76,7 +76,7 @@
   register: zshrc_copied
   when: ansible_facts['system'] | lower == 'linux'
 
-- name: "Copy .zshrc configuration on {{ ansible_facts['os_family'] | lower }} systems."
+- name: "Copy .zshrc configuration on darwin systems."
   ansible.builtin.template:
     src:  "darwin_zshrc.j2"
     dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
