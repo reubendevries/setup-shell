@@ -91,7 +91,6 @@
     - { name: "google-cloud", url: "packages.cloud.google.com" }
     - { name: "microsoft", url: "packages.microsoft.com" }
     - { name: "eza-community", url: "gierens.de" }
-
   loop_control:
     loop_var: file
 
