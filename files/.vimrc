@@ -4,9 +4,40 @@ set splitbelow
 set splitright
 set nu
 set clipboard=unnamed
+set cursorline
+
+
+let &t_SI = "\e[5 q"
+let &t_EI = "\e[5 q"
+" Emmet settings
+let g:user_emmet_settings = {
+\  'variables': {'lang': 'en'},
+\  'html': {
+\    'default_attributes': {
+\      'option': {'value': v:null},
+\      'textarea': {'id': v:null, 'name': v:null, 'cols': 10, 'rows': 10},
+\    },
+\    'snippets': {
+\      'html:5': "<!DOCTYPE html>\n"
+\              ."<html lang=\"${lang}\">\n"
+\              ."  <head>\n"
+\              ."    <meta charset=\"${charset}\">\n"
+\              ."    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+\	       ."    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n"
+\              ."    <title></title>\n"               
+\              ."    <script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js\" integrity=\"sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r\" crossorigin=\"anonymous\"></script>\n"
+\              ."    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js\" integrity=\"sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+\" crossorigin=\"anonymous\"></script>\n"
+\	       ."  </head>\n"
+\              ."  <body>\n\t\t${child}|\n"
+\	       ."     \n"
+\	       ."  </body>\n"
+\              ."</html>",
+\    },
+\  },
+\}
 
 " more powerful backspacing
-set backspace=indent,eol,start  
+set backspace=indent,eol,start
 
 " Enable folding
 set foldmethod=indent
@@ -24,7 +55,7 @@ nnoremap <C-H> <C-W><C-H>
 " so you can see the docstrings for folded code
 let g:SimpylFold_docstring_preview=1
 
-" adding proper PEP 8 indentation for python files
+" Python PEP 8 Indentation settings
 au BufNewFile, BufRead *.py
     \ set tabstop=4
     \ set softtabstop=4
@@ -35,17 +66,94 @@ au BufNewFile, BufRead *.py
     \ set fileformat=unix
 
 " adding proper indentation for javascript, html and css files
-au BufNewFile, BufRead *.js, *.html, *.css
+au BufNewFile, BufRead *.js,*.html,*.css
     \ set tabstop=2
     \ set softtabstop=2
     \ set shiftwidth=2
 
-" flagging unnecessary whitespace
-au BufRead, BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" flagging unnecessary whitespace for all programming languages.
+au BufRead, BufNewFile *.py,*.pyw,*.c,*.h,*.go
+    \ match BadWhitespace /\s\+$/
 
-" The first line ensures that the auto-complete window goes away when you’re done with it, 
-" and the second defines a shortcut for goto definition.
+" Enable HTML Templates for Go
+au BufRead,BufNewFile *.gohtml
+    \ set filetype=gohtmltmpl
 
+" Pear of Ducks Ansible Vim Settings
+au BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
+
+let g:ansible_unindent_after_newline = 1
+let g:ansible_attribute_highlight = "ob"
+let g:ansible_name_highlight = 'd'
+let g:ansible_template_syntaxes = { '*.rb.j2': 'ruby' }
+let g:ansible_extra_keywords_highlight = 1
+let g:ansible_extra_keywords_highlight_group = 'Constant'
+let g:ansible_loop_keywords_highlight = 'Constant'
+let g:ansible_ftdetect_filename_regex = '\v(playbook|site|main|local|requirements)\.ya?ml$'
+let g:ansible_yamlKeyName = 'yamlKey'
+
+
+" Vim-Go Settings
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+
+let g:go_test_timeout = '10s'
+let g:go_fmt_command = "goimports"
+let g:go_textobj_include_function_doc = 0
+let g:go_fmt_fail_silently = 1
+let g:go_addtags_transform = "camelcase"
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+let g:go_metalinter_deadline = "5s"
+let g:go_def_mode = 'godef'
+let g:go_decls_includes = "func,type"
+let g:go_auto_type_info = 1
+let g:go_auto_sameids = 1
+let g:go_play_open_browser = 1
+let g:go_play_browser_command = "chrome"
+
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+
+autocmd BufNewFile,BufRead *.go
+    \ setlocal noexpandtab tabstop=4 shiftwidth=4
+
+" Vim-Go Functions
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+"RustVIM
+let g:rustfmt_autosave = 1
+let g:rust_clip_command = 'pbcopy'
+let g:rust_fold = 1    
+let g:rust_bang_comment_leader = 1
+let g:rustfmt_command = 'rustfmt'
+let g:rust_playpen_url = 'https://play.rust-lang.org/'
+let g:syntastic_rust_checkers = ['cargo']
+let g:rust_cargo_avoid_whole_workspace = 0
+
+"YouCompleteMe Settings
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
@@ -53,52 +161,25 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let python_highlight_all=1
 syntax on
 
-" When this variable is set, indentation will completely reset (unindent to column 0) after two newlines in insert-mode.
+" Ansible settings
 let g:ansible_unindent_after_newline = 1
-
-" Ansible modules use a key=value format for specifying module-attributes in playbooks. This highlights those as specified. 
-" This highlight option is also used when highlighting key/value pairs in hosts files.
 let g:ansible_attribute_highlight = "ob"
-
-" Ansible modules commonly start with a name: key for self-documentation of playbooks. This option enables/changes 
-" highlight of this
-let g:ansible_name_highlight = "d"
-
-" setting jinja2 templates
-let g:ansible_template_syntaxes = { "*.rb.j2": "ruby" }
-
-" Highlight the following additional keywords:
-" become, become_exe, become_flags, become_method, become_user, become_pass, prompt_l10n, 
-" debugger, always_run, check_mode diff, no_log, args, tags, force_handlers, vars, vars_files, 
-" vars_prompt, delegate_facts, delegate_to, any_errors_fatal, ignore_errors, ignore_unreachable, 
-" max_fail_percentage, connection hosts, port, remote_user, module_defaults, environment, fact_path, 
-" gather_facts, gather_subset, gather_timeout, async poll, throttle timeout, order, run_once, serial strategy
-
+let g:ansible_name_highlight = 'd'
+let g:ansible_template_syntaxes = { '*.rb.j2': 'ruby' }
 let g:ansible_extra_keywords_highlight = 1
+let g:ansible_extra_keywords_highlight_group = 'Constant'
+let g:ansible_loop_keywords_highlight = 'Constant'
+let g:ansible_ftdetect_filename_regex = '\v(playbook|site|main|local|requirements)\.ya?ml$'
 
-" Accepts any syntax group-name from :help E669 - e.g. Comment, Constant, Identifier
-let g:ansible_extra_keywords_highlight_group = "Constant"
-
-" Accepts any syntax group-name from :help E669 - e.g. Comment, Constant, Identifier
-let g:ansible_loop_keywords_highlight = "Constant"
-
-" Accepts a regex string that is used to match the filename to determine if the file should use the Ansible filetype
-let g:ansible_ftdetect_filename_regex = "\v(playbook|site|main|local|requirements)\.ya?ml$"
-
-
-" Alows us to set which scheme to use based upon the vim mode.
-if has("gui_running")
+" GUI Settings
+if has('gui_running')
   set background=dark
   colorscheme solarized
 else
   colorscheme zenburn
 endif
 
-"ignore files in NERDTree
-let NERDTreeIgnore=["\.pyc$", "\~$"] 
+" NERDTree Settings.
+let NERDTreeIgnore=['\.pyc$', '\~$']
 filetype plugin indent on    " required
-
-" adding support for fugitive-gitlab.vim
-let g:fugitive_gitlab_domains = ["https://gitlab.int.bell.ca"]
 set completeopt-=preview
-
