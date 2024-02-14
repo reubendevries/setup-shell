@@ -1,0 +1,45 @@
+---
+- name: "Set variable required_packages to false."
+  ansible.builtin.set_fact:
+    required_packages: false
+
+- name: "Install Chocolately on windows machines."
+  chocolatey.chocolatey.win_chocolatey:
+    name: "chocolatey"
+    state: "present"
+    source: "https://community.chocolatey.org/install.ps1"
+
+- name: "Update all packages"
+  chocolately.chocolately.win_chocolatey:
+    name: "*"
+    state: "latest"
+
+- name: "Update all packages"
+  chocolately.chocolately.win_chocolatey:
+    name: "{{ chocolately_package.name }}"
+    state: "latest"
+  loop:
+    - { name: "firefox" }
+    - { name: "vim" }
+    - { name: "rust"}
+    - { name: "ruby" }
+    - { name: "golang" }
+    - { name: "llvm" }
+    - { name: "python312" }
+    - { name: "git" }
+    - { name: "cmake" }
+    - { name: "nodejs" }
+    - { name: "gpg4win" }
+    - { name: "openssh-server" }
+    - { name: "vscodium" }
+    - { name: "awscli" }
+    - { name: "azure-cli" }
+    - { name: "opentofu.portable" }
+    - { name: "packer" } #  TODO: if open source replacement becomes availabe, then we will replace.
+    - { name: "vault" } #   TODO: if open source replacement becomes availabe, then we will replace.
+  loop_control:
+    loop_var: chocolately_package
+
+- name: "Set variable required_packages to true."
+  ansible.builtin.set_fact:
+    required_packages: true

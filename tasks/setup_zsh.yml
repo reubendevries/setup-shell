@@ -66,6 +66,15 @@
       loop_control:
         loop_var: addon
 
+- name: Copy vaultfile.j2 to home directory.
+  ansible.builtin.template:
+    src: vaultfile.j2
+    dest: "{{ ansible_facts['user_dir'] }}/.vaultfile"
+    mode: "0o700"
+    owner: "{{ ansible_facts['user_uid'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
+  when: ansible_facts['system'] | lower == 'linux'
+
 - name: "Copy .zshrc configuration on linux systems."
   ansible.builtin.template:
     src:  "nix_zshrc.j2"
