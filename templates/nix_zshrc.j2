@@ -7,10 +7,10 @@ fi
 
 ### Add ssh keys
 eval $(ssh-agent -s)
-ssh-add "{{ ansible_facts['user_dir']}}.ssh/id_ed25519"
+ssh-add "{{ ansible_facts['user_dir'] }}/.ssh/id_ed25519"
 
 ### ansible_vault settings
-export ANSIBLE_VAULT_PASSWORD_FILE='"{{ ansible_facts['user_dir'] }}"/.vaultfile'
+export ANSIBLE_VAULT_PASSWORD_FILE="{{ ansible_facts['user_dir'] }}/.vaultfile"
 
 
 ### configure zsh shell
@@ -22,15 +22,15 @@ prompt adam1
 
 setopt histignorealldups sharehistory
 
-export PATH=$"$/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:"{{ ansible_facts['user_dir']}}"/.local/bin/
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:{{ ansible_facts['user_dir']}}"/.local/bin/"
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
-# Keep 1000 lines of history within the shell and save it to ""{{ ansible_facts['user_dir']}}"/.zsh_history"
+# Keep 1000 lines of history within the shell and save it to "{{ ansible_facts['user_dir'] }}/.zsh_history"
 HISTSIZE=1000
 SAVEHIST=1000
-HISTFILE=""{{ ansible_facts['user_dir']}}"/.zsh_history"
+HISTFILE="{{ ansible_facts['user_dir'] }}/.zsh_history"
 
 # Use modern completion system
 autoload -Uz compinit
