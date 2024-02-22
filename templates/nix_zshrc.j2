@@ -1,8 +1,8 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:"{{ ansible_facts['user_dir']}}"/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-"{{ ansible_facts['user_dir']}}"/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [[ -r "${XDG_CACHE_HOME:"{{ ansible_facts['user_dir'] }}"/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-"{{ ansible_facts['user_dir'] }}"/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 ### Add ssh keys
@@ -10,7 +10,7 @@ eval $(ssh-agent -s)
 ssh-add "{{ ansible_facts['user_dir']}}.ssh/id_ed25519"
 
 ### ansible_vault settings
-export ANSIBLE_VAULT_PASSWORD_FILE='"{{ ansible_facts['user_dir']}}"/.vaultfile'
+export ANSIBLE_VAULT_PASSWORD_FILE='"{{ ansible_facts['user_dir'] }}"/.vaultfile'
 
 
 ### configure zsh shell
@@ -60,11 +60,9 @@ source {{ ansible_facts['user_dir'] }}/.zsh//zsh-syntax-highlighting/zsh-syntax-
 source {{ ansible_facts['user_dir'] }}//.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source {{ ansible_facts['user_dir'] }}//.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 fpath+=({{ ansible_facts['user_dir'] }}/.zsh/zsh-completions/src $fpath)
-source {{ ansible_facts['user_dir'] }}/.p10k.zsh
 
 ### powerlevel10k settings
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
-### To customize prompt, run `p10k configure` or edit "{{ansible_facts['user_dir]}}/.p10k.zsh"
-[[ ! -f "{{ ansible_facts['user_dir']}}"/.p10k.zsh ]] || source "{{ ansible_facts['user_dir']}}"/.p10k.zsh
-
+### To customize prompt, run `p10k configure` or edit "{{ansible_facts['user_dir'] }}/.p10k.zsh"
+[[ ! -f "{{ ansible_facts['user_dir'] }}/.p10k.zsh" ]] || source "{{ ansible_facts['user_dir']}}/.p10k.zsh"
