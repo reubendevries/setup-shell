@@ -28,7 +28,7 @@
         name: "firefox",
         types: "deb",
         uris: "https://packages.mozilla.org/apt",
-        signed_by: https://packages.mozilla.org/apt/repo-signing-key.gpg,
+        signed_by: "https://packages.mozilla.org/apt/repo-signing-key.gpg",
         suites: "mozilla",
         components: "main"
       }
