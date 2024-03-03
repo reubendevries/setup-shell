@@ -1,36 +1,40 @@
 ---
 # tasks file for setup-shell
+- name: Debug ansible_facts
+  ansible.builtin.debug:
+    var: ansible_facts
+
 - name: Install required packages for MacOS
-  ansible.builtin.include_tasks:
+  ansible.builtin.import_tasks:
     file: install_requirements_darwin.yml
   when: ansible_facts["os_family"] | lower  == "darwin"
 
 - name: Install required packages for Debian
-  ansible.builtin.include_tasks:
+  ansible.builtin.import_tasks:
     file: install_requirements_debian.yml
   when: ansible_facts["distribution"] | lower == "ubuntu"
 
 - name: Install required packages for RedHat
-  ansible.builtin.include_tasks:
+  ansible.builtin.import_tasks:
     file: install_requirements_redhat.yml
   when: ansible_facts["distribution"] | lower == "fedora"
 
 - name: Setup Fonts for *nix type systems.  
-  ansible.builtin.include_tasks:
+  ansible.builtin.import_tasks:
     file: setup_fonts.yml
   when: required_packages is true
 
 - name: Setup Powerlevel10K for *nix type systems.  
-  ansible.builtin.include_tasks:
+  ansible.builtin.import_tasks:
     file: setup_powerlevel_10k.yml
   when: install_fonts is true
 
 - name: Setup zsh for *nix type systems.
-  ansible.builtin.include_tasks:
+  ansible.builtin.import_tasks:
     file: setup_zsh.yml
   when: setup_powerlevel10k is true
 
 - name: Setup vim for *nix type systems.
-  ansible.builtin.include_tasks:
+  ansible.builtin.import_tasks:
     file: setup_vim.yml
   when: setup_zsh is true

@@ -5,6 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:{{ ansible_facts['user_dir'] }}/.cache}/p10k-instant-
   source "${XDG_CACHE_HOME:-{{ ansible_facts['user_dir'] }}/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+### Configure GPG
+export GPG_TTY=$(tty)'
+
 ### Add ssh keys
 eval $(ssh-agent -s)
 ssh-add "{{ ansible_facts['user_dir'] }}/.ssh/id_ed25519"
