@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:{{ ansible_facts['user_dir'] }}/.cache}/p10k-instant-
 fi
 
 ### Configure GPG
-export GPG_TTY=$(tty)'
+export GPG_TTY=$(tty)
 
 ### Add ssh keys
 eval $(ssh-agent -s)
