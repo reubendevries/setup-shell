@@ -105,6 +105,7 @@
   ansible.builtin.apt:
     name: "{{ apt_package.name }}"
     state: latest
+    allow_downgrade: true
   loop:
     - { name: "firefox" }
     - { name: "vim" }
