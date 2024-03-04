@@ -1,7 +1,7 @@
 ---
-- name: "Set variable setup_powerlevel10k to false."
+- name: "Set variable configure_zsh to false."
   ansible.builtin.set_fact:
-    setup_zsh: false
+    configure_zsh: false
 
 - name: "Update user to use /usr/bin/zsh instead of /bin/bash."
   become: true
@@ -92,7 +92,7 @@
   ansible.builtin.meta: flush_handlers
   when: zshrc_copied is changed
 
-- name: "Set variable setup_powerlevel10k to true."
+- name: "Set variable configure_zsh to true."
   ansible.builtin.set_fact:
-    setup_zsh: true
+    configure_zsh: true
   

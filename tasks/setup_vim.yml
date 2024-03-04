@@ -1,7 +1,7 @@
 --- 
-- name: "Set variable setup_powerlevel10k to false."
+- name: "Set variable configure_vim to false."
   ansible.builtin.set_fact:
-    setup_vim: false
+    configure_vim: false
 
 - name: Create .vim folder
   ansible.builtin.file:
@@ -75,6 +75,6 @@
   ansible.builtin.command:
     cmd: python3 {{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/YouCompleteMe/install.py
 
-- name: "Set variable setup_powerlevel10k to true."
+- name: "Set variable configure_vim to true."
   ansible.builtin.set_fact:
-    setup_zsh: true
+    configure_vim: true
