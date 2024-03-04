@@ -1,7 +1,7 @@
 ---
-- name: "Set variable setup_powerlevel10k to false."
+- name: "Set variable configure_powerlevel10k to false."
   ansible.builtin.set_fact:
-    setup_powerlevel10k: false
+    configure_powerlevel10k: false
 
 - name: Copy PowerLevel10K configuration.
   ansible.builtin.copy:
@@ -11,6 +11,6 @@
     owner: "{{ ansible_facts['user_id'] }}"
     group: "{{ ansible_facts['user_gid'] }}"
 
-- name: "Set variable setup_powerlevel10k to true."
+- name: "Set variable configure_powerlevel10k to true."
   ansible.builtin.set_fact:
-    setup_powerlevel10k: true
+    configure_powerlevel10k: true
