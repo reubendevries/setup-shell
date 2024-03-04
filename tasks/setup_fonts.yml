@@ -16,10 +16,10 @@
     - name: Download hack-nerd-font
       become: true
       ansible.builtin.get_url:
-        url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip
-        dest: /tmp/hack.zip
-        owner: root
-        group: root
+        url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v{{ hack_nerd_fonts_version }}/Hack.zip"
+        dest: "/tmp/hack.zip"
+        owner: "root"
+        group: "root"
         mode: "0o644"
     
     - name: Copy hack-nerd-font on linux systems."
