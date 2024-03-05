@@ -51,7 +51,6 @@
     name: "{{ tap.name }}"
     state: present
   loop:
-    - { name: "homebrew/cask-fonts" }
     - { name: "hashicorp/tap" }
   loop_control:
     loop_var: tap
@@ -64,9 +63,9 @@
     - { name: "kitty" }
     - { name: "vscodium" }
     - { name: "google-cloud-sdk" }
-    - { name: "terraform" }
-    - { name: "packer" }
-    - { name: "vault" }
+    - { name: "tap/terraform" }
+    - { name: "tap/packer" }
+    - { name: "tap/vault" }
   loop_control:
     loop_var: cask
 
