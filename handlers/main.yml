@@ -13,4 +13,4 @@
   ansible.builtin.shell:
     cmd: /tmp/homebrew.sh
   args:
-    executable: /bin/zsh
+    executable: /bin/bash
