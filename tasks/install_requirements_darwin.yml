@@ -61,8 +61,7 @@
     name: "{{ cask.name }}"
     state: latest
   loop:
-    - { name: "iterm2" }
-    - { name: "font-hack-nerd-font" }
+    - { name: "kitty" }
     - { name: "google-cloud-sdk" }
     - { name: "terraform" }
     - { name: "packer" }
