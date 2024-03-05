@@ -16,7 +16,7 @@ If your running a RHEL based system you will need to run the following commands:
 
 ```shell
 	sudo yum install -y python3 python3-dnf python3-pip
-	pip isntall ansible-core
+	pip install ansible-core
 ```
 If your running a MacOS system you wll need to install python3 from the python website [here](https://www.python.org/downloads/) and then you will need to run the following commands:
 ```shell
