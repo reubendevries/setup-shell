@@ -2,28 +2,39 @@
   ansible.builtin.set_fact:
     install_fonts: false
 
-- name: Make {{ ansible_facts['user_dir'] }}/.local/share/fonts dir.
-  ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir']}}/.local/share/fonts"
-    state: directory
-    mode: '0o700'
-    owner: "{{ ansible_facts['user_uid'] }}"
-    group: "{{ ansible_facts['user_gid'] }}" 
+- name: "Create Fonts folder for *nix type systems"
+  block:
+
+    - name: Make {{ ansible_facts['user_dir'] }}/.local/share/fonts dir.
+      ansible.builtin.file:
+        path: "{{ ansible_facts['user_dir']}}/.local/share/fonts"
+        state: "directory"
+        mode: "0o700"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}" 
+      when: ansible_facts['system'] | lower == 'linux'
+
+    - name: Make {{ ansible_facts['user_dir'] }}/.local/share/fonts dir.
+      ansible.builtin.file:
+        path: "{{ ansible_facts['user_dir'] }}/Library/Fonts/"
+        state: "directory"
+        mode: "0o700"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}" 
+      when: ansible_facts['system'] | lower == 'darwin'
 
 - name: "Install hack-nerd-font"
   block:
 
     - name: Download hack-nerd-font
-      become: true
       ansible.builtin.get_url:
         url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v{{ hack_nerd_fonts_version }}/Hack.zip"
         dest: "/tmp/hack.zip"
-        owner: "root"
-        group: "root"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}" 
         mode: "0o644"
     
-    - name: Copy hack-nerd-font on linux systems."
-      become: true
+    - name: Copy hack-nerd-font on *nix systems."
       ansible.builtin.unarchive:
         src: /tmp/hack.zip
         dest: "{{ ansible_facts['user_dir']}}/.local/share/fonts/"
@@ -33,7 +44,6 @@
       when: ansible_facts['system'] | lower == 'linux'
 
     - name: Copy hack-nerd-font on darwin systems."
-      become: true
       ansible.builtin.unarchive:
         src: /tmp/hack.zip
         dest: "{{ ansible_facts['user_dir'] }}/Library/Fonts/"
@@ -43,7 +53,6 @@
       when: ansible_facts["os_family"] | lower == "darwin"
     
     - name: Clean up hack.zip file.
-      become: true
       ansible.builtin.file:
         path: /tmp/hack.zip
         state: absent
