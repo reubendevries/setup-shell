@@ -39,7 +39,6 @@
     - { name: "node" }
     - { name: "gpg" }
     - { name: "openssh" }
-    - { name: "codium" }
     - { name: "awscli" }
     - { name: "azure-cli" }
     - { name: "xclip" }
@@ -63,6 +62,7 @@
     state: latest
   loop:
     - { name: "kitty" }
+    - { name: "vscodium" }
     - { name: "google-cloud-sdk" }
     - { name: "terraform" }
     - { name: "packer" }
