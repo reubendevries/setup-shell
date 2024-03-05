@@ -4,6 +4,7 @@
     required_packages: false
 
 - name: "Get get installation script."
+  become: true
   ansible.builtin.get_url:
     url: "{{ script.url }}"
     dest: "{{ script.name }}"
