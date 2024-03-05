@@ -9,8 +9,8 @@
     url: "{{ script.url }}"
     dest: "{{ script.name }}"
     mode: "0o644"
-    owner: "root"
-    group: "root"
+    owner: "{{ ansible_facts['user_uid'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
   loop:
     - { url: "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh", name: "/tmp/homebrew.sh" }
   loop_control:
