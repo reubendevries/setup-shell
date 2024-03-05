@@ -22,6 +22,15 @@
   ansible.builtin.meta: flush_handlers
   when: download_homebrew is changed
 
+- name: "Setup Casks for homebrew packages"
+  community.general.homebrew_tap:
+    name: "{{ tap.name }}"
+    state: present
+  loop:
+    - { name: "hashicorp/tap" }
+  loop_control:
+    loop_var: tap
+
 - name: "Install required packages via homebrew."
   community.general.homebrew:
     name: "{{ brew_package.name }}"
@@ -43,6 +52,8 @@
     - { name: "azure-cli" }
     - { name: "xclip" }
     - { name: "tofu" }
+    - { name: "packer" }
+    - { name: "vlt" }
   loop_control:
     loop_var: brew_package
 
