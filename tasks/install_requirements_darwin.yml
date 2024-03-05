@@ -46,6 +46,7 @@
   loop_control:
     loop_var: brew_package
 
+
 - name: "Install required packages via homebrew cask."
   community.general.homebrew_cask:
     name: "{{ cask.name }}"
@@ -57,6 +58,7 @@
     - { name: "hashicorp/tap/terraform" }
     - { name: "hashicorp/tap/packer" }
     - { name: "hashicorp/tap/vlt" }
+
   loop_control:
     loop_var: cask
 
