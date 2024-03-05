@@ -51,7 +51,6 @@
     name: "{{ tap.name }}"
     state: present
   loop:
-    - { name: "homebrew/cask-fonts" }
     - { name: "hashicorp/tap" }
   loop_control:
     loop_var: tap
