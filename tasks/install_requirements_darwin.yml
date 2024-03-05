@@ -46,14 +46,6 @@
   loop_control:
     loop_var: brew_package
 
-- name: "Tap casks for Homebrew"
-  community.general.homebrew_tap:
-    name: "{{ tap.name }}"
-    state: present
-  loop:
-    - { name: "hashicorp/tap" }
-  loop_control:
-    loop_var: tap
 
 - name: "Install required packages via homebrew cask."
   community.general.homebrew_cask:
@@ -63,9 +55,10 @@
     - { name: "kitty" }
     - { name: "vscodium" }
     - { name: "google-cloud-sdk" }
-    - { name: "tap/terraform" }
-    - { name: "tap/packer" }
-    - { name: "tap/vault" }
+    - { name: "hashicorp/tap/terraform" }
+    - { name: "hashicorp/tap/packer" }
+    - { name: "hashicorp/tap/vlt" }
+
   loop_control:
     loop_var: cask
 
