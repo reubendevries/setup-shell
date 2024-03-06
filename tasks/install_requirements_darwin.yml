@@ -48,6 +48,7 @@
     - { name: "node" }
     - { name: "gpg" }
     - { name: "openssh" }
+    - { name: "ansible" }
     - { name: "awscli" }
     - { name: "azure-cli" }
     - { name: "xclip" }
