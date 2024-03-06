@@ -11,7 +11,7 @@
     owner: "{{ ansible_facts['user_uid'] }}"
     group: "{{ ansible_facts['user_gid'] }}"
 
-- nmae: Update Kitty Icon to something a bit better to look at.
+- name: Update Kitty Icon to something a bit better to look at.
   ansible.builtin.copy:
     src: kitty_icon_256x256.png
     dest: "ansible_facts['user_dir']/.config/kitty/"
