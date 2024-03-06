@@ -14,7 +14,7 @@
   become: true
   ansible.builtin.user:
     user: "{{ ansible_facts['user_id'] }}"
-    shell: "/usr/zsh"
+    shell: "/opt/homebrew/bin/zsh"
   when: ansible_facts['system'] | lower == 'darwin'
   
 - name: "Setup /usr/bin/zsh add-ons"
