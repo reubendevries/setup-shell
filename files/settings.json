@@ -1,0 +1,8 @@
+{
+    "terminal.integrated.fontFamily": "MesloLGS NF",
+    "redhat.telemetry.enabled": true,
+    "github.gitProtocol": "ssh",
+    "yaml.customTags": [
+        "!vault scalar"
+    ]
+}

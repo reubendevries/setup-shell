@@ -1,41 +1,46 @@
 ---
 
-- name: Install required packages for MacOS
+- name: "Install required packages for MacOS"
   ansible.builtin.import_tasks:
-    file: install_requirements_darwin.yml
+    file: "install_requirements_darwin.yml"
   when: ansible_facts["os_family"] | lower  == "darwin"
 
-- name: Install required packages for Debian
+- name: "Install required packages for Debian"
   ansible.builtin.import_tasks:
-    file: install_requirements_debian.yml
+    file: "install_requirements_debian.yml"
   when: ansible_facts["os_family"] | lower == "debian"
 
-- name: Install required packages for RedHat
+- name: "Install required packages for RedHat"
   ansible.builtin.import_tasks:
-    file: install_requirements_redhat.yml
+    file: "install_requirements_redhat.yml"
   when: ansible_facts["distribution"] | lower == "fedora"
 
-- name: Setup Fonts for *nix type systems.  
+- name: "Setup Fonts for *nix type systems."  
   ansible.builtin.import_tasks:
-    file: setup_fonts.yml
+    file: "setup_fonts.yml"
   when: required_packages is true
 
-- name: Setup Kitty for *nix type systems.
+- name: "Setup Kitty for *nix type systems."
   ansible.builtin.import_tasks:
-    file: setup_kitty.yml
+    file: "setup_kitty.yml"
   when: install_fonts is true
 
-- name: Setup Powerlevel10K for *nix type systems.  
+- name: "Setup Powerlevel10K for *nix type systems."  
   ansible.builtin.import_tasks:
-    file: setup_powerlevel_10k.yml
+    file: "setup_powerlevel_10k.yml"
   when: configure_kitty is true
 
-- name: Setup zsh for *nix type systems.
+- name: "Setup zsh for *nix type systems."
   ansible.builtin.import_tasks:
-    file: setup_zsh.yml
+    file: "setup_zsh.yml"
   when: configure_powerlevel10k is true
 
-- name: Setup vim for *nix type systems.
+- name: "Setup vim for *nix type systems."
   ansible.builtin.import_tasks:
-    file: setup_vim.yml
+    file: "setup_vim.yml"
   when: configure_zsh is true
+
+- name: "Setup codium for *nix type systems."
+  ansible.builtin.import_tasks:
+    file: "setup_codium.yml"
+  when: configure_vim is true
