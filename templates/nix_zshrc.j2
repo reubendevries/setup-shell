@@ -9,11 +9,11 @@ fi
 export GPG_TTY=$(tty)
 
 ### Add ssh keys
-eval $(ssh-agent -s)
-ssh-add "{{ ansible_facts['user_dir'] }}/.ssh/id_ed25519"
+## eval $(ssh-agent -s)
+## ssh-add {{ enter the path to your private ssh key here }}
 
 ### ansible_vault settings
-export ANSIBLE_VAULT_PASSWORD_FILE="{{ ansible_facts['user_dir'] }}/.vaultfile"
+## export ANSIBLE_VAULT_PASSWORD_FILE={{ enter the path to your ansible vault file here }}
 
 
 ### configure zsh shell
