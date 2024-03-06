@@ -21,7 +21,7 @@
         mode: "0o700"
         owner: "{{ ansible_facts['user_uid'] }}"
         group: "{{ ansible_facts['user_gid'] }}" 
-      when: ansible_facts['system'] | lower == 'darwin'
+      when: ansible_facts["os_family"] | lower == "darwin"
 
 - name: "Install hack-nerd-font"
   block:
