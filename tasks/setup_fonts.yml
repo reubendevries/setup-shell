@@ -14,7 +14,7 @@
         group: "{{ ansible_facts['user_gid'] }}" 
       when: ansible_facts['system'] | lower == 'linux'
 
-    - name: Make {{ ansible_facts['user_dir'] }}/.local/share/fonts dir.
+    - name: Make {{ ansible_facts['user_dir'] }}/Library/Fonts/ dir.
       ansible.builtin.file:
         path: "{{ ansible_facts['user_dir'] }}/Library/Fonts/"
         state: "directory"
