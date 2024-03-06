@@ -57,16 +57,16 @@ zstyle ':completion:*:kill:*' command 'ps -u "{{ ansible_facts['user_id'] }}" -o
 export HOMEBREW_PREFIX="/opt/homebrew"
 export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
 export HOMEBREW_REPOSITORY="/opt/homebrew"
-export PATH="{{ ansible_facts['env']['PATH'] }}:{{ ansible_facts['user_dir'] }}/.local/bin/:/opt/homebrew/bin:/opt/homebrew/sbin"
-export MANPATH="{{ ansible_facts['env']['MANPATH'] }}/opt/homebrew/share/man"
-export INFOPATH="{{ ansible_facts['env']['INFOPATH'] }}:/opt/homebrew/share/info"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Applications/kitty.app/Contents/MacOS:{{ ansible_facts['user_dir'] }}/.local/bin/"
+export MANPATH="/opt/homebrew/share/man:/usr/share/man:/usr/local/share/man:/Applications/kitty.app/Contents/Resources/man"
+export INFOPATH="/opt/homebrew/share/info"
 
 ### zsh addons
- source "{{ ansible_facts['user_dir'] }}/.zsh/powerlevel10k/powerlevel10k.zsh-theme"                                                                                                                                                                                                                    
- source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-autopair/autopair.zsh"                                                                                                                                                                                                                                                                    
- source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"                                                                                                                                                                                                                                                       
- source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"                                                                                                                                                                                                                                    
- source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "{{ ansible_facts['user_dir'] }}/.zsh/powerlevel10k/powerlevel10k.zsh-theme"
+source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-autopair/autopair.zsh"
+source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
+source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 ### source gcloud command completion support
 source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
