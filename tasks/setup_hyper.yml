@@ -5,8 +5,8 @@
 
 - name: "Create Hyper Plugin directories."
   ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/"
-    state: "directory"
+    path: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local"
+    state: directory
     mode: "0o700"
     owner: "{{ ansible_facts['user_uid'] }}"
     group: "{{ ansible_facts['user_gid'] }}"
