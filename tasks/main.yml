@@ -4,43 +4,61 @@
   ansible.builtin.import_tasks:
     file: "install_requirements_darwin.yml"
   when: ansible_facts["os_family"] | lower  == "darwin"
+  tags:
+    - install_requirements
 
 - name: "Install required packages for Debian"
   ansible.builtin.import_tasks:
     file: "install_requirements_debian.yml"
   when: ansible_facts["os_family"] | lower == "debian"
+  tags:
+    - install_requirements
 
 - name: "Install required packages for RedHat"
   ansible.builtin.import_tasks:
     file: "install_requirements_redhat.yml"
   when: ansible_facts["distribution"] | lower == "fedora"
+  tags:
+    - install_requirements
 
 - name: "Setup Fonts for *nix type systems."  
   ansible.builtin.import_tasks:
     file: "setup_fonts.yml"
   when: required_packages is true
+  tags:
+    - setup_fonts
 
 - name: "Setup Hyper for *nix type systems."
   ansible.builtin.import_tasks:
     file: "setup_hyper.yml"
   when: install_fonts is true
+  tags:
+    - setup_hyper
 
 - name: "Setup Powerlevel10K for *nix type systems."  
   ansible.builtin.import_tasks:
     file: "setup_powerlevel_10k.yml"
   when: configure_hyper is true
+  tags:
+    - setup_powerlev1l_10k
 
 - name: "Setup zsh for *nix type systems."
   ansible.builtin.import_tasks:
     file: "setup_zsh.yml"
   when: configure_powerlevel10k is true
+  tags:
+    - setup_zsh
 
 - name: "Setup vim for *nix type systems."
   ansible.builtin.import_tasks:
     file: "setup_vim.yml"
   when: configure_zsh is true
+  tags:
+    - setup_vim
 
 - name: "Setup codium for *nix type systems."
   ansible.builtin.import_tasks:
     file: "setup_codium.yml"
   when: configure_vim is true
+  tags:
+    - setup_codium

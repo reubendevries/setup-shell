@@ -47,9 +47,9 @@ zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:
 zstyle ':completion:*' menu select=long
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u "{{ ansible_facts['user_id'] }}" -o pid,%cpu,tty,cputime,cmd'
+### zstyle ':completion:*' verbose true
+### zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+### zstyle ':completion:*:kill:*' command 'ps -u "{{ ansible_facts['user_id'] }}" -o pid,%cpu,tty,cputime,cmd'
 
 ### zsh addons
 ### source "{{ ansible_facts['user_dir'] }}/.zsh/powerlevel10k/powerlevel10k.zsh-theme"
@@ -59,7 +59,7 @@ zstyle ':completion:*:kill:*' command 'ps -u "{{ ansible_facts['user_id'] }}" -o
 ### source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 ### define fpath
-fpath=("{{ ansible_facts['user_dir'] }}/.zsh/zsh-completions/src" $fpath)
+### fpath=("{{ ansible_facts['user_dir'] }}/.zsh/zsh-completions/src" $fpath)
 
 ### To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
 ### [[ ! -f "{{ ansible_facts['user_dir'] }}/.p10k.zsh" ]] || source "{{ ansible_facts['user_dir'] }}/.p10k.zsh"
