@@ -1,0 +1,16 @@
+---
+- name: "Set variable configure_hyper to false."
+  ansible.builtin.set_fact:
+    configure_hyper: false
+
+- name: copy hyper.js configuration file.
+  ansible.builtin.copy:
+    src: .hyper.js
+    dest: "ansible_facts['user_dir']/.hyper.js"
+    mode: "0o644"
+    owner: "{{ ansible_facts['user_uid'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
+
+- name: "Set variable configure_hyper to true."
+  ansible.builtin.set_fact:
+    configure_hyper: true

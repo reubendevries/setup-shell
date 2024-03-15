@@ -64,7 +64,7 @@
     name: "{{ cask.name }}"
     state: latest
   loop:
-    - { name: "kitty" }
+    - { name: "hyper" }
     - { name: "vscodium" }
     - { name: "google-cloud-sdk" }
   loop_control:
