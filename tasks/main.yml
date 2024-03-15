@@ -20,7 +20,7 @@
     file: "setup_fonts.yml"
   when: required_packages is true
 
-- name: "Setup Kitty for *nix type systems."
+- name: "Setup Hyper for *nix type systems."
   ansible.builtin.import_tasks:
     file: "setup_hyper.yml"
   when: install_fonts is true
