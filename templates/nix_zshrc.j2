@@ -1,6 +1,6 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+### Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+### Initialization code that may require console input (password prompts, [y/n]
+### confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:{{ ansible_facts['user_dir'] }}/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-{{ ansible_facts['user_dir'] }}/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -15,27 +15,23 @@ export GPG_TTY=$(tty)
 ### ansible_vault settings
 ## export ANSIBLE_VAULT_PASSWORD_FILE={{ enter the path to your ansible vault file here }}
 
-
 ### configure zsh shell
-
-# Set up the prompt
+### Set up the prompt
 autoload -Uz promptinit
 promptinit
 prompt adam1
 
 setopt histignorealldups sharehistory
 
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:{{ ansible_facts['user_dir']}}"/.local/bin/"
-
-# Use emacs keybindings even if our EDITOR is set to vi
+### Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
-# Keep 1000 lines of history within the shell and save it to "{{ ansible_facts['user_dir'] }}/.zsh_history"
+### Keep 1000 lines of history within the shell
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE="{{ ansible_facts['user_dir'] }}/.zsh_history"
 
-# Use modern completion system
+### Use modern completion system
 autoload -Uz compinit
 compinit
 
@@ -44,7 +40,6 @@ zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
@@ -54,18 +49,17 @@ zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u "reuben" -o pid,%cpu,tty,cputime,cmd'
+zstyle ':completion:*:kill:*' command 'ps -u "{{ ansible_facts['user_id'] }}" -o pid,%cpu,tty,cputime,cmd'
 
 ### zsh addons
+source "{{ ansible_facts['user_dir'] }}/.zsh/powerlevel10k/powerlevel10k.zsh-theme"
+source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-autopair/autopair.zsh"
+source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
+source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-source {{ ansible_facts['user_dir'] }}/.zsh/powerlevel10k/powerlevel10k.zsh-theme
-source {{ ansible_facts['user_dir'] }}/.zsh//zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source {{ ansible_facts['user_dir'] }}//.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source {{ ansible_facts['user_dir'] }}//.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
-fpath+=({{ ansible_facts['user_dir'] }}/.zsh/zsh-completions/src $fpath)
+### define fpath
+fpath=("{{ ansible_facts['user_dir'] }}/.zsh/zsh-completions/src" $fpath)
 
-### powerlevel10k settings
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
-
-### To customize prompt, run `p10k configure` or edit "{{ansible_facts['user_dir'] }}/.p10k.zsh"
-[[ ! -f "{{ ansible_facts['user_dir'] }}/.p10k.zsh" ]] || source "{{ ansible_facts['user_dir']}}/.p10k.zsh"
+### To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
+[[ ! -f "{{ ansible_facts['user_dir'] }}/.p10k.zsh" ]] || source "{{ ansible_facts['user_dir'] }}/.p10k.zsh"
