@@ -4,13 +4,13 @@
     configure_codium: false
 
 - name: "Copy codium settings file on Darwin systems."
-  ansible.builitin.copy:
+  ansible.builtin.git:
     src: settings.json
     dest: "{{ ansible_facts['user_dir'] }}/Library/Application Support/VSCodium/User/"
     owner: "{{ ansible_facts['user_uid'] }}"
     group: "{{ ansible_facts['user_gid'] }}"
     mode: "0o644"
-  when: ansible_facts["os_family"] | lower == "darwin"
+  when: ansible_fa:wcts["os_family"] | lower == "darwin"
 
 - name: "Copy codium settings file on Linux Systems."
   ansible.builtin.copy:
