@@ -22,13 +22,13 @@
 
 - name: "Setup Kitty for *nix type systems."
   ansible.builtin.import_tasks:
-    file: "setup_kitty.yml"
+    file: "setup_hyper.yml"
   when: install_fonts is true
 
 - name: "Setup Powerlevel10K for *nix type systems."  
   ansible.builtin.import_tasks:
     file: "setup_powerlevel_10k.yml"
-  when: configure_kitty is true
+  when: configure_hyper is true
 
 - name: "Setup zsh for *nix type systems."
   ansible.builtin.import_tasks:
