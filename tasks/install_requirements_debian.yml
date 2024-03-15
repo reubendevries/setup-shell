@@ -107,7 +107,7 @@
     state: latest
     allow_downgrade: true
   loop:
-    - { name: "kitty" }
+    - { name: "hyper" }
     - { name: "firefox" }
     - { name: "vim" }
     - { name: "rustc"}

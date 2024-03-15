@@ -59,7 +59,8 @@
     name: "{{ dnf_package.name }}"
     state: latest
   loop:
-    - { name: firefox }
+    - { name: "hyper" }
+    - { name: "firefox" }
     - { name: "vim" }
     - { name: "rustc" }
     - { name: "ruby" }
