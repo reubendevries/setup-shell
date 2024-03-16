@@ -131,13 +131,19 @@ module.exports = {
         preserveCWD: true,
         // for advanced config flags please refer to https://hyper.is/#cfg
     },
+    module.exports = {
+       // configure what themes to use for light / dark mode
+       nightAndDay: {
+         night: 'hyper-material-theme',
+         day:   'hyper-solarized-light',
+    },
     // a list of plugins to fetch and install from npm
     // format: [@org/]project[#version]
     // examples:
     //   `hyperpower`
     //   `@company/project`
     //   `project#1.0.1`
-    plugins: ['hyper-solarized-light', 'hyperpower', 'hyper-search', 'hyper-tabs-enhanced', 'hyper-quit', 'hyper-highlight-active-pane','hyper-single-instance','hypercwd'],
+    plugins: ['hyper-material-theme', 'hyper-solarized-light', 'hyper-night-and-day', 'hyperpower', 'hyper-search', 'hyper-tabs-enhanced', 'hyper-quit', 'hyper-highlight-active-pane','hyper-single-instance','hypercwd'],
     // in development, you can create a directory under
     // `~/.hyper_plugins/local/` and include it here
     // to load it and avoid it being `npm install`ed
