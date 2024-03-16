@@ -54,6 +54,10 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u "{{ ansible_facts['user_id'] }}" -o pid,%cpu,tty,cputime,cmd'
 
+### setup $PATH
+
+export PATH="{{ ansible_facts['user_dir'] }}/.local/bin:$PATH"
+
 ### zsh addons
 source "{{ ansible_facts['user_dir'] }}/.zsh/powerlevel10k/powerlevel10k.zsh-theme"
 source "{{ ansible_facts['user_dir'] }}/.zsh/zsh-autopair/autopair.zsh"
