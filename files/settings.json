@@ -1,20 +1,20 @@
 {
 	"css.lint.emptyRules": "ignore",
-	"editor.fontSize": 50,
-    	"editor.bracketPairColorization.enabled": false,
-    	"editor.cursorBlinking": "solid",
+	"editor.fontSize": 12,
+	"editor.bracketPairColorization.enabled": false,
+	"editor.cursorBlinking": "solid",
 	"editor.formatOnSave": true,
 	"editor.hover.enabled": false,
 	"editor.hover.sticky": false,
 	"editor.inlayHints.enabled": "off",
-    	"editor.insertSpaces": true,
+	"editor.insertSpaces": true,
 	"editor.lightbulb.enabled": false,
-    	"editor.minimap.enabled": false,
-    	"editor.occurencesHighlight": false,
-    	"editor.parameterHints.enabled": false,
-    	"editor.selectionHighligh": false,
-    	"editor.tabSize": 2,
-    	"editor.wordWrap": "off",
+	"editor.minimap.enabled": false,
+	"editor.occurencesHighlight": false,
+	"editor.parameterHints.enabled": false,
+	"editor.selectionHighligh": false,
+	"editor.tabSize": 2,
+	"editor.wordWrap": "off",
 	"files.autoSave": "afterDelay",
 	"git.autofetch": true,
 	"git.confirmSync": false,
@@ -22,26 +22,26 @@
 	"github.gitProtocol": "ssh",
 	"javascript.updateImportsOnFileMove.enabled": "always",
 	"liveServer.settings.AdvancedCustomBrowserCmdLine": "Firefox",
-	"prettier.printWidth": 92.
+	"prettier.printWidth": 12,
 	"prettier.semi": true,
 	"prettier.singleQuote": true,
 	"prettier.useTabs": true,
 	"python.terminal.activateEnvironment": false,
 	"redhat.telemetry.enabled": false,
-	"terminal.integrated.fontSize": 50,
-    	"terminal.integrated.fontFamily": "MesloLGS NF",
+	"terminal.integrated.fontSize": 14,
+	"terminal.integrated.fontFamily": "MesloLGS NF",
 	"terminal.integrated.fontWeight": "normal",
 	"workbench.colorCustomizations": {
-    		"seditor.selectionBackground": "#0000ff",
-    		"seditorError.foreground": "#00000000",
-    		"seditorWarning.foreground": "#00000000",
-    		"seditorInfo.foreground": "#00000000"
-  	},
+		"seditor.selectionBackground": "#0000ff",
+		"seditorError.foreground": "#00000000",
+		"seditorWarning.foreground": "#00000000",
+		"seditorInfo.foreground": "#00000000"
+	},
 	"workbench.colorTheme": "Solarized Dark",
 	"workbench.editor.enablePreview": false,
-    	"workbench.preferredDarkColorTheme": "Solarized Dark",
-    	"workbench.preferredLightColorTheme": "Solarized Light",
-    	"yaml.customTags": [
-        	"!vault scalar"
-    	]
+	"workbench.preferredDarkColorTheme": "Solarized Dark",
+	"workbench.preferredLightColorTheme": "Solarized Light",
+	"yaml.customTags": [
+		"!vault scalar"
+	]
 }
