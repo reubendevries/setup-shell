@@ -10,11 +10,10 @@ export GPG_TTY=$(tty)
 
 ### Add ssh keys
 ## eval $(ssh-agent -s)
-## ssh-add {{ enter the path to your private ssh key here }}
+ssh-add "/path/to/key/here"
 
 ### ansible_vault settings
-## export ANSIBLE_VAULT_PASSWORD_FILE={{ enter the path to your ansible vault file here }}
-
+export ANSIBLE_VAULT_PASSWORD_FILE="/path/to/vaulfile/here"
 
 ### configure zsh shell
 ### Set up the prompt
