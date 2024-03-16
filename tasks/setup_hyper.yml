@@ -3,21 +3,59 @@
   ansible.builtin.set_fact:
     configure_hyper: false
 
-- name: "Create Hyper Plugin directories."
-  ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local"
-    state: "directory"
-    mode: "0o700"
-    owner: "{{ ansible_facts['user_uid'] }}"
-    group: "{{ ansible_facts['user_gid'] }}"
+- name: "Create hyper folder for darwin type systems."
+  block:
+    - name: "Create configuration folder for hyper terminal."
+      ansible.builtin.file:
+        path: "{{ ansible_facts['user_dir'] }}/Library/Application Support/Hyper"
+        mode: "0o700"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
 
-- name: copy hyper.js configuration file.
-  ansible.builtin.copy:
-    src: .hyper.js
-    dest: "{{ ansible_facts['user_dir'] }}/.hyper.js"
-    mode: "0o644"
-    owner: "{{ ansible_facts['user_uid'] }}"
-    group: "{{ ansible_facts['user_gid'] }}"
+    - name: "Create Hyper Plugin directories."
+      ansible.builtin.file:
+        path: "{{ ansible_facts['user_dir'] }}/Library/Application Support/Hyper/.hyper_plugins/local"
+        state: "directory"
+        mode: "0o700"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+
+    - name: "Copy hyper.js configuration file."
+      ansible.builtin.copy:
+        src: .hyper.js
+        dest: "{{ ansible_facts['user_dir'] }}/Library/Application Support/Hyper/.hyper.js"
+        mode: "0o400"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+
+  when: ansible_facts['os_family'] | lower  == 'darwin'
+
+- name: "Create hyper folder for *nix type systems."
+  block:
+    - name: "Create configuration folder for hyper terminal."
+      ansible.builtin.file:
+        path: "{{ ansible_facts['user_dir'] }}/.config/Hyper"
+        mode: "0o700"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+
+    - name: "Create Hyper Plugin directories."
+      ansible.builtin.file:
+        path: "{{ ansible_facts['user_dir'] }}/.config/Hyper/.hyper_plugins/local"
+        state: "directory"
+        mode: "0o700"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+
+    - name: copy hyper.js configuration file.
+      ansible.builtin.copy:
+        src: .hyper.js
+        dest: "{{ ansible_facts['user_dir'] }}/.config/Hyper/.hyper.js"
+        mode: "0o400"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+
+  when: ansible_facts['system'] | lower  == 'linux'
 
 - name: "Set variable configure_hyper to true."
   ansible.builtin.set_fact:
