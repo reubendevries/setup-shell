@@ -52,11 +52,11 @@
             dest: "powerlevel10k/"
           }
         - {
-            repo: git@github.com:hlissner/zsh-autopair,
+            repo: git@github.com:hlissner/zsh-autopair.git,
             dest: "zsh-autopair/"
           }
         - {
-            repo: "git@github.com:zsh-users/zsh-autosuggestions",
+            repo: "git@github.com:zsh-users/zsh-autosuggestions.git",
             dest: "zsh-autosuggestions/"
           }
         - {
@@ -64,7 +64,7 @@
             dest: "zsh-syntax-highlighting/"
           }
         - {
-            repo: "git@github.com:zsh-users/zsh-history-substring-search",
+            repo: "git@github.com:zsh-users/zsh-history-substring-search.git",
             dest: "zsh-history-substring-search/"
           }
         - {
