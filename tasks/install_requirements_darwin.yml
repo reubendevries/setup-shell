@@ -3,6 +3,53 @@
   ansible.builtin.set_fact:
     required_packages: false
 
+- name: "Install python and pip on MacOS"
+  block:
+    
+    - name: "Download Python package from python.org"
+      ansible.builtin.get_url:
+        url: "https://www.python.org/ftp/python/{{ python_version }}/python-{{ python_version }}-macos11.pkg"
+        dest: "{{ ansible_facts['user_dir'] }}/python-{{ python_version }}-macos11.pkg"
+        mode: "0o755"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+      register: python_pkg_downloaded
+
+    - name: "Install Python {{ python_version }}"
+      become: true
+      ansible.builtin.shell:
+        cmd: "{{ ansible_facts['user_dir'] }}/python-{{ python_version }}-macos11.pkg"
+      args:
+        executable: installer
+      when: python_pkg_downloaded is succeeded.
+
+    - name: "Download pip script."
+      ansible.builtin.get_url:
+        url: "https://bootstrap.pypa.io/get-pip.py"
+        dest: "{{ ansible_facts['user_dir'] }}/get-pip.py"
+        mode: "0o700"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+      register: pip_script_downloaded
+
+    - name: "Flush Handlers."
+      ansible.builtin.meta: "flush_handlers"
+
+    - name: Cleanup Installer and scripts.
+      block:
+
+        - name: Remove python-{{ python_version }}-macos11.pkg
+          ansible.builtin.file:
+            path: "{{ ansible_facts['user_dir']] }}/python-{{ python_version }}-macos11.pkg"
+            state: "absent"
+          when: "python_pkg_downloaded is succeeded"
+
+        - name: "Remove pip script"
+          ansible.builtin.file:
+            path: "{{ ansible_facts['user_dir'] }}/get-pip.py"
+            state: "absent"
+          when: "pip_script_downloaded is succeeded"
+
 - name: "Get get installation script."
   become: true
   ansible.builtin.get_url:
@@ -40,7 +87,6 @@
     - { name: "zsh" }
     - { name: "ruby" }
     - { name: "go" }
-    - { name: "python@3.12" }
     - { name: "git" }
     - { name: "eza" }
     - { name: "cmake" }
