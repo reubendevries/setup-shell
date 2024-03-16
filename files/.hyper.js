@@ -139,9 +139,8 @@ module.exports = {
     //   `project#1.0.1`
     plugins: 
         [
-            'hyper-material-theme',
-            'hyper-solarized-light', 
-            'hyper-night-and-day', 
+            'hyper-solarized-light',
+            "hyperline",
             'hyperpower', 'hyper-search', 
             'hyper-tabs-enhanced', 
             'hyper-quit', 
