@@ -10,6 +10,46 @@
     mode: "0o700"
     owner: "{{ ansible_facts['user_uid'] }}"
     group: "{{ ansible_facts['user_gid'] }}"
+
+- name: "Create local plugins foder in "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/"
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/{{ plugin.name }}"
+    state: "directory"
+    mode: "0o700"
+    owner: "{{ ansible_facts['user_uid'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
+  loop:
+    - { name: 'hyper-day-night-switch' }
+    - { name: 'hyperline' }
+    - { name: 'hyperpower' }
+    - { name: 'hyper-search' }
+    - { name: 'hyper-tabs-enhanced' }
+    - { name: 'hyper-quit' }
+    - { name: 'hyper-highlight-active-pane' }
+    - { name: 'hyper-single-instance' }
+    - { name: 'hypercwd' }
+  loop_control:
+    loop_var: plugin
+
+- name: "Clone plugins into "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local"
+  ansible.builtin.git:
+     repo: "{{ git.repo }}"
+    dest: "{{ git.dest }}"
+    clone: true
+    update: true
+  loop:
+    - { repo: "git@github.com:binotaliu/hyper-day-night-switch.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hyper-day-night-switch" }
+    - { repo: "git@github.com:Hyperline/hyperline.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hyperline" }
+    - { repo: "git@github.com:vercel/hyperpower.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hyperpower" }
+    - { repo: "git@github.com:jaanauati/hyper-search.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hyper-search" }
+    - { repo: "git@github.com:henrikruscon/hyper-tabs-enhanced.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hyper-tabs-enhanced" }
+    - { repo: "git@github.com:cblecker/hyper-quit.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hyper-quit" }
+    - { repo: "git@github.com:matheuss/hyper-highlight-active-pane.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hyper-highlight-active-pane" }
+    - { repo: "git@github.com:ivanwonder/hyper-single-instance.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hyper-single-instance" }
+    - { repo: "git@github.com:hharnisc/hypercwd.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hypercwd" }
+  loop_control:
+    loop_var: git
+
 - name: copy hyper.js configuration file.
   ansible.builtin.copy:
     src: .hyper.js

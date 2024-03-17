@@ -172,8 +172,14 @@ let g:ansible_loop_keywords_highlight = 'Constant'
 let g:ansible_ftdetect_filename_regex = '\v(playbook|site|main|local|requirements)\.ya?ml$'
 
 let g:solarized_termcolors=256
-set background=light
-colorscheme solarized
+
+if strftime("%H") >= 0 && strftime("%H") <= 5
+        colorscheme Base2Tone_MorningLight
+elseif strftime("%H") >= 6 && strftime("%H") <= 17
+        colorscheme Base2Tone_MorningLight
+elseif strftime("%H") >= 18 && strftime("%H") <= 23
+        colorscheme Base2Tone_EveningDark
+endif
 
 " NERDTree Settings.
 let NERDTreeIgnore=['\.pyc$', '\~$']

@@ -17,7 +17,6 @@
     - { name: "syntastic" }
     - { name: "vim-flake8" }
     - { name: "Zenburn" }
-    - { name: "vim-colors-solarized" }
     - { name: "Base2Tone-vim" }
     - { name: "nerdtree" }
     - { name: "vim-nerdtree-tabs" }
@@ -58,7 +57,6 @@
     - { repo: "git@github.com:vim-syntastic/syntastic.git", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/syntastic" }
     - { repo: "git@github.com:nvie/vim-flake8.git", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/vim-flake8" }
     - { repo: "git@github.com:jnurmine/Zenburn.git", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/Zenburn" }
-    - { repo: "git@github.com:altercation/vim-colors-solarized.git", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/vim-colors-solarized" }
     - { repo: "git@github.com:atelierbram/Base2Tone-vim.git", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/Base2Tone-vim" }
     - { repo: "git@github.com:preservim/nerdtree.git", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/nerdtree/start" }
     - { repo: "git@github.com:jistr/vim-nerdtree-tabs.git", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/vim-nerdtree-tabs" }
