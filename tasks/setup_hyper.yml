@@ -11,7 +11,7 @@
     owner: "{{ ansible_facts['user_uid'] }}"
     group: "{{ ansible_facts['user_gid'] }}"
 
-- name: "Create local plugins foder in "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/"
+- name: "Create local plugins foder in {{ ansible_facts['user_dir'] }}/.hyper_plugins/local/"
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/{{ plugin.name }}"
     state: "directory"
@@ -31,7 +31,7 @@
   loop_control:
     loop_var: plugin
 
-- name: "Clone plugins into "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local"
+- name: "Clone plugins into {{ ansible_facts['user_dir'] }}/.hyper_plugins/local"
   ansible.builtin.git:
      repo: "{{ git.repo }}"
     dest: "{{ git.dest }}"
