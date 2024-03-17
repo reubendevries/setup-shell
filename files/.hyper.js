@@ -137,8 +137,9 @@ module.exports = {
     //   `hyperpower`
     //   `@company/project`
     //   `project#1.0.1`
-    plugins: [	
-	    'hyperline',
+    plugins: [
+	    'hyper-solarized-light',
+        'hyperline',
 	    'hyperpower',
 	    'hyper-search',
 	    'hyper-tabs-enhanced',
