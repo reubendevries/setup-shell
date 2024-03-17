@@ -44,7 +44,7 @@
     - { repo: "git@github.com:jaanauati/hyper-search.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hyper-search" }
     - { repo: "git@github.com:henrikruscon/hyper-tabs-enhanced.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hyper-tabs-enhanced" }
     - { repo: "git@github.com:cblecker/hyper-quit.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hyper-quit" }
-    - { repo: "git@github.com:matheuss/hyper-highlight-active-pane.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hyper-highlight-active-pane" }
+    - { repo: "git@github.com:yebrahim/hyper-highlight-active-pane.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hyper-highlight-active-pane" }
     - { repo: "git@github.com:ivanwonder/hyper-single-instance.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hyper-single-instance" }
     - { repo: "git@github.com:hharnisc/hypercwd.git", dest: "{{ ansible_facts['user_dir'] }}/.hyper_plugins/local/hypercwd" }
   loop_control:
