@@ -16,7 +16,8 @@
     - name: "Install Hyper Terminal."
       become: true
       ansible.builtin.dnf:
-        dnf: "/tmp/hyper_amd64.rpm" 
+        name: "/tmp/hyper_amd64.rpm"
+        state: "present"
 
 - name: "Add repositories for required packages."
   become: true
