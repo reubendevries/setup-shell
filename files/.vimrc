@@ -174,7 +174,7 @@ let g:ansible_ftdetect_filename_regex = '\v(playbook|site|main|local|requirement
 let g:solarized_termcolors=256
 
 if strftime("%H") >= 0 && strftime("%H") <= 5
-        colorscheme Base2Tone_MorningLight
+        colorscheme Base2Tone_EveningDark
 elseif strftime("%H") >= 6 && strftime("%H") <= 17
         colorscheme Base2Tone_MorningLight
 elseif strftime("%H") >= 18 && strftime("%H") <= 23
