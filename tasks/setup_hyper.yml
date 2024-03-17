@@ -33,7 +33,7 @@
 
 - name: "Clone plugins into {{ ansible_facts['user_dir'] }}/.hyper_plugins/local"
   ansible.builtin.git:
-     repo: "{{ git.repo }}"
+    repo: "{{ git.repo }}"
     dest: "{{ git.dest }}"
     clone: true
     update: true
