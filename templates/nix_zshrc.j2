@@ -11,18 +11,13 @@ fi
 export GPG_TTY=$(tty)
 
 ### Add ssh keys
-## eval $(ssh-agent -s)
+
+eval $(ssh-agent -s)
 ssh-add "/path/to/key/here"
 
 ### ansible_vault settings
+
 export ANSIBLE_VAULT_PASSWORD_FILE="/path/to/vaulfile/here"
-
-
-### configure zsh shell
-### Set up the prompt
-autoload -Uz promptinit
-promptinit
-prompt adam1
 
 setopt histignorealldups sharehistory
 
