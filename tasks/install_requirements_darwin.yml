@@ -19,7 +19,7 @@
       become: true
       ansible.builtin.command:
         cmd: "/usr/sbin/installer -pkg {{ ansible_facts['user_dir'] }}/python-{{ python_version }}-macos11.pkg -target /Applications"
-      when: python_pkg_downloaded is succeeded.
+      when: python_pkg_downloaded is succeeded
 
     - name: "Download pip script."
       ansible.builtin.get_url:
