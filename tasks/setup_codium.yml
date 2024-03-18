@@ -4,7 +4,7 @@
     configure_codium: false
 
 - name: "Copy codium settings file on Darwin systems."
-  ansible.builtin.git:
+  ansible.builtin.copy:
     src: settings.json
     dest: "{{ ansible_facts['user_dir'] }}/Library/Application Support/VSCodium/User/"
     owner: "{{ ansible_facts['user_uid'] }}"
