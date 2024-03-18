@@ -4,17 +4,19 @@
     cmd: "source {{ ansible_facts['user_dir'] }}/.zshrc"
   args:
     executable: /bin/bash
+  when: zshrc_copied is succeeded
   
 - name: "Install homebrew from script."
   ansible.builtin.shell:
     cmd: /tmp/homebrew.sh
   args:
     executable: /bin/bash
+  when: download_homebrew is succeeded. 
 
 - name: "Install pip3 from script."
   ansible.builtin.script:
     cmd: "{{ ansible_facts['user_dir'] }}/get-pip.py"
   args:
     executable: python3
-  when: "pip_script_downloaded is succeeded"
+  when: pip_script_downloaded is succeeded
 

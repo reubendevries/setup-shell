@@ -17,11 +17,8 @@
 
     - name: "Install Python {{ python_version }}"
       become: true
-      ansible.builtin.shell:
-        argv:
-          - /usr/sbin/installer
-          - -pkg "{{ ansible_facts['user_dir'] }}/python-{{ python_version }}-macos11.pkg"
-          - -target /Applications
+      ansible.builtin.command:
+        cmd: "/usr/sbin/installer -pkg {{ ansible_facts['user_dir'] }}/python-{{ python_version }}-macos11.pkg -target /Applications"
       when: python_pkg_downloaded is succeeded.
 
     - name: "Download pip script."
@@ -34,7 +31,7 @@
       register: pip_script_downloaded
 
     - name: "Flush Handlers."
-      ansible.builtin.meta: "flush_handlers"
+      ansible.builtin.meta: flush_handlers
 
     - name: Cleanup Installer and scripts.
       block:
