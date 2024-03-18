@@ -18,9 +18,10 @@
     - name: "Install Python {{ python_version }}"
       become: true
       ansible.builtin.shell:
-        cmd: "{{ ansible_facts['user_dir'] }}/python-{{ python_version }}-macos11.pkg"
-      args:
-        executable: installer
+        argv:
+          - /usr/sbin/installer
+          - -pkg "{{ ansible_facts['user_dir'] }}/python-{{ python_version }}-macos11.pkg"
+          - -target /Applications
       when: python_pkg_downloaded is succeeded.
 
     - name: "Download pip script."
