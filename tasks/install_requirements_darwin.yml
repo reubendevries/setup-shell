@@ -29,6 +29,7 @@
         owner: "{{ ansible_facts['user_uid'] }}"
         group: "{{ ansible_facts['user_gid'] }}"
       register: pip_script_downloaded
+      notify: "Install pip3 from script."
 
     - name: "Flush Handlers."
       ansible.builtin.meta: flush_handlers
