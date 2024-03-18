@@ -38,7 +38,7 @@
 
         - name: Remove python-{{ python_version }}-macos11.pkg
           ansible.builtin.file:
-            path: "{{ ansible_facts['user_dir']] }}/python-{{ python_version }}-macos11.pkg"
+            path: "{{ ansible_facts['user_dir'] }}/python-{{ python_version }}-macos11.pkg"
             state: "absent"
           when: "python_pkg_downloaded is succeeded"
 
