@@ -82,6 +82,8 @@
     owner: "{{ ansible_facts['user_uid'] }}"
     group: "{{ ansible_facts['user_gid'] }}"
   register: zshrc_copied
+  notify:
+    - "Source the .zshrc file."
   when: ansible_facts['system'] | lower == 'linux'
 
 - name: "Copy .zshrc configuration on darwin systems."
@@ -93,7 +95,7 @@
     group: "{{ ansible_facts['user_gid'] }}"
   register: zshrc_copied
   notify:
-    - "Run commands to init zsh add-ons"
+    - "Source the .zshrc file."
   when: ansible_facts["os_family"] | lower  == "darwin"
 
 - name: Flush Handlers
