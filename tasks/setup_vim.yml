@@ -29,6 +29,7 @@
     - { name: "vim-go" }
     - { name: "fugitive-gitlab.vim" }
     - { name: "vim-javascript-syntax" }
+    - { name: "vim-prettier" }
   loop_control:
     loop_var: plugin
 
@@ -70,6 +71,7 @@
     - { repo: "git@github.com:fatih/vim-go.git", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/vim-go" }
     - { repo: "git@github.com:shumphrey/fugitive-gitlab.vim.git", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/fugitive-gitlab.vim" }
     - { repo: "git@github.com:jelera/vim-javascript-syntax.git", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/vim-javascript-syntax" }
+    - { repo: "git@github.com:prettier/vim-prettier.git", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/vim-prettier" }
   loop_control:
     loop_var: git
 
