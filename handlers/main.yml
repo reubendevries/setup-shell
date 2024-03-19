@@ -11,7 +11,7 @@
     cmd: /tmp/homebrew.sh
   args:
     executable: /bin/bash
-  when: download_homebrew is succeeded. 
+  when: download_homebrew is succeeded
 
 - name: "Install pip3 from script."
   ansible.builtin.script:
