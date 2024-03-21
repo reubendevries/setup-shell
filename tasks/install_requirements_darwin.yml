@@ -99,7 +99,7 @@
     - { name: "xclip" }
     - { name: "tofu" }
     - { name: "hashicorp/tap/packer" }
-    - { name: "hashicorp/tap/vlt" }
+    - { name: "hashicorp/tap/vault" }
   loop_control:
     loop_var: brew_package
 
