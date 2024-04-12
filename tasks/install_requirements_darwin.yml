@@ -86,6 +86,7 @@
     - { name: "zsh" }
     - { name: "ruby" }
     - { name: "go" }
+    - { name: "zig" }
     - { name: "git" }
     - { name: "eza" }
     - { name: "cmake" }
