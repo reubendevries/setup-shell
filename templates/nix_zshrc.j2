@@ -12,12 +12,12 @@ export GPG_TTY=$(tty)
 
 ### Add ssh keys
 
-eval $(ssh-agent -s)
-ssh-add "/path/to/key/here"
+#eval $(ssh-agent -s)
+#ssh-add "/path/to/key/here"
 
 ### ansible_vault settings
 
-export ANSIBLE_VAULT_PASSWORD_FILE="/path/to/vaulfile/here"
+#export ANSIBLE_VAULT_PASSWORD_FILE="/path/to/vaulfile/here"
 
 setopt histignorealldups sharehistory
 
