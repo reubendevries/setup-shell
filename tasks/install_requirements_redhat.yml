@@ -2,6 +2,20 @@
 - name: "Set variable required_packages to false."
   ansible.builtin.set_fact:
     required_packages: false
+- name: "Install terminal from hyper.is"
+  block:
+    - name: "Download Hyper Terminal package."
+      ansible.builtin.get_url:
+        url: "https://releases.hyper.is/download/rpm"
+        dest: "/tmp/hyper_amd64.rpm"
+        mode: "0o655"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+
+    - name: "Install Hyper Terminal."
+      become: true
+      ansible.builtin.dnf:
+        deb: "/tmp/hyper_amd64.rpm" 
 
 - name: "Add repositories for required packages."
   become: true
@@ -59,7 +73,6 @@
     name: "{{ dnf_package.name }}"
     state: latest
   loop:
-    - { name: "hyper" }
     - { name: "firefox" }
     - { name: "vim" }
     - { name: "rustc" }
