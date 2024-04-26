@@ -44,7 +44,7 @@
     - { 
         name: "hashicorp",
         description: "hashicorp",
-        baseurl: "https://rpm.releases.hashicorp.com/fedora/hashicorp.repo",
+        baseurl: "https://rpm.releases.hashicorp.com/fedora/$releasever/$basearch/stable",
         gpgkey: "https://rpm.releases.hashicorp.com/gpg"
       }
     - {
