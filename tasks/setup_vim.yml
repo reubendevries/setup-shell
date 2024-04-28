@@ -77,7 +77,7 @@
     - { repo: "git@github.com:jelera/vim-javascript-syntax.git", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/vim-javascript-syntax" }
     - { repo: "git@github.com:prettier/vim-prettier.git", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/vim-prettier" }
     - { repo: "git@github.com:ziglang/zig.vim", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/zig.vim" }
-    - { repo: "git@github.com:bfrg/vim-cpp-modern.git, dest: ""{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/vim-cpp-modern" }
+    - { repo: "git@github.com:bfrg/vim-cpp-modern.git", dest: "{{ ansible_facts['user_dir'] }}/.vim/pack/vendor/start/vim-cpp-modern" }
   loop_control:
     loop_var: git
 
