@@ -51,7 +51,7 @@ zstyle ':completion:*:kill:*' command 'ps -u "{{ ansible_facts['user_id'] }}" -o
 
 ### setup $PATH
 
-export PATH="{{ ansible_facts['user_dir'] }}/.local/bin:$PATH"
+export PATH="{{ ansible_facts['user_dir'] }}/.local/bin:{{ ansible_facts['user_dir' }}/.cargo/bin:$PATH"
 
 ### zsh addons
 source "{{ ansible_facts['user_dir'] }}/.zsh/powerlevel10k/powerlevel10k.zsh-theme"
