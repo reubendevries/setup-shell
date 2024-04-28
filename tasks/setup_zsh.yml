@@ -93,14 +93,6 @@
   register: zshrc_copied
   when: ansible_facts["os_family"] | lower  == "darwin"
 
-- name: "Copy .zprofile on all systems."
-  ansible.builtin.copy:
-    src: ".zprofile"
-    dest: "{{ ansible_facts['user_dir'] }}/.zprofile"
-    mode: "0o600"
-    owner: "{{ ansible_facts['user_uid'] }}"
-    group: "{{ ansible_facts['user_gid'] }}"
-
 - name: "Set variable configure_zsh to true."
   ansible.builtin.set_fact:
     configure_zsh: true
