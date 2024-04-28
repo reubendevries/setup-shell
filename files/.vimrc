@@ -185,3 +185,74 @@ endif
 let NERDTreeIgnore=['\.pyc$', '\~$']
 filetype plugin indent on    " required
 set completeopt-=preview
+
+
+" Terraform Settings
+*g:hcl_align*
+    Allow vim-terraform to align settings automatically with Tabularize.
+    Default: 0
+
+*g:hcl_fold_sections*
+    Allow vim-terraform to automatically fold (hide until unfolded) sections of
+    hcl code.
+    Default: 0
+ 
+*g:terraform_align*
+    Allow vim-terraform to align settings automatically with Tabularize.
+    Default: 0
+
+*g:terraform_binary_path*
+    Allow vim-terraform to use a custom path for the terraform binary.
+    Default: terraform
+
+*g:terraform_fmt_on_save*
+    Allow vim-terraform to automatically format *.tf and *.tfvars files with
+    terraform fmt. You can also do this manually with the `:TerraformFmt` command.
+    Default: 0
+
+*g:terraform_fold_sections*
+    Allow vim-terraform to automatically fold (hide until unfolded) sections of
+    terraform code.
+    Default: 0
+
+vim:tw=78:et:ft=help:norl:
+
+" Javascript Settings
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+let g:javascript_plugin_flow = 1
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+set conceallevel=1
+let g:javascript_conceal_function             = "ƒ"
+let g:javascript_conceal_null                 = "ø"
+let g:javascript_conceal_this                 = "@"
+let g:javascript_conceal_return               = "⇚"
+let g:javascript_conceal_undefined            = "¿"
+let g:javascript_conceal_NaN                  = "ℕ"
+let g:javascript_conceal_prototype            = "¶"
+let g:javascript_conceal_static               = "•"
+let g:javascript_conceal_super                = "Ω"
+let g:javascript_conceal_arrow_function       = "⇒"
+let g:javascript_conceal_noarg_arrow_function = "🞅"
+let g:javascript_conceal_underscore_arrow_function = "🞅"
+
+" Zig Settings
+
+let g:zig_fmt_autosave = 0
+
+" C++ Settings
+" Disable function highlighting (affects both C and C++ files)
+let g:cpp_function_highlight = 0
+
+" Enable highlighting of C++11 attributes
+let g:cpp_attributes_highlight = 1
+
+" Highlight struct/class member variables (affects both C and C++ files)
+let g:cpp_member_highlight = 1
+
+" Put all standard C and C++ keywords under Vim's highlight group 'Statement'
+" (affects both C and C++ files)
+let g:cpp_simple_highlight = 1
