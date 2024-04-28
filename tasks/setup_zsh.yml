@@ -93,7 +93,7 @@
   register: zshrc_copied
   when: ansible_facts["os_family"] | lower  == "darwin"
 
-- name: "Copy .zprofile on all systems".
+- name: "Copy .zprofile on all systems."
   ansible.builtin.file:
     src: ".zprofile"
     dest: "{{ ansilbe_facts['user_dir'] }}/.zprofile"
