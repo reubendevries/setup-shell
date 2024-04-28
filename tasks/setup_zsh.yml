@@ -96,7 +96,7 @@
 - name: "Copy .zprofile on all systems."
   ansible.builtin.file:
     src: ".zprofile"
-    dest: "{{ ansilbe_facts['user_dir'] }}/.zprofile"
+    dest: "{{ ansible_facts['user_dir'] }}/.zprofile"
     mode: "0o700"
     owner: "{{ ansible_facts['user_uid'] }}"
     group: "{{ ansible_facts['user_gid'] }}"
