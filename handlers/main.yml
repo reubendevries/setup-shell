@@ -1,11 +1,4 @@
 ---
-- name: "Source the .zshrc file."
-  ansible.builtin.shell:
-    cmd: "source {{ ansible_facts['user_dir'] }}/.zshrc"
-  args:
-    executable: /bin/bash
-  when: zshrc_copied is succeeded
-  
 - name: "Install homebrew from script."
   ansible.builtin.shell:
     cmd: /tmp/homebrew.sh
