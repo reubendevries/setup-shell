@@ -78,7 +78,7 @@
   ansible.builtin.template:
     src:  "nix_zshrc.j2"
     dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
-    mode: "0o700"
+    mode: "0o600"
     owner: "{{ ansible_facts['user_uid'] }}"
     group: "{{ ansible_facts['user_gid'] }}"
   when: ansible_facts['system'] | lower == 'linux'
@@ -87,17 +87,17 @@
   ansible.builtin.template:
     src:  "darwin_zshrc.j2"
     dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
-    mode: "0o700"
+    mode: "0o600"
     owner: "{{ ansible_facts['user_uid'] }}"
     group: "{{ ansible_facts['user_gid'] }}"
   register: zshrc_copied
   when: ansible_facts["os_family"] | lower  == "darwin"
 
 - name: "Copy .zprofile on all systems."
-  ansible.builtin.file:
+  ansible.builtin.copy:
     src: ".zprofile"
     dest: "{{ ansible_facts['user_dir'] }}/.zprofile"
-    mode: "0o700"
+    mode: "0o600"
     owner: "{{ ansible_facts['user_uid'] }}"
     group: "{{ ansible_facts['user_gid'] }}"
 
