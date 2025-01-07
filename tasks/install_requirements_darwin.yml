@@ -82,6 +82,9 @@
     name: "{{ brew_package.name }}"
     state: latest
   loop:
+    - { name: "rust" }
+    - { name: "rust-analyzer" }
+    - { name: "cargo-all-features" }
     - { name: "vim" }
     - { name: "zsh" }
     - { name: "ruby" }
@@ -99,8 +102,6 @@
     - { name: "azure-cli" }
     - { name: "xclip" }
     - { name: "tofu" }
-    - { name: "hashicorp/tap/packer" }
-    - { name: "hashicorp/tap/vault" }
   loop_control:
     loop_var: brew_package
 
@@ -113,6 +114,8 @@
     - { name: "hyper" }
     - { name: "vscodium" }
     - { name: "google-cloud-sdk" }
+    - { name: "hashicorp/tap/packer" }
+    - { name: "hashicorp/tap/vault" }
   loop_control:
     loop_var: cask
 
