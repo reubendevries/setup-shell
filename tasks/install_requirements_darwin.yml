@@ -102,6 +102,8 @@
     - { name: "azure-cli" }
     - { name: "xclip" }
     - { name: "tofu" }
+    - { name: "hashicorp/tap/vault"}
+    - { name: "hashicorp/tap/packer"}
   loop_control:
     loop_var: brew_package
 
@@ -114,8 +116,6 @@
     - { name: "hyper" }
     - { name: "vscodium" }
     - { name: "google-cloud-sdk" }
-    - { name: "hashicorp/tap/packer" }
-    - { name: "hashicorp/tap/vault" }
   loop_control:
     loop_var: cask
 
