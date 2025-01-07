@@ -18,7 +18,7 @@
       become: true
       ansible.posix.mount:
         src: "/tmp/hyper-mac-arm.dmg"
-        path: "/Volumes"
+        path: "/tmp/"
         state: "ephemeral"
         fstype: "hfs"
       when: ansible_facts["os_family"] | lower == "darwin"
@@ -26,7 +26,7 @@
     - name: "Copy Hyper Terminal to /Applications folder."
       become: true
       ansible.builtin.copy:
-        src: "/Volumes/hyper-mac-arm64/Hyper.app"
+        src: "/tmp/hyper-mac-arm64/Hyper.app"
         dest: "/Applications/"
         mode: "0o744"
         owner: "{{ ansible_facts['user_uid'] }}"
