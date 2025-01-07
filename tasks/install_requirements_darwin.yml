@@ -96,13 +96,11 @@
   loop_control:
     loop_var: brew_package
 
-
 - name: "Install required packages via homebrew cask."
   community.general.homebrew_cask:
     name: "{{ cask.name }}"
     state: latest
   loop:
-    - { name: "hyper" }
     - { name: "vscodium" }
     - { name: "google-cloud-sdk" }
   loop_control:
