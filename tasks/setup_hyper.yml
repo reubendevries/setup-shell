@@ -16,14 +16,16 @@
 
     - name: "Install Hyper Terminal for Darwin Systems."
       become: true
-      ansible.builtin.command:
-        cmd: "hdiutil attach /tmp/hyper-mac-arm64.dmg"
+      ansible.posix.mount:
+        src: "/tmp/hyper-mac-arm.dmg"
+        path: "/Volumes/hyper-mac-arm64/"
+        state: "ephemeral"
       when: ansible_facts["os_family"] | lower == "darwin"
 
     - name: "Copy Hyper Terminal to /Applications folder."
       become: true
       ansible.builtin.copy:
-        src: "/Volumes/Hyper 3.4.1-arm64/Hyper.app"
+        src: "/Volumes/hyper-mac-arm64/Hyper.app"
         dest: "/Applications/"
         mode: "0o744"
         owner: "{{ ansible_facts['user_uid'] }}"
@@ -32,8 +34,9 @@
 
     - name: "Install Hyper Terminal for Darwin Systems."
       become: true
-      ansible.builtin.command:
-        cmd: "hdiutil detach /Volumes/Hyper 3.4.1-arm64"
+      ansible.posix.mount:
+        path: "/Volumes/hyper-mac-arm64/"
+        state: "unmounted"
       when: ansible_facts["os_family"] | lower == "darwin"
 
     - name: "Download Hyper Terminal package for Debian Systems."
