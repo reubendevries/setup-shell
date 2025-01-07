@@ -33,7 +33,7 @@
     - name: "Install Hyper Terminal for Darwin Systems."
       become: true
       ansible.builtin.command:
-        cmd: "hdiutil deattach /tmp/hyper-mac-arm64.dmg"
+        cmd: "hdiutil detach /tmp/hyper-mac-arm64.dmg"
       when: ansible_facts["os_family"] | lower == "darwin"
 
     - name: "Download Hyper Terminal package for Debian Systems."
