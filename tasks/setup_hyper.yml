@@ -20,6 +20,7 @@
         src: "/tmp/hyper-mac-arm.dmg"
         path: "/Volumes/hyper-mac-arm64/"
         state: "ephemeral"
+        fstype: "hfs"
       when: ansible_facts["os_family"] | lower == "darwin"
 
     - name: "Copy Hyper Terminal to /Applications folder."
