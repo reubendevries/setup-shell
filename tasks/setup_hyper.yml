@@ -3,6 +3,60 @@
   ansible.builtin.set_fact:
     configure_hyper: false
 
+- name: "Install terminal from hyper.is"
+  block:
+    - name: "Download Hyper Terminal package for Darwin Systems."
+      ansible.builtin.get_url:
+        url: "https://releases.hyper.is/download/mac_arm64"
+        dest: "/tmp/hyper-mac-arm64.dmg"
+        mode: "0o655"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+      when: ansible_facts["os_family"] | lower == "darwin"
+
+    - name: "Install Hyper Terminal for Darwin Systems."
+      become: true
+      ansible.builtin.command:
+        cmd: "{{ install.cmd }}"
+      loop:
+        - {cmd: "hdiutil attach /tmp/hyper-mac-arm64.dmg"}
+        - {cmd: "/usr/sbin/installer -package /Volume/hyper-mac-arm64/hyper-mac-arm64.pkg -target /Applications"}
+        - {cmd: "hdiutil deattach /tmp/hyper-mac-arm64.dmg"}
+      loop_control: 
+        loop_var: "install"
+      when: ansible_facts["os_family"] | lower == "darwin"
+
+    - name: "Download Hyper Terminal package for Debian Systems."
+      ansible.builtin.get_url:
+        url: "https://releases.hyper.is/download/deb"
+        dest: "/tmp/hyper_amd64.deb"
+        mode: "0o655"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+      when: ansible_facts["os_family"] | lower == "debian"
+
+    - name: "Install Hyper Terminal for Debian Systems."
+      become: true
+      ansible.builtin.apt:
+        deb: "/tmp/hyper_amd64.deb"
+      when: ansible_facts["os_family"] | lower == "debian"
+    
+    - name: "Download Hyper Terminal package for Red Hat Systems."
+      ansible.builtin.get_url:
+        url: "https://releases.hyper.is/download/rpm"
+        dest: "/tmp/hyper_amd64.rpm"
+        mode: "0o655"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+      when: ansible_facts["distribution"] | lower == "fedora"
+
+    - name: "Install Hyper Terminal for Red Hat systems."
+      become: true
+      ansible.builtin.dnf:
+        name: "/tmp/hyper_amd64.rpm"
+        state: "present"
+      when: ansible_facts["distribution"] | lower == "fedora"
+
 - name: copy hyper.js configuration file.
   ansible.builtin.copy:
     src: .hyper.js
