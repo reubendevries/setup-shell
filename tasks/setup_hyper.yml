@@ -14,30 +14,26 @@
         group: "{{ ansible_facts['user_gid'] }}"
       when: ansible_facts["os_family"] | lower == "darwin"
 
-    - name: "Mount Hyper.dmg onto desktop."
+    - name: "Mount Hyper.dmg."
       become: true
-      ansible.posix.mount:
-        src: "/tmp/hyper-mac-arm.dmg"
-        path: "/Volumes/"
-        state: "ephemeral"
-        fstype: "hfs"
+      ansible.builtin.command:
+        cmd: hdiutil attach -readonly /tmp/hyper-mac-arm64.dmg -mountpoint /tmp/hyper-mac-arm64/
       when: ansible_facts["os_family"] | lower == "darwin"
 
     - name: "Copy Hyper Terminal to /Applications folder."
       become: true
       ansible.builtin.copy:
-        src: "/Volumes/Hyper 3.4.1-arm64/Hyper.app"
+        src: "/tmp/hyper-mac-arm64/Hyper.app"
         dest: "/Applications/"
         mode: "0o744"
         owner: "{{ ansible_facts['user_uid'] }}"
         group: "{{ ansible_facts['user_gid'] }}"
       when: ansible_facts["os_family"] | lower == "darwin"
 
-    - name: "Install Hyper Terminal for Darwin Systems."
+    - name: "Unmount Hyper.dmg."
       become: true
-      ansible.posix.mount:
-        path: "/Volumes/Hyper 3.4.1-arm64/"
-        state: "unmounted"
+      ansible.builtin.command:
+        cmd: hdiutil detach /tmp/hyper-mac-arm64/
       when: ansible_facts["os_family"] | lower == "darwin"
 
     - name: "Download Hyper Terminal package for Debian Systems."
