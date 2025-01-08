@@ -53,7 +53,7 @@ zstyle ':completion:*:kill:*' command 'ps -u "{{ ansible_facts['user_id'] }}" -o
 export HOMEBREW_PREFIX="/opt/homebrew"
 export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
 export HOMEBREW_REPOSITORY="/opt/homebrew"
-export PATH="/usr/local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:{{ ansible_facts['user_dir'] }}/.local/bin/:{{ ansible_facts['user_dir']/.cargo/bin/"
+export PATH="/usr/local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com\.apple\.security\.cryptexd/codex\.system/bootstrap/usr/local/bin:/var/run/com\.apple\.security\.cryptexd/codex\.system/bootstrap/usr/bin:/var/run/com\.apple\.security\.cryptexd/codex\.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:{{ ansible_facts['user_dir'] }}/\.local/bin/:{{ ansible_facts['user_dir']}}/\.cargo/bin/"
 export MANPATH="/opt/homebrew/share/man:/usr/share/man:/usr/local/share/man"
 export INFOPATH="/opt/homebrew/share/info"
 
