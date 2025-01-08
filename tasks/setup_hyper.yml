@@ -5,37 +5,6 @@
 
 - name: "Install Hyper Terminal from hyper.is"
   block:
-    - name: "Download Hyper Terminal package for Darwin Systems."
-      ansible.builtin.get_url:
-        url: "https://releases.hyper.is/download/mac_arm64"
-        dest: "/tmp/hyper-mac-arm64.dmg"
-        mode: "0o655"
-        owner: "{{ ansible_facts['user_uid'] }}"
-        group: "{{ ansible_facts['user_gid'] }}"
-      when: ansible_facts["os_family"] | lower == "darwin"
-
-    - name: "Mount Hyper.dmg."
-      become: true
-      ansible.builtin.command:
-        cmd: hdiutil attach -readonly /tmp/hyper-mac-arm64.dmg -mountpoint /tmp/hyper-mac-arm64/
-      when: ansible_facts["os_family"] | lower == "darwin"
-
-    - name: "Copy Hyper Terminal to /Applications folder."
-      become: true
-      ansible.builtin.copy:
-        src: "/tmp/hyper-mac-arm64/Hyper.app"
-        dest: "/Applications/"
-        mode: "0o744"
-        owner: "{{ ansible_facts['user_uid'] }}"
-        group: "{{ ansible_facts['user_gid'] }}"
-      when: ansible_facts["os_family"] | lower == "darwin"
-
-    - name: "Unmount Hyper.dmg."
-      become: true
-      ansible.builtin.command:
-        cmd: hdiutil detach /tmp/hyper-mac-arm64/
-      when: ansible_facts["os_family"] | lower == "darwin"
-
     - name: "Download Hyper Terminal package for Debian Systems."
       ansible.builtin.get_url:
         url: "https://releases.hyper.is/download/deb"

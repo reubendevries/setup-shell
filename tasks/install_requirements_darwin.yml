@@ -103,6 +103,7 @@
   loop:
     - { name: "vscodium" }
     - { name: "google-cloud-sdk" }
+    - { name: "hyper" }
   loop_control:
     loop_var: cask
 
