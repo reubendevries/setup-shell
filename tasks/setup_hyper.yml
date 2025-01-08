@@ -5,6 +5,25 @@
 
 - name: "Install Hyper Terminal from hyper.is"
   block:
+    - name: "Download Hyper Terminal package for Darwwin Systems."
+      ansible.builtin.get_url:
+        url: "https://github.com/vercel/hyper/releases/download/{hyper_version}/Hyper-{hyper_version}-mac-{mac_arch}.zip",
+        dest: "/tmp/hyper_arm64.zip"
+        mode: "0o644"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+      when: ansible_facts["os_family"] | lower == "darwin"
+    
+    - name: "Unzip hyper_arm64.zip into /Applications folder."
+      become: true 
+      ansible.builtin.unarchive:
+        path: /tmp/hyper_arm64.zip
+        dest: /Applications/
+        mode: "0o644"
+        owner: "{{ ansible_facts['user_uid'] }}"
+        group: "{{ ansible_facts['user_gid'] }}"
+      when: ansible_facts["os_family"] | lower == "darwin"
+
     - name: "Download Hyper Terminal package for Debian Systems."
       ansible.builtin.get_url:
         url: "https://releases.hyper.is/download/deb"

@@ -1,3 +1,5 @@
 ---
 fedora_version: 40
 python_version: 3.13.1
+hyper_version: 3.4.1
+mac_arch: "arm64"
