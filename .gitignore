@@ -1,0 +1,64 @@
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Ansible specific
+*.retry
+.ansible/tmp/
+.ansible/cp/
+.vault_pass.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+.env/
+.venv/
+
+# IDE specific files
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+ansible_playbooks.code-workspace
+
+# Logs
+*.log
+logs/
+
+# Sensitive data
+credentials.yml
+*vault.yml
+*secrets.yml
+*.key
+*.pem
+*.pub
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
