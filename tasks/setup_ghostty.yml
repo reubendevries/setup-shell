@@ -1,0 +1,16 @@
+---
+- name: "Set variable configure_ghostty to false."
+  ansible.builtin.set_fact:
+    configure_hyper: false
+
+- name: copy hyper.js configuration file.
+  ansible.builtin.copy:
+    src: config.ghostty
+    dest: "{{ ansible_facts['user_dir'] }}/.config/ghostty/config.ghostty"
+    mode: "0o600"
+    owner: "{{ ansible_facts['user_uid'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
+
+- name: "Set variable configure_ghostty to true."
+  ansible.builtin.set_fact:
+    configure_ghostty: true

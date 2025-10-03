@@ -93,7 +93,10 @@
     - { name: "azure-cli" }
     - { name: "xclip" }
     - { name: "hashicorp/tap/terraform" }
+    - { name: "hashicorp/tap/packer" }
+    - { name: "hashicorp/tap/vault" }
     - { name: "tofu" }
+    - { name: "ghostty" }
   loop_control:
     loop_var: brew_package
 

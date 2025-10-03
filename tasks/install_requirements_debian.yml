@@ -71,7 +71,15 @@
         signed_by: "https://raw.githubusercontent.com/eza-community/eza/main/deb.asc",
         suites: "stable",
         components: "main"
-      }  
+      }
+    - {
+        name: "ghostty",
+        types: ["deb"],
+        uris: "https://download.opensuse.org/repositories/home:/clayrisser:/sid/Debian_Unstable/",
+        signed_by: "https://download.opensuse.org/repositories/home:/clayrisser:/sid/Debian_Unstable/Release.key",
+        suites: "main",
+        components: "main"
+      }
   loop_control:
     loop_var: repo
 
